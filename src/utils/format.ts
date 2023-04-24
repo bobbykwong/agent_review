@@ -2,6 +2,7 @@ import _ from "lodash";
 import { format as DFNFormat, differenceInYears } from "date-fns";
 
 export const format = {
+  number: (n: number) => n.toLocaleString(),
   titleCase: (s: string) =>
     s.replace(
       /\w\S*/g,

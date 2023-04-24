@@ -3,6 +3,7 @@ import useSWR from "swr";
 import { APIFilter, APIList, PageToken } from "@/api/types";
 import { get } from "@/utils/apiClient";
 
+import { SALESPERSONS_PAGE_SIZE } from "../components/Salespersons";
 import { Salesperson } from "./getSalesperson";
 
 function getSalespersons({
@@ -13,7 +14,7 @@ function getSalespersons({
   pageToken?: PageToken;
 }) {
   let params: Record<string, any> = {
-    pageSize: 50,
+    pageSize: SALESPERSONS_PAGE_SIZE,
   };
 
   if (filter) {
