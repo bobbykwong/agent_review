@@ -70,7 +70,10 @@ export function SalespersonPage({ id }: SalespersonProps) {
             <div key={i} className="p-4 ring ring-inset ring-teal-400">
               {[
                 { header: "date", value: format.fullDate(t.transactionDate) },
-                { header: "transaction type", value: t.transactionType },
+                {
+                  header: "transaction type",
+                  value: format.titleCase(t.transactionType),
+                },
                 {
                   header: "represented",
                   value: format.titleCase(t.represented),

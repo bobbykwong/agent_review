@@ -18,9 +18,9 @@ export default function App({ Component, pageProps }: AppProps) {
             frfr
           </Link>
         </div>
-        <body className="px-[5vw] pb-[5vh]">
+        <div className="px-[5vw] pb-[5vh]">
           <Component {...pageProps} />
-        </body>
+        </div>
       </main>
     </>
   );

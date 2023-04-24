@@ -26,7 +26,7 @@ export function Salespersons() {
   }, [filter]);
 
   const salespersonsQuery = useSalespersons({
-    filter: {},
+    filter,
     pageToken: pageTokenCache.filter((p) => p.pageNum === pageNum)[0].pageToken,
   });
 
@@ -53,7 +53,6 @@ export function Salespersons() {
     <div>
       <div className="flex gap-4 w-fit ml-auto">
         <div className="px-4 py-2 bg-teal-400 text-white">Sort by</div>
-        <div className="px-4 py-2 bg-teal-400 text-white">Filter</div>
       </div>
       <div className="py-4 w-fit ml-auto">
         <p className="text-gray-600">{`${format.number(
