@@ -64,7 +64,7 @@ export function Salespersons() {
           <SalespersonCardUI key={s.id} salesperson={s} />
         ))}
       </CardGrid>
-      <div className="py-24 flex justify-center gap-4">
+      <div className="mt-12 flex justify-center gap-4">
         <button
           className={clsx(
             "px-4 py-2",
