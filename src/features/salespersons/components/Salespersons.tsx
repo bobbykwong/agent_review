@@ -9,7 +9,7 @@ import { usePageTokenCache } from "@/hooks/usePageTokenCache";
 import { useFilter } from "@/hooks/useFilter";
 
 import { useSalespersons } from "../api/getSalespersons";
-import { SalespersonCardUI } from "./SalespersonCardUI";
+import { SalespersonCardLinkUI } from "./SalespersonCardLinkUI";
 
 export const SALESPERSONS_PAGE_SIZE = 36;
 
@@ -61,7 +61,7 @@ export function Salespersons() {
       </div>
       <CardGrid>
         {salespersonsQuery.data.results.map((s) => (
-          <SalespersonCardUI key={s.id} salesperson={s} />
+          <SalespersonCardLinkUI key={s.id} salesperson={s} />
         ))}
       </CardGrid>
       <div className="mt-12 flex justify-center gap-4">

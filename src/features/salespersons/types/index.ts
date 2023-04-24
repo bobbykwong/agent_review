@@ -1,1 +1,1 @@
-export { type Salesperson } from "../api/getSalesperson";
+export { type Salesperson, type Transaction } from "../api/getSalesperson";

@@ -2,9 +2,13 @@ import _ from "lodash";
 
 import { format } from "@/utils/format";
 import { Spinner } from "@/components/spinner";
-import { CardGrid } from "@/components/layout";
+import { Table } from "@/components/table";
 
-import { useSalesperson, Salesperson } from "../api/getSalesperson";
+import {
+  useSalesperson,
+  Salesperson,
+  Transaction,
+} from "../api/getSalesperson";
 
 interface SalespersonProps {
   id: Salesperson["id"];
@@ -50,47 +54,74 @@ export function SalespersonPage({ id }: SalespersonProps) {
   ];
 
   return (
-    <div>
+    <div className="flex flex-col gap-12">
       <div>
-        <h2 className="text-xl font-bold mb-8">Profile</h2>
-        {profileItems.map(({ header, value }, i) => (
-          <div key={i} className="max-w-screen-mobile flex justify-between">
-            <span className="uppercase font-semibold text-sm tracking-wider">
-              {header}
-            </span>
-            <span>{value}</span>
-          </div>
-        ))}
-      </div>
-      <br />
-      <div>
-        <h2 className="text-xl font-bold mb-8">Transactions</h2>
-        <CardGrid>
-          {_.orderBy(transactions, "transactionDate", "desc").map((t, i) => (
-            <div key={i} className="p-4 ring ring-inset ring-teal-400">
-              {[
-                { header: "date", value: format.fullDate(t.transactionDate) },
-                {
-                  header: "transaction type",
-                  value: format.titleCase(t.transactionType),
-                },
-                {
-                  header: "represented",
-                  value: format.titleCase(t.represented),
-                },
-                { header: "property type", value: t.propertyType },
-                { header: "town", value: format.titleCase(t.town) },
-              ].map(({ header, value }, i) => (
-                <div key={i} className="flex justify-between">
-                  <span className="uppercase font-semibold text-sm tracking-wider">
-                    {header}
-                  </span>
-                  <span>{value}</span>
-                </div>
-              ))}
+        <h2 className="text-xl font-bold mb-4">Profile</h2>
+        <div className="flex flex-col gap-6 tablet:gap-0">
+          {profileItems.map(({ header, value }, i) => (
+            <div
+              key={i}
+              className="flex flex-col tablet:flex-row max-w-screen-tablet tablet:items-center justify-between"
+            >
+              <span className="uppercase font-semibold text-sm tracking-wider">
+                {header}
+              </span>
+              <span>{value}</span>
             </div>
           ))}
-        </CardGrid>
+        </div>
+      </div>
+      <div>
+        <div>
+          <div className="flex gap-4">
+            <button className="bg-teal-400 text-white w-fit px-4 py-2 mb-4">
+              Transactions
+            </button>
+            <button className="ring ring-inset ring-teal-400 text-teal-400 w-fit px-4 py-2 mb-4">
+              Articles (coming soon)
+            </button>
+          </div>
+          <Table<Transaction>
+            data={_.orderBy(transactions, "transactionDate", "desc")}
+            columns={[
+              {
+                title: "Date",
+                field: "transactionDate",
+                renderCell: ({ entry }) => (
+                  <div>{format.fullDate(entry.transactionDate)}</div>
+                ),
+              },
+              {
+                title: "Transaction Type",
+                field: "transactionType",
+                renderCell: ({ entry }) => (
+                  <div>{format.titleCase(entry.transactionType)}</div>
+                ),
+              },
+              {
+                title: "Represented",
+                field: "represented",
+                renderCell: ({ entry }) => (
+                  <div>{format.titleCase(entry.represented)}</div>
+                ),
+              },
+              {
+                title: "Property Type",
+                field: "propertyType",
+                renderCell: ({ entry }) => (
+                  <div>{format.propertyType(entry.propertyType)}</div>
+                ),
+              },
+              {
+                title: "Town",
+                field: "town",
+                renderCell: ({ entry }) => (
+                  <div>{format.titleCase(entry.town)}</div>
+                ),
+              },
+            ]}
+          />
+        </div>
       </div>
     </div>
   );
