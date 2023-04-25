@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import { useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { Menu, MenuItem } from "@mui/material";
 
 import { format } from "@/utils/format";
 import { Spinner } from "@/components/spinner";
@@ -10,6 +11,8 @@ import { useFilter } from "@/hooks/useFilter";
 
 import { useSalespersons } from "../api/getSalespersons";
 import { SalespersonCardLinkUI } from "./SalespersonCardLinkUI";
+import { useSort } from "@/hooks/useSort";
+import { APISort } from "@/api/types";
 
 export const SALESPERSONS_PAGE_SIZE = 36;
 
@@ -20,13 +23,16 @@ export function Salespersons() {
   useEffect(() => window.scrollTo(0, 0), [pageNum]);
 
   const { filter, addFilterItems, removeFilterItems } = useFilter({});
+  const { sort, addSortItem, removeSortItem } = useSort("experience");
+
   useEffect(() => {
     resetCache();
     resetPageNum();
-  }, [filter]);
+  }, [filter, sort]);
 
   const salespersonsQuery = useSalespersons({
     filter,
+    sort,
     pageToken: pageTokenCache.filter((p) => p.pageNum === pageNum)[0].pageToken,
   });
 
@@ -52,7 +58,11 @@ export function Salespersons() {
   return (
     <div>
       <div className="flex gap-4 w-fit ml-auto">
-        <div className="px-4 py-2 bg-teal-400 text-white">Sort by</div>
+        <SortSalespersons
+          sort={sort}
+          addSortItem={addSortItem}
+          removeSortItem={removeSortItem}
+        />
       </div>
       <div className="py-4 w-fit ml-auto">
         <p className="text-gray-600">{`${format.number(
@@ -88,6 +98,74 @@ export function Salespersons() {
           Next
         </button>
       </div>
+    </div>
+  );
+}
+
+interface SortSalespersonsProps {
+  sort: APISort;
+  addSortItem: (sortItem: string) => void;
+  removeSortItem: () => void;
+}
+
+function SortSalespersons({
+  sort,
+  addSortItem,
+  removeSortItem,
+}: SortSalespersonsProps) {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <div>
+      <button
+        onClick={handleClick}
+        className="px-4 py-2 bg-teal-400 text-white"
+      >
+        Sort by
+      </button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+      >
+        <MenuItem
+          onClick={() => {
+            addSortItem("experience");
+            handleClose();
+          }}
+        >
+          Experience
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            addSortItem("numTransactions");
+            handleClose();
+          }}
+        >
+          Number of transactions
+        </MenuItem>
+        <MenuItem onClick={handleClose}>Number of articles</MenuItem>
+        <MenuItem onClick={handleClose}>Rating</MenuItem>
+      </Menu>
     </div>
   );
 }
