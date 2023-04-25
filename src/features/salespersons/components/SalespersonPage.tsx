@@ -78,7 +78,10 @@ export function SalespersonPage({ id }: SalespersonProps) {
               Transactions
             </button>
             <button className="ring ring-inset ring-teal-400 text-teal-400 w-fit px-4 py-2 mb-4">
-              Articles (coming soon)
+              Articles
+            </button>
+            <button className="ring ring-inset ring-teal-400 text-teal-400 w-fit px-4 py-2 mb-4">
+              Reviews
             </button>
           </div>
           <Table<Transaction>
