@@ -61,7 +61,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <SWRConfig value={swrConfig}>
           <main className={clsx("flex flex-col", font.className)}>
             <div className="flex-1 min-h-[100vh]">
-              <div className="py-4 px-[5vw] flex justify-between items-center">
+              <div className="h-16 px-[5vw] flex justify-between items-center fixed top-0 inset-x-0 bg-white">
                 <Link
                   href="/"
                   className="text-3xl font-bold text-teal-400 italic"
@@ -75,7 +75,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   Sign up
                 </Link>
               </div>
-              <div className="px-[5vw] py-[5vh] pb-[15vh]">
+              <div className="px-[5vw] py-[calc(5vh+64px)] pb-[15vh]">
                 <Component {...pageProps} />
               </div>
             </div>
