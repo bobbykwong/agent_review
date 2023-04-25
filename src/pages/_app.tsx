@@ -70,7 +70,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   Legal
                 </Link>
                 <Link
-                  href="/legal"
+                  href="/"
                   className="underline underline-offset-4 text-slate-700"
                 >
                   Contact us
