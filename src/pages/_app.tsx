@@ -7,6 +7,9 @@ import { IBM_Plex_Mono } from "next/font/google";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { SWRConfig, SWRConfiguration } from "swr";
 
+import { Notification } from "@/components/notification";
+import { useNotificationStore } from "@/stores/useNotificationStore";
+
 const theme = createTheme({
   typography: {
     fontFamily: [
@@ -31,8 +34,17 @@ const font = IBM_Plex_Mono({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const notify = useNotificationStore((s) => s.notify);
+
   const swrConfig: SWRConfiguration = {
     dedupingInterval: 2400,
+    onError: (e) => {
+      if (e.response?.data) {
+        notify({ msg: e.response.data, status: "error" });
+      } else {
+        notify({ msg: "An error occurred", status: "error" });
+      }
+    },
   };
   return (
     <>
@@ -49,12 +61,18 @@ export default function App({ Component, pageProps }: AppProps) {
         <SWRConfig value={swrConfig}>
           <main className={clsx("flex flex-col", font.className)}>
             <div className="flex-1 min-h-[100vh]">
-              <div className="py-4 px-[5vw] bg-white">
+              <div className="py-4 px-[5vw] flex justify-between items-center">
                 <Link
                   href="/"
                   className="text-3xl font-bold text-teal-400 italic"
                 >
                   Realway
+                </Link>
+                <Link
+                  href="/sign-up"
+                  className="hover:underline underline-offset-8"
+                >
+                  Sign up
                 </Link>
               </div>
               <div className="px-[5vw] py-[5vh] pb-[15vh]">
@@ -79,6 +97,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </div>
           </main>
         </SWRConfig>
+        <Notification />
       </ThemeProvider>
     </>
   );

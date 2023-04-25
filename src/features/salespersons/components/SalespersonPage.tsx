@@ -77,10 +77,10 @@ export function SalespersonPage({ id }: SalespersonProps) {
             <button className="bg-teal-400 text-white w-fit px-4 py-2 mb-4">
               Transactions
             </button>
-            <button className="ring ring-inset ring-teal-400 text-teal-400 w-fit px-4 py-2 mb-4">
+            <button className="ring-2 ring-inset ring-teal-400 text-teal-400 w-fit px-4 py-2 mb-4">
               Articles
             </button>
-            <button className="ring ring-inset ring-teal-400 text-teal-400 w-fit px-4 py-2 mb-4">
+            <button className="ring-2 ring-inset ring-teal-400 text-teal-400 w-fit px-4 py-2 mb-4">
               Reviews
             </button>
           </div>
