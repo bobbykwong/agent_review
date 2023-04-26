@@ -7,6 +7,7 @@ import { IBM_Plex_Mono } from "next/font/google";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { SWRConfig, SWRConfiguration } from "swr";
 
+import { ProgressBar } from "@/components/progress-bar";
 import { Notification } from "@/components/notification";
 import { useNotificationStore } from "@/stores/useNotificationStore";
 
@@ -60,6 +61,8 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
         <SWRConfig value={swrConfig}>
           <main className={clsx("flex flex-col", font.className)}>
+            <ProgressBar />
+
             <div className="flex-1 min-h-[100vh]">
               <div className="h-16 px-[5vw] flex justify-between items-center fixed top-0 inset-x-0 bg-white">
                 <Link
