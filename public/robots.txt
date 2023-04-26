@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.realway.app
+
+# Sitemaps
+Sitemap: https://www.realway.app/sitemap.xml
