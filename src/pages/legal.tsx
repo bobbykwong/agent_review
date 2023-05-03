@@ -1,8 +1,10 @@
 import Link from "next/link";
 
+import { PageLayout } from "@/components/layout";
+
 export default function Page() {
   return (
-    <div>
+    <PageLayout>
       <h2 className="text-2xl font-bold mb-2">Data source</h2>
       <p className="max-w-screen-tablet text-justify">
         Contains information from{" "}
@@ -28,6 +30,6 @@ export default function Page() {
         </Link>{" "}
         of the Singapore Open Data Licence version 1.0
       </p>
-    </div>
+    </PageLayout>
   );
 }

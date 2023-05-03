@@ -28,6 +28,15 @@ const theme = createTheme({
     ].join(","),
   },
   components: {
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused": {
+            color: "var(--color-primary)",
+          },
+        },
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
