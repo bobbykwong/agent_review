@@ -10,14 +10,17 @@ interface StarProps {
 export function Star({ colored, size = "sm" }: StarProps) {
   return colored ? (
     <StarRoundedIcon
-      className={clsx("text-teal-400", {
-        "text-5xl": size === "lg",
-        "text-xl": size === "sm",
+      className={clsx("!text-teal-400", {
+        "!text-5xl": size === "lg",
+        "!text-xl": size === "sm",
       })}
     />
   ) : (
     <StarOutlineRoundedIcon
-      className={clsx({ "text-5xl": size === "lg", "text-xl": size === "sm" })}
+      className={clsx({
+        "!text-5xl": size === "lg",
+        "!text-xl": size === "sm",
+      })}
     />
   );
 }
