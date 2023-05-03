@@ -8,6 +8,7 @@ import { CardGrid } from "@/components/layout";
 import { usePage } from "@/hooks/usePage";
 import { usePageTokenCache } from "@/hooks/usePageTokenCache";
 import { useFilter } from "@/hooks/useFilter";
+import { Button } from "@/components/button";
 
 import { useSalespersons } from "../api/getSalespersons";
 import { SalespersonCardLinkUI } from "./SalespersonCardLinkUI";
@@ -75,28 +76,20 @@ export function Salespersons() {
         ))}
       </CardGrid>
       <div className="mt-12 flex justify-center gap-4">
-        <button
-          className={clsx(
-            "px-4 py-2",
-            { "bg-teal-400 text-white": canPrev },
-            { "cursor-not-allowed ring-2 ring-inset ring-teal-400": !canPrev }
-          )}
+        <Button
+          variant={canPrev ? "primary" : "inverse"}
           disabled={!canPrev}
           onClick={canPrev ? prevPage : undefined}
         >
           Prev
-        </button>
-        <button
-          className={clsx(
-            "px-4 py-2",
-            { "bg-teal-400 text-white": canNext },
-            { "cursor-not-allowed ring-2 ring-inset ring-teal-400": !canNext }
-          )}
+        </Button>
+        <Button
+          variant={canNext ? "primary" : "inverse"}
           disabled={!canNext}
           onClick={canNext ? nextPage : undefined}
         >
           Next
-        </button>
+        </Button>
       </div>
     </div>
   );
@@ -124,12 +117,7 @@ function SortSalespersons({
 
   return (
     <div>
-      <button
-        onClick={handleClick}
-        className="px-4 py-2 bg-teal-400 text-white"
-      >
-        Sort by
-      </button>
+      <Button onClick={handleClick}>Sort by</Button>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

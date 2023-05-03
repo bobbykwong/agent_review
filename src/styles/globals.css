@@ -4,5 +4,25 @@
 
 main {
   background-color: white;
-  color: #23272f;
+  color: #1e293b;
+}
+
+:root {
+  --color-primary: #2dd4bf;
+  --app-header-height: 64px;
+  --app-px: 5vw;
+  --app-pt: 8vh;
+  --app-pb: 24vh;
+}
+
+@layer utilities {
+  .px-app {
+    padding: 0 var(--app-px);
+  }
+}
+
+@layer utilities {
+  .py-app {
+    padding: var(--app-pt) 0 var(--app-pb) 0;
+  }
 }

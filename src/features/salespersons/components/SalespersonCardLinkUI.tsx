@@ -25,14 +25,14 @@ export function SalespersonCardLinkUI({
       )}Y`,
     },
     {
-      header: "articles",
-      value: 0,
+      header: "rating",
+      value: "No reviews yet",
     },
   ];
   return (
     <Link
       href={`/salespersons/${salesperson.id}`}
-      className="ring-2 ring-inset ring-teal-400 p-4 hover:ring-4 duration-300"
+      className="bg-white rounded-xl p-6 shadow hover:ring ring-teal-400 duration-300"
     >
       {items.map(({ header, value }, i) => (
         <div key={i} className="flex justify-between gap-8 overflow-hidden">

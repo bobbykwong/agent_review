@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: "var(--color-primary)",
+      },
       screens: {
         mobile: "375px",
         tablet: "768px",

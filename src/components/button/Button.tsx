@@ -5,6 +5,7 @@ import { Spinner } from "@/components/spinner";
 
 const variants = {
   primary: "bg-teal-400 text-white shadow-sm",
+  inverse: "ring-2 ring-inset ring-teal-400 shadow-sm",
 };
 
 const sizes = {
@@ -40,7 +41,7 @@ export function Button({
     <button
       type={type}
       className={clsx(
-        "flex justify-center items-center disabled:cursor-not-allowed focus:outline-none hover:opacity-80",
+        "flex justify-center items-center disabled:cursor-not-allowed focus:outline-none hover:opacity-80 rounded-lg",
         variants[variant],
         sizes[size],
         className
