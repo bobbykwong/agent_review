@@ -80,7 +80,7 @@ function Banner() {
               View Profiles
             </Link>
             <Link
-              href="/salespersons"
+              href="/"
               className="block px-8 py-4 ring ring-teal-400 ring-inset text-white rounded-full font-semibold hover:bg-teal-400 duration-300"
             >
               Write Review
