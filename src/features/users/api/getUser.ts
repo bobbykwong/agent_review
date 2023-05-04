@@ -1,6 +1,6 @@
 import useSWR from "swr";
 
-import { get } from "@/utils/apiClient";
+import { get } from "@/utils/apiClientNew";
 
 export interface User {
   id: string;

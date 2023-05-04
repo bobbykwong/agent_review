@@ -1,6 +1,6 @@
 import useSWRMutation from "swr/mutation";
 
-import { post } from "@/utils/apiClient";
+import { post } from "@/utils/apiClientNew";
 
 // // TODO: move axiosInstance to app level
 
