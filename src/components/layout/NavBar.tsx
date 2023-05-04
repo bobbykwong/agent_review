@@ -1,32 +1,30 @@
-import Dialog from "@mui/material/Dialog";
 import Link from "next/link";
 
-import { useDisclosure } from "@/hooks/useDisclosure";
-import { UserSignupForm } from "@/features/users";
+import { useAuthStore } from "@/features/authentication";
+import { Spinner } from "@/components/spinner";
 
 import { HorizontalLayout } from "./HorizontalLayout";
+import { AuthStatus } from "./AuthStatus";
 
 export function NavBar() {
-  const { open, close, isOpen } = useDisclosure();
+  const initialised = useAuthStore((s) => s.initialised);
+
   return (
-    <>
-      <div className="bg-slate-800 h-16 sticky top-0">
-        <div className="flex items-center h-full">
-          <HorizontalLayout>
-            <div className="flex items-center justify-between h-full">
-              <Link href="/" className="text-teal-400 text-xl font-bold">
-                Realway
-              </Link>
-              <button onClick={open} className="text-teal-400">
-                Sign up
-              </button>
-            </div>
-          </HorizontalLayout>
-        </div>
+    <div className="bg-slate-800 h-16 sticky top-0">
+      <div className="flex items-center h-full">
+        <HorizontalLayout>
+          <div className="flex items-center justify-between h-full">
+            <Link href="/" className="text-teal-400 text-xl font-bold">
+              Realway
+            </Link>
+            {initialised ? (
+              <AuthStatus />
+            ) : (
+              <Spinner className="text-primary" />
+            )}
+          </div>
+        </HorizontalLayout>
       </div>
-      <Dialog onClose={close} open={isOpen}>
-        <UserSignupForm onSuccess={close} />
-      </Dialog>
-    </>
+    </div>
   );
 }

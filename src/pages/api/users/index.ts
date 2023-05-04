@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { mongo } from "@/utils/mongo";
+import { jwt } from "@/utils/jwt";
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,8 +11,12 @@ export default async function handler(
     const db = await mongo.connect();
     const users = db.collection("users");
 
-    const { insertedId } = await users.insertOne(req.body);
+    const result = await users.insertOne(req.body);
+    const userId = result.insertedId.toString();
 
-    res.status(200).json({ userId: insertedId.toString() });
+    const token = jwt.sign({ userId });
+
+    res.setHeader("Set-Cookie", `access_token=${token}; Path=/; HttpOnly`);
+    res.status(200).json({ userId });
   }
 }

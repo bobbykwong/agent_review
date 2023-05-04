@@ -25,6 +25,8 @@
     "date-fns": "^2.29.3",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
+    "google-auth-library": "^8.8.0",
+    "jsonwebtoken": "^9.0.0",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "mongodb": "^5.3.0",
@@ -41,6 +43,7 @@
     "zustand": "^4.3.2"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.2",
     "@types/lodash": "^4.14.194"
   }
 }

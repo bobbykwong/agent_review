@@ -1,26 +1,19 @@
-import jwtDecode from "jwt-decode";
 import { useEffect } from "react";
 
-import { useCreateUser } from "../api/createUser";
+import { useGoogleLoginOrSignup } from "../api/googleLoginOrSignup";
 
 interface UserSignupFormProps {
   onSuccess: () => void;
 }
 
-export function UserSignupForm({ onSuccess }: UserSignupFormProps) {
-  const createUserMutation = useCreateUser();
+export function GoogleLoginOrSignupForm({ onSuccess }: UserSignupFormProps) {
+  const googleLoginOrSignupMutation = useGoogleLoginOrSignup();
 
   async function handleCallbackResponse(response: any) {
-    const credential: {
-      name: string;
-      email: string;
-      picture: string;
-    } = jwtDecode(response.credential);
+    const googleIdToken = response.credential;
 
-    const res = await createUserMutation.trigger({
-      name: credential.name,
-      email: credential.email,
-      photoURL: credential.picture,
+    const res = await googleLoginOrSignupMutation.trigger({
+      googleIdToken,
     });
 
     if (res && res.status === 200) {

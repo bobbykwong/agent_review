@@ -1,6 +1,6 @@
 export const cookies = {
-  get: (name: string) => {
-    const value = `; ${document.cookie}`;
+  get: (cookie: string, name: string) => {
+    const value = `; ${cookie}`;
     const parts = value.split(`; ${name}=`);
 
     if (parts.length === 2) {
