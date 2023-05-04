@@ -6,12 +6,14 @@ import { format } from "@/utils/format";
 import { Spinner } from "@/components/spinner";
 import { Table } from "@/components/table";
 import { Button } from "@/components/button";
+import { Tabs } from "@/components/tabs";
 
 import {
   useSalesperson,
   Salesperson,
   Transaction,
 } from "../api/getSalesperson";
+import { SalespersonReviews } from "./SalespersonReviews";
 
 interface SalespersonProps {
   id: Salesperson["id"];
@@ -67,7 +69,7 @@ export function SalespersonPage({ id }: SalespersonProps) {
           {name}
         </meta>
       </Head>
-      <div className="flex flex-col gap-12">
+      <div className="flex flex-col gap-12 max-w-screen-tablet mx-auto">
         <div className="max-w-screen-tablet">
           <h2 className="text-xl font-bold mb-4">Profile</h2>
           <div className="flex flex-col gap-6 tablet:gap-0">
@@ -92,54 +94,56 @@ export function SalespersonPage({ id }: SalespersonProps) {
             </div>
           </div>
         </div>
-        <div>
-          <div>
-            <div className="flex gap-4 mb-8">
-              <Button>Transactions</Button>
-              <Button variant="inverse">Reviews</Button>
-            </div>
-            <Table<Transaction>
-              data={_.orderBy(transactions, "transactionDate", "desc")}
-              columns={[
-                {
-                  title: "Date",
-                  field: "transactionDate",
-                  renderCell: ({ entry }) => (
-                    <div>{format.fullDate(entry.transactionDate)}</div>
-                  ),
-                },
-                {
-                  title: "Transaction Type",
-                  field: "transactionType",
-                  renderCell: ({ entry }) => (
-                    <div>{format.titleCase(entry.transactionType)}</div>
-                  ),
-                },
-                {
-                  title: "Represented",
-                  field: "represented",
-                  renderCell: ({ entry }) => (
-                    <div>{format.titleCase(entry.represented)}</div>
-                  ),
-                },
-                {
-                  title: "Property Type",
-                  field: "propertyType",
-                  renderCell: ({ entry }) => (
-                    <div>{format.propertyType(entry.propertyType)}</div>
-                  ),
-                },
-                {
-                  title: "Town",
-                  field: "town",
-                  renderCell: ({ entry }) => (
-                    <div>{format.titleCase(entry.town)}</div>
-                  ),
-                },
-              ]}
-            />
-          </div>
-        </div>
+        <Tabs
+          tabs={[
+            { label: "Reviews", content: <SalespersonReviews id={id} /> },
+            {
+              label: "Transactions",
+              content: (
+                <Table<Transaction>
+                  data={_.orderBy(transactions, "transactionDate", "desc")}
+                  columns={[
+                    {
+                      title: "Date",
+                      field: "transactionDate",
+                      renderCell: ({ entry }) => (
+                        <div>{format.fullDate(entry.transactionDate)}</div>
+                      ),
+                    },
+                    {
+                      title: "Transaction Type",
+                      field: "transactionType",
+                      renderCell: ({ entry }) => (
+                        <div>{format.titleCase(entry.transactionType)}</div>
+                      ),
+                    },
+                    {
+                      title: "Represented",
+                      field: "represented",
+                      renderCell: ({ entry }) => (
+                        <div>{format.titleCase(entry.represented)}</div>
+                      ),
+                    },
+                    {
+                      title: "Property Type",
+                      field: "propertyType",
+                      renderCell: ({ entry }) => (
+                        <div>{format.propertyType(entry.propertyType)}</div>
+                      ),
+                    },
+                    {
+                      title: "Town",
+                      field: "town",
+                      renderCell: ({ entry }) => (
+                        <div>{format.titleCase(entry.town)}</div>
+                      ),
+                    },
+                  ]}
+                />
+              ),
+            },
+          ]}
+        />
       </div>
     </>
   );
