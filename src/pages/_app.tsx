@@ -10,6 +10,7 @@ import { ProgressBar } from "@/components/progress-bar";
 import { Notification } from "@/components/notification";
 import { useNotificationStore } from "@/stores/useNotificationStore";
 import { Layout } from "@/components/layout";
+import { useAuthInit } from "@/features/authentication";
 
 const theme = createTheme({
   typography: {
@@ -28,6 +29,15 @@ const theme = createTheme({
     ].join(","),
   },
   components: {
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused": {
+            color: "var(--color-primary)",
+          },
+        },
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
@@ -48,6 +58,8 @@ const font = Poppins({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  useAuthInit();
+
   const notify = useNotificationStore((s) => s.notify);
 
   const swrConfig: SWRConfiguration = {

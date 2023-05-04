@@ -1,14 +1,8 @@
-import qs from "qs";
 import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
-
-import { cookies } from "./cookies";
 
 const config = {
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   withCredentials: true,
-  paramsSerializer: {
-    serialize: (params: any) => qs.stringify(params, { arrayFormat: "repeat" }),
-  },
 };
 
 function defaultResponseHandler(res: AxiosResponse) {
@@ -31,9 +25,6 @@ export async function post<T>(
 ): Promise<AxiosResponse<T>> {
   return axiosInstance.post<T>(url, data, {
     ...config,
-    headers: {
-      ...config["headers"],
-      // "X-CSRF-TOKEN": cookies.get("csrf_access_token"),
-    },
+    headers: config.headers,
   });
 }

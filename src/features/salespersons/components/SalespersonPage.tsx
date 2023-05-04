@@ -85,7 +85,7 @@ export function SalespersonPage({ id }: SalespersonProps) {
             <div className="mt-12 ml-auto">
               <Link
                 href={`/salespersons/${id}/evaluate`}
-                className="block px-4 py-[6px] bg-teal-400 text-white rounded-lg"
+                className="block px-4 py-[6px] bg-teal-400 text-white rounded-lg hover:opacity-80"
               >
                 Write Review
               </Link>

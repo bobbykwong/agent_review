@@ -108,7 +108,7 @@ function Read() {
             <div className="mt-4 flex justify-center laptop:justify-start">
               <Link
                 href="/salespersons"
-                className="block px-8 py-4 bg-teal-400 text-white rounded-full font-semibold"
+                className="block px-8 py-4 bg-teal-400 text-white rounded-full font-semibold hover:opacity-80"
               >
                 View Profiles
               </Link>
@@ -149,7 +149,7 @@ function Write() {
           <div className="mt-8 w-fit">
             <Link
               href="/"
-              className="block px-8 py-4 bg-teal-400 text-white rounded-full font-semibold"
+              className="block px-8 py-4 bg-teal-400 text-white rounded-full font-semibold hover:opacity-80"
             >
               Write Review
             </Link>
