@@ -2,7 +2,7 @@ import clsx from "clsx";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import StarOutlineRoundedIcon from "@mui/icons-material/StarOutlineRounded";
 
-interface StarProps {
+export interface StarProps {
   colored: boolean;
   size?: "sm" | "lg";
 }
@@ -12,7 +12,7 @@ export function Star({ colored, size = "sm" }: StarProps) {
     <StarRoundedIcon
       className={clsx("!text-teal-400", {
         "!text-5xl": size === "lg",
-        "!text-xl": size === "sm",
+        "!text-2xl": size === "sm",
       })}
     />
   ) : (

@@ -1,10 +1,15 @@
 import _ from "lodash";
-import { format as DFNFormat, differenceInYears } from "date-fns";
+import {
+  format as DFNFormat,
+  differenceInYears,
+  formatDistanceToNow,
+} from "date-fns";
 
 import { Transaction } from "@/features/salespersons";
 
 export const format = {
   number: (n: number) => n.toLocaleString(),
+  timeAgo: (dt: string) => `${formatDistanceToNow(new Date(dt))} ago`,
   titleCase: (s: string) =>
     s.replace(
       /\w\S*/g,
@@ -26,5 +31,6 @@ export const format = {
   },
   yearsBetween: (endDt: string, startDt: string) =>
     differenceInYears(new Date(endDt), new Date(startDt)),
+  monthYear: (dt: string) => DFNFormat(new Date(dt), "MMM yyyy"),
   fullDate: (dt: string) => DFNFormat(new Date(dt), "dd MMM yyyy"),
 };
