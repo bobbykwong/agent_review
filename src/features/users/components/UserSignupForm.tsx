@@ -1,10 +1,33 @@
 import jwtDecode from "jwt-decode";
 import { useEffect } from "react";
 
-export function UserSignupForm() {
-  function handleCallbackResponse(response: any) {
-    console.log("Encoded JWT ID Token: ", response.credential);
-    console.log("Decoded JWT ID Token: ", jwtDecode(response.credential));
+import { useCreateUser } from "../api/createUser";
+
+interface UserSignupFormProps {
+  onSuccess: () => void;
+}
+
+export function UserSignupForm({ onSuccess }: UserSignupFormProps) {
+  const createUserMutation = useCreateUser();
+
+  async function handleCallbackResponse(response: any) {
+    const credential: {
+      name: string;
+      email: string;
+      picture: string;
+    } = jwtDecode(response.credential);
+
+    const res = await createUserMutation.trigger({
+      name: credential.name,
+      email: credential.email,
+      photoURL: credential.picture,
+    });
+
+    if (res && res.status === 200) {
+      onSuccess();
+    }
+
+    return;
   }
 
   useEffect(() => {

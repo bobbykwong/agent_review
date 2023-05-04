@@ -25,7 +25,7 @@ export function NavBar() {
         </div>
       </div>
       <Dialog onClose={close} open={isOpen}>
-        <UserSignupForm />
+        <UserSignupForm onSuccess={close} />
       </Dialog>
     </>
   );
