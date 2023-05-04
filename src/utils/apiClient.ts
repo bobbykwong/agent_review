@@ -4,7 +4,7 @@ import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
 import { cookies } from "./cookies";
 
 const config = {
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL_LEGACY,
   withCredentials: true,
   paramsSerializer: {
     serialize: (params: any) => qs.stringify(params, { arrayFormat: "repeat" }),
