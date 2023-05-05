@@ -40,7 +40,10 @@ export default async function handler(
       users.updateOne({ name: decoded.name }, { $set: { id: userId } });
     }
     const token = jwt.sign({ userId });
-    res.setHeader("Set-Cookie", `access_token=${token}; Path=/; HttpOnly`);
+    res.setHeader(
+      "Set-Cookie",
+      `access_token=${token}; Path=/; Max-Age=31536000; HttpOnly`
+    );
     res.status(200).send(userId);
   }
 }
