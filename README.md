@@ -11,7 +11,7 @@
 - `registrationStartDate`
 - `registrationEndDate`
 - `estateAgentName`
-- `estateAgentRegistrationNum`
+- `estateAgentLicenseNum`
 - `photoURL`
 
 

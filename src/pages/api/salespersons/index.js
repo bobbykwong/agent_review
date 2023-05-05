@@ -4,43 +4,59 @@ export default async function handler(req, res) {
 
     const db = await mongo.connect();
     const queryParams = req.query
-    let page = parseInt(queryParams["page"])
+    const page = parseInt(queryParams["page"])
     
-    // Filter
-    if (Object.keys(queryParams).length > 1)
-    {
-      // Get the filter key and value from the params
-      // Only expecting one key other than pagination key. Doesn't seem to make sense to query more than one field.
-      
-      let filterKey;
-      Object.keys(queryParams).forEach(element => {
-        if (element != "page")
-        {
+    // Get the filter key and value from the params
+    // Only expecting one filter key. Doesn't seem to make sense to query more than one field.
+    let filterKey = "";
+    Object.keys(queryParams).forEach(element => {
+      switch (element) {
+        case "name":
           filterKey = element
-        }
-      });
-              
-      const filterValue = queryParams[filterKey];
-      const filterParams = {}
-      filterParams[filterKey] = filterValue
+          break;
+        case "registrationNum":
+          filterKey = element
+          break;
+        case "registrationStartDate":
+          filterKey = element
+          break;
+        case "registrationEndDate":
+          filterKey = element
+          break;
+        case "estateAgentName":
+          filterKey = element
+          break;
+        case "estateAgentLicenseNum":
+          filterKey = element
+          break;
+        case "ratings":
+          filterKey = element
+          break;
+        default:
+          break;
+      }
+    });
+    const filterValue = queryParams[filterKey];
+    const filterParams = {}
+    filterParams[filterKey] = filterValue
+    
 
-      // Query Mongo
-      const salespersons = await db.collection("salespersons")
-                                  .find(filterParams)
-                                  // skip pagination may not be the best way as its performance decreases the further it skips. See range queries
-                                  .skip(page)  
-                                  .limit(10)
-                                  .toArray()
-                                  
-      res.status(200).send(salespersons);
-    }
-    else
-    {
-      const salespersons = await db.collection("salespersons")
-                                  .find({})
-                                  .skip(page)
-                                  .limit(10)
-                                  .toArray();
-      res.status(200).send(salespersons);
-    }
+    // sort
+    const sortQueryParams = queryParams["sortby"]
+    const sortParamsArray = sortQueryParams.split("_")
+    const sortParams = {}
+    // if desc, value = -1, else value = 1
+    sortParams[sortParamsArray[0]] = (sortParamsArray[1] == "desc")? -1 : 1
+
+    // Query Mongo
+    const salespersons = await db.collection("salespersons")
+                                .find(filterParams)
+                                // skip pagination may not be the best way as its performance decreases the further it skips. See range queries
+                                .sort(sortParams)
+                                .skip(page)  
+                                .limit(10)
+                                .toArray()
+                                
+    res.status(200).send(salespersons);
+
 }

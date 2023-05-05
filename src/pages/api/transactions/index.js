@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     
     // Give all transactions
     if (!salespersonId)
-    {
+    { 
         transactions = await db.collection("transactions")
                                   .find({})
                                   .skip(page)
