@@ -1,6 +1,6 @@
 import useSWR from "swr";
 
-import { get } from "@/utils/apiClientNew";
+import { get } from "@/utils/apiClient";
 import { Salesperson } from "@/features/salespersons";
 import { APIList } from "@/api/types";
 

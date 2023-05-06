@@ -1,7 +1,7 @@
 import useSWR from "swr";
 
 import { APIFilter, APIList, APISort, PageToken } from "@/api/types";
-import { get } from "@/utils/apiClientNew";
+import { get } from "@/utils/apiClient";
 
 import { SALESPERSONS_PAGE_SIZE } from "../components/Salespersons";
 import { Salesperson } from "./getSalesperson";
