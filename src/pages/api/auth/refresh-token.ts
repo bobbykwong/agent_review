@@ -11,7 +11,7 @@ export default async function handler(
     const cookie = req.headers.cookie;
 
     if (!cookie) {
-      return res.status(401).send("No access token.");
+      return res.status(401).json("No access token.");
     }
 
     const accessToken = cookies.get(cookie, "access_token");
@@ -25,11 +25,11 @@ export default async function handler(
           "Set-Cookie",
           `access_token=${token}; Path=/; Max-Age=31536000; HttpOnly`
         );
-        return res.status(200).send(userId);
+        return res.status(200).json(userId);
       } catch {
-        return res.status(401).send("Invalid access token");
+        return res.status(401).json("Invalid access token");
       }
     }
   }
-  return res.status(401).send("Invalid access token");
+  return res.status(401).json("Invalid access token");
 }
