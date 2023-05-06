@@ -21,7 +21,10 @@ export default async function handler(
         jwt.verify(accessToken);
         const userId = jwt.getUserId(accessToken);
         const token = jwt.sign({ userId });
-        res.setHeader("Set-Cookie", `access_token=${token}; Path=/; HttpOnly`);
+        res.setHeader(
+          "Set-Cookie",
+          `access_token=${token}; Path=/; Max-Age=31536000; HttpOnly`
+        );
         return res.status(200).send(userId);
       } catch {
         return res.status(401).send("Invalid access token");
