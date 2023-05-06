@@ -9,39 +9,35 @@ interface SalespersonCardLinkUIProps {
 export function SalespersonCardLinkUI({
   salesperson,
 }: SalespersonCardLinkUIProps) {
-  const items = [
-    { header: "name", value: salesperson.name },
-    {
-      header: "transactions",
-      value: salesperson.transactions.length,
-    },
-    {
-      header: "experience",
-      value: `${Math.ceil(
-        differenceInMonths(
-          new Date(),
-          new Date(salesperson.registrationStartDate)
-        ) / 12
-      )}Y`,
-    },
-    {
-      header: "rating",
-      value: "No reviews yet",
-    },
-  ];
   return (
     <Link
       href={`/salespersons/${salesperson.id}`}
-      className="bg-white rounded-xl p-6 shadow hover:ring ring-teal-400 duration-300"
+      className="bg-white rounded-xl p-4 shadow hover:ring ring-teal-400 duration-300"
     >
-      {items.map(({ header, value }, i) => (
-        <div key={i} className="flex justify-between gap-8 overflow-hidden">
-          <span className="flex-1 font-semibold text-sm uppercase tracking-wider">
-            {header}
-          </span>
-          <span className="truncate">{value}</span>
+      <div className="flex gap-4">
+        <img
+          src={
+            salesperson.photoURL ||
+            "https://images.unsplash.com/photo-1567111089028-9abb29aa1102?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80"
+          }
+          className="h-36 w-28 object-cover rounded-xl"
+          alt="salesperson"
+        />
+        <div className="truncate">
+          <p className="font-medium text-lg truncate">{salesperson.name}</p>
+          <p className="text-gray-500">{salesperson.registrationNum}</p>
+          <div className="mt-4 text-gray-500 truncate">
+            <p className="truncate">{salesperson.estateAgentName}</p>
+            <p>{`Experience - ${Math.ceil(
+              differenceInMonths(
+                new Date(),
+                new Date(salesperson.registrationStartDate)
+              ) / 12
+            )}Y`}</p>
+            <p>No reviews yet</p>
+          </div>
         </div>
-      ))}
+      </div>
     </Link>
   );
 }

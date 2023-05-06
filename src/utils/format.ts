@@ -5,7 +5,7 @@ import {
   formatDistanceToNow,
 } from "date-fns";
 
-import { Transaction } from "@/features/salespersons";
+import { Transaction } from "@/features/transactions";
 
 export const format = {
   number: (n: number) => n.toLocaleString(),
