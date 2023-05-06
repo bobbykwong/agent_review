@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   const db = await mongo.connect();
   const queryParams = req.query;
   const page = queryParams["page"] ? parseInt(queryParams["page"]) : 0;
-  const limit = queryParams["limit"] ? parseInt(queryParams["limit"]) : 100;
+  const limit = queryParams["limit"] ? parseInt(queryParams["limit"]) : 10;
 
   // const salespersonsTest = await db.collection("salespersons")
   //                                 .aggregate([
