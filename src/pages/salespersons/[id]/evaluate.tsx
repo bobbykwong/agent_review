@@ -4,8 +4,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/button";
 import { PageLayout } from "@/components/layout";
-import { Star } from "@/components/star";
-import { MonthYearField } from "@/components/form";
+import { MonthYearField, RatingField } from "@/components/form";
 
 export default function Page() {
   const [dateOfExperience, setDateOfExperience] = useState<Date | null>(null);
@@ -19,7 +18,11 @@ export default function Page() {
       setErrMsg("All fields required");
       return;
     }
-    alert("Form submitted..");
+    console.log("Form submitted", {
+      dateOfExperience,
+      rating,
+      msg,
+    });
   }
 
   return (
@@ -36,16 +39,7 @@ export default function Page() {
             </div>
             <div>
               <Label>Rate your experience</Label>
-              <div>
-                {_.range(5).map((i) => (
-                  <button key={i} onClick={() => setRating(i)}>
-                    <Star
-                      colored={rating && i <= rating ? true : false}
-                      size="lg"
-                    />
-                  </button>
-                ))}
-              </div>
+              <RatingField onSelect={(rating) => setRating(rating)} />
             </div>
             <div>
               <Label>Tell us more about your experience</Label>
