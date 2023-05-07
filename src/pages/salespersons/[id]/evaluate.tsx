@@ -5,9 +5,10 @@ import { useState } from "react";
 import { Button } from "@/components/button";
 import { PageLayout } from "@/components/layout";
 import { Star } from "@/components/star";
+import { MonthYearField } from "@/components/form";
 
 export default function Page() {
-  const [dateOfExperience, setYearOfExperience] = useState<number | null>(null);
+  const [dateOfExperience, setDateOfExperience] = useState<Date | null>(null);
   const [rating, setRating] = useState<number | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
 
@@ -28,13 +29,9 @@ export default function Page() {
           <div className="flex flex-col gap-8">
             <div>
               <Label>Date of experience</Label>
-              <TextField
-                value={dateOfExperience || ""}
-                onChange={(e) => setYearOfExperience(Number(e.target.value))}
-                type="number"
-                placeholder="2023"
-                fullWidth
-                size="small"
+              <MonthYearField
+                onSelect={(m) => setDateOfExperience(m)}
+                placeholder="Select date"
               />
             </div>
             <div>

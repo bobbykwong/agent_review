@@ -31,6 +31,7 @@ export const format = {
   },
   yearsBetween: (endDt: string, startDt: string) =>
     differenceInYears(new Date(endDt), new Date(startDt)),
+  month: (dt: string) => DFNFormat(new Date(dt), "MMM"),
   monthYear: (dt: string) => DFNFormat(new Date(dt), "MMM yyyy"),
   fullDate: (dt: string) => DFNFormat(new Date(dt), "dd MMM yyyy"),
 };
