@@ -20,7 +20,9 @@ export function Salespersons() {
   useEffect(() => window.scrollTo(0, 0), [pageNum]);
 
   const { filter, addFilterItems, removeFilterItems } = useFilter({});
-  const { sort, addSortItem, removeSortItem } = useSort("numTransactions_desc");
+  const { sort, addSortItem, removeSortItem } = useSort(
+    "registrationStartDate_asc"
+  );
 
   useEffect(resetPageNum, [filter, sort]);
 
@@ -41,10 +43,8 @@ export function Salespersons() {
 
   return (
     <div>
-      <div className="mx-auto w-[350px]">
+      <div className="w-[375px] ml-auto flex flex-col gap-4 items-end">
         <FilterSalespersons filter={filter} addFilterItems={addFilterItems} />
-      </div>
-      <div className="w-fit ml-auto mt-8">
         <SortSalespersons
           sort={sort}
           addSortItem={addSortItem}

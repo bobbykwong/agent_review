@@ -29,15 +29,12 @@ export function FilterSalespersons({
   }, [name]);
 
   return (
-    <div className="w-full max-w-[400px]">
-      <TextField
-        autoFocus
-        label="Agent name"
-        placeholder="Search agent by name"
-        sx={{ backgroundColor: "white" }}
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-    </div>
+    <TextField
+      autoFocus
+      label="Agent Name"
+      sx={{ backgroundColor: "white" }}
+      value={name}
+      onChange={(e) => setName(e.target.value)}
+    />
   );
 }
