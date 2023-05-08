@@ -23,20 +23,44 @@ export default async function handler(req, res) {
                                         as: "transactions"
                                       }
                                     },
+                                    // {
+                                    //   $project: {
+                                    //     // id: 1,
+                                    //     // name: 1,
+                                    //     // registrationNum: 1,
+                                    //     // registrationStartDate: 1,
+                                    //     // registrationEndDate: 1,
+                                    //     // estateAgentName: 1,
+                                    //     // estateAgentLicenseNum: 1,
+                                    //     numOfTransactions: { $size: "$transactions" }
+                                    //   }
+                                    // },
+                                    // {
                                     {
-                                      $project: {
-                                        // id: 1,
-                                        // name: 1,
-                                        // registrationNum: 1,
-                                        // registrationStartDate: 1,
-                                        // registrationEndDate: 1,
-                                        // estateAgentName: 1,
-                                        // estateAgentLicenseNum: 1,
-                                        numOfTransactions: { $size: "$transactions" }
+                                      $addFields: 
+                                        {
+                                          "numOfTransactions": 
+                                          {
+                                            $size: "transactions"
+                                          }
+                                        }
+                                    },
+                                    {
+                                      $sort: 
+                                      {
+                                        "sortKey": 
+                                        {
+                                          "numOfTransactions" : 1
+                                        },
+                                        "limit" : 5
                                       }
                                     },
                                     {
-                                      $sort: {numOfTransactions: -1}
+                                      $project:
+                                      {
+                                        name: 1,
+                                        numOfTransactions: 1
+                                      }
                                     }
                                     // {$sort:
                                     //   {
