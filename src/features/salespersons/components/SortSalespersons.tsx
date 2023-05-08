@@ -46,21 +46,20 @@ export function SortSalespersons({
       >
         <MenuItem
           onClick={() => {
+            addSortItem("numTransactions_desc");
+            handleClose();
+          }}
+        >
+          Number of transactions
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
             addSortItem("registrationStartDate_asc");
             handleClose();
           }}
         >
           Experience
         </MenuItem>
-        <MenuItem
-          onClick={() => {
-            addSortItem("numTransactions");
-            handleClose();
-          }}
-        >
-          Number of transactions
-        </MenuItem>
-        <MenuItem onClick={handleClose}>Number of articles</MenuItem>
         <MenuItem onClick={handleClose}>Rating</MenuItem>
       </Menu>
     </div>

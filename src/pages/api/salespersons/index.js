@@ -7,68 +7,6 @@ export default async function handler(req, res) {
   const limit = queryParams["limit"] ? parseInt(queryParams["limit"]) : 10;
   const skippedDocs = page * limit;
 
-  if (queryParams["sortby"] == "sortTest") {
-    const salespersonsTest = await db
-      .collection("salespersons")
-      .aggregate([
-        {
-          $lookup: {
-            from: "transactions",
-            localField: "id",
-            foreignField: "salespersonId",
-            // pipeline: [
-            //   {$count: "totalTransactions"},
-            // {$sort: {"transactions": 1}}
-            // {$sortByCount: {"transactions.totalTransactions": 1}}
-            // ],
-            as: "transactions",
-          },
-        },
-        {
-          $project: {
-            // id: 1,
-            // name: 1,
-            // registrationNum: 1,
-            // registrationStartDate: 1,
-            // registrationEndDate: 1,
-            // estateAgentName: 1,
-            // estateAgentLicenseNum: 1,
-            numOfTransactions: { $size: "$transactions" },
-          },
-        },
-        {
-          $sort: { numOfTransactions: -1 },
-        },
-        // {$sort:
-        //   {
-        //     "transactions.totalTransactions": 1
-        //   }
-        // }
-        // {$unwind: "$transactions"},
-        // {$sortByCount: "$transactions"}
-        // {$group:
-        //   {
-        //     _id: "$transactions.totalTransactions"
-        //   }
-        // },
-        // {$sort: {count: 1}}
-        // {$match:
-        //   {town: "BUKIT PANJANG"}
-        // },
-        // {$count: "total transactions"}
-        // {$group:
-        //     {
-        //         _id: "$salespersonId",
-        //         count:{$sum:1}
-        //     }
-        // }
-      ])
-      // .sort({"numOfTransactions" : -1})
-      .limit(10)
-      .toArray();
-    res.status(200).send(salespersonsTest);
-  }
-
   // Get the filter key and value from the params
   // Only expecting one filter key. Doesn't seem to make sense to query more than one field.
   let filterKey = "";
@@ -95,14 +33,35 @@ export default async function handler(req, res) {
   }
 
   // Query Mongo
-  const salespersons = await db
-    .collection("salespersons")
-    .find(filterParams)
-    // skip pagination may not be the best way as its performance decreases the further it skips. See range queries
-    .sort(sortParams)
-    .skip(skippedDocs)
-    .limit(limit)
-    .toArray();
+  const salespersons =
+    queryParams["sortby"] === "numTransactions_desc"
+      ? await db
+          .collection("salespersons")
+          .aggregate([
+            {
+              $lookup: {
+                from: "transactions",
+                localField: "id",
+                foreignField: "salespersonId",
+                as: "transactions",
+              },
+            },
+            { $addFields: { numTransactions: { $size: "$transactions" } } },
+            {
+              $sort: { numTransactions: -1 },
+            },
+          ])
+          .skip(skippedDocs)
+          .limit(limit)
+          .toArray()
+      : await db
+          .collection("salespersons")
+          .find(filterParams)
+          // skip pagination may not be the best way as its performance decreases the further it skips. See range queries
+          .sort(sortParams)
+          .skip(skippedDocs)
+          .limit(limit)
+          .toArray();
 
   const { totalResults } = await db
     .collection("salespersons")
