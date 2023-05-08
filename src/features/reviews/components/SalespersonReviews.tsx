@@ -4,6 +4,7 @@ import { Stars } from "@/components/star";
 import { Spinner } from "@/components/spinner";
 import { format } from "@/utils/format";
 import { Salesperson } from "@/features/salespersons";
+import { Empty } from "@/components/empty";
 
 import { useSalespersonReviews, Review } from "../api/getSalespersonReviews";
 
@@ -15,6 +16,8 @@ export function SalespersonReviews({ id }: SalespersonReviewsProps) {
   const salespersonReviewsQuery = useSalespersonReviews({ id });
 
   if (!salespersonReviewsQuery.data) return <Spinner />;
+
+  if (salespersonReviewsQuery.data.results.length === 0) return <Empty />;
 
   return (
     <div className="flex flex-col  divide-y">
