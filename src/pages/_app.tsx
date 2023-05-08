@@ -29,6 +29,12 @@ const theme = createTheme({
     ].join(","),
   },
   components: {
+    MuiTextField: {
+      defaultProps: {
+        size: "small",
+        fullWidth: true,
+      },
+    },
     MuiInputLabel: {
       styleOverrides: {
         root: {

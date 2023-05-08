@@ -57,7 +57,6 @@ export function CreateReview({ salespersonId }: CreateReviewProps) {
             placeholder="We value your opinion! Share your thoughts about this agent's services."
             multiline
             rows={10}
-            fullWidth
           />
         </div>
         <div className="h-8">

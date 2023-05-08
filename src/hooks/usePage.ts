@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { PageNum } from "@/api/types";
 
 export function usePage() {
-  const [pageNum, setPageNum] = useState(1);
+  const [pageNum, setPageNum] = useState<PageNum>(0);
 
   function resetPageNum() {
-    setPageNum(1);
+    setPageNum(0);
   }
 
   function prevPage() {

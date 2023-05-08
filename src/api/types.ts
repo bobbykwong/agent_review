@@ -1,4 +1,5 @@
 export type PageToken = string | null;
+export type PageNum = number;
 export type NextPageToken = string;
 export type TotalResults = number;
 export type APIFilter = Record<string, any>;

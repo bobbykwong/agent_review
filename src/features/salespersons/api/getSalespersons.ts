@@ -1,6 +1,6 @@
 import useSWR from "swr";
 
-import { APIFilter, APIList, APISort, PageToken } from "@/api/types";
+import { APIFilter, APIList, APISort, PageNum } from "@/api/types";
 import { get } from "@/utils/apiClient";
 
 import { SALESPERSONS_PAGE_SIZE } from "../components/Salespersons";
@@ -9,22 +9,19 @@ import { Salesperson } from "./getSalesperson";
 function getSalespersons({
   filter,
   sort,
-  pageToken,
+  pageNum,
 }: {
   filter: APIFilter;
   sort: APISort;
-  pageToken?: PageToken;
+  pageNum?: PageNum;
 }) {
   let params: Record<string, any> = {
-    pageSize: SALESPERSONS_PAGE_SIZE,
     limit: SALESPERSONS_PAGE_SIZE,
-    filter,
-    sort,
+    ...filter,
+    sortby: sort,
+    page: pageNum,
   };
 
-  if (pageToken) {
-    params = { ...params, pageToken };
-  }
   return get<APIList<Salesperson>>("/salespersons", {
     params,
   });
@@ -33,13 +30,13 @@ function getSalespersons({
 export function useSalespersons({
   filter,
   sort,
-  pageToken,
+  pageNum,
 }: {
   filter: APIFilter;
   sort: APISort;
-  pageToken?: PageToken;
+  pageNum?: PageNum;
 }) {
-  return useSWR(["salespersons", filter, sort, pageToken], () =>
-    getSalespersons({ filter, sort, pageToken })
+  return useSWR(["salespersons", filter, sort, pageNum], () =>
+    getSalespersons({ filter, sort, pageNum })
   );
 }
