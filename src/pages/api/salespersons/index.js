@@ -5,6 +5,7 @@ export default async function handler(req, res) {
   const queryParams = req.query;
   const page = queryParams["page"] ? parseInt(queryParams["page"]) : 0;
   const limit = queryParams["limit"] ? parseInt(queryParams["limit"]) : 10;
+  const skippedDocs = page * limit
 
   if (queryParams["sortby"] == "sortTest"){
     const salespersonsTest = await db.collection("salespersons")
@@ -76,11 +77,12 @@ export default async function handler(req, res) {
   Object.keys(queryParams).forEach((element) => {
     if (element == "name"){
       filterKey = element;
+      const filterValue = queryParams[filterKey];
+      
+      // Regex operator searches value WHERE includes string.
+      //  Option 'i' for case insensitivity
+      filterParams["name"] = {$regex: filterValue, $options: 'i'}
     }
-    const filterValue = queryParams[filterKey];
-    // Regex operator searches value WHERE includes string.
-    //  Option 'i' for case insensitivity
-    filterParams["name"] = {$regex: filterValue, $options: 'i'}
   });
   
   // sort
@@ -98,7 +100,7 @@ export default async function handler(req, res) {
     .find(filterParams)
     // skip pagination may not be the best way as its performance decreases the further it skips. See range queries
     .sort(sortParams)
-    .skip(page)
+    .skip(skippedDocs)
     .limit(limit)
     .toArray();
 
