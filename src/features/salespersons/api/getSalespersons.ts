@@ -17,6 +17,7 @@ function getSalespersons({
 }) {
   let params: Record<string, any> = {
     pageSize: SALESPERSONS_PAGE_SIZE,
+    limit: SALESPERSONS_PAGE_SIZE,
     filter,
     sort,
   };

@@ -4,10 +4,10 @@ import { useState } from "react";
 
 import { Button } from "@/components/button";
 import { PageLayout } from "@/components/layout";
-import { Star } from "@/components/star";
+import { MonthYearField, RatingField } from "@/components/form";
 
 export default function Page() {
-  const [dateOfExperience, setYearOfExperience] = useState<number | null>(null);
+  const [dateOfExperience, setDateOfExperience] = useState<Date | null>(null);
   const [rating, setRating] = useState<number | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
 
@@ -18,7 +18,11 @@ export default function Page() {
       setErrMsg("All fields required");
       return;
     }
-    alert("Form submitted..");
+    console.log("Form submitted", {
+      dateOfExperience,
+      rating,
+      msg,
+    });
   }
 
   return (
@@ -28,27 +32,14 @@ export default function Page() {
           <div className="flex flex-col gap-8">
             <div>
               <Label>Date of experience</Label>
-              <TextField
-                value={dateOfExperience || ""}
-                onChange={(e) => setYearOfExperience(Number(e.target.value))}
-                type="number"
-                placeholder="2023"
-                fullWidth
-                size="small"
+              <MonthYearField
+                onSelect={(m) => setDateOfExperience(m)}
+                placeholder="Select date"
               />
             </div>
             <div>
               <Label>Rate your experience</Label>
-              <div>
-                {_.range(5).map((i) => (
-                  <button key={i} onClick={() => setRating(i)}>
-                    <Star
-                      colored={rating && i <= rating ? true : false}
-                      size="lg"
-                    />
-                  </button>
-                ))}
-              </div>
+              <RatingField onSelect={(rating) => setRating(rating)} />
             </div>
             <div>
               <Label>Tell us more about your experience</Label>

@@ -4,15 +4,10 @@ import Link from "next/link";
 
 import { format } from "@/utils/format";
 import { Spinner } from "@/components/spinner";
-import { Table } from "@/components/table";
-import { Button } from "@/components/button";
 import { Tabs } from "@/components/tabs";
+import { SalespersonTransactions } from "@/features/transactions";
 
-import {
-  useSalesperson,
-  Salesperson,
-  Transaction,
-} from "../api/getSalesperson";
+import { useSalesperson, Salesperson } from "../api/getSalesperson";
 import { SalespersonReviews } from "./SalespersonReviews";
 
 interface SalespersonProps {
@@ -31,7 +26,6 @@ export function SalespersonPage({ id }: SalespersonProps) {
     registrationEndDate,
     estateAgentName,
     estateAgentLicenseNum,
-    transactions,
   } = salespersonQuery.data;
 
   const profileItems = [
@@ -99,48 +93,7 @@ export function SalespersonPage({ id }: SalespersonProps) {
             { label: "Reviews", content: <SalespersonReviews id={id} /> },
             {
               label: "Transactions",
-              content: (
-                <Table<Transaction>
-                  data={_.orderBy(transactions, "transactionDate", "desc")}
-                  columns={[
-                    {
-                      title: "Date",
-                      field: "transactionDate",
-                      renderCell: ({ entry }) => (
-                        <div>{format.fullDate(entry.transactionDate)}</div>
-                      ),
-                    },
-                    {
-                      title: "Transaction Type",
-                      field: "transactionType",
-                      renderCell: ({ entry }) => (
-                        <div>{format.titleCase(entry.transactionType)}</div>
-                      ),
-                    },
-                    {
-                      title: "Represented",
-                      field: "represented",
-                      renderCell: ({ entry }) => (
-                        <div>{format.titleCase(entry.represented)}</div>
-                      ),
-                    },
-                    {
-                      title: "Property Type",
-                      field: "propertyType",
-                      renderCell: ({ entry }) => (
-                        <div>{format.propertyType(entry.propertyType)}</div>
-                      ),
-                    },
-                    {
-                      title: "Town",
-                      field: "town",
-                      renderCell: ({ entry }) => (
-                        <div>{format.titleCase(entry.town)}</div>
-                      ),
-                    },
-                  ]}
-                />
-              ),
+              content: <SalespersonTransactions id={id} />,
             },
           ]}
         />

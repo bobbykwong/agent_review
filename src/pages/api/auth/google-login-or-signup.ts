@@ -13,7 +13,7 @@ export default async function handler(
     try {
       await jwt.verifyGoogle(googleIdToken);
     } catch {
-      res.status(401).send("Invalid Google ID token");
+      res.status(401).json("Invalid Google ID token");
     }
 
     const decoded = jwt.decode(googleIdToken) as {
@@ -44,6 +44,6 @@ export default async function handler(
       "Set-Cookie",
       `access_token=${token}; Path=/; Max-Age=31536000; HttpOnly`
     );
-    res.status(200).send(userId);
+    res.status(200).json(userId);
   }
 }
