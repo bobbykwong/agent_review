@@ -7,30 +7,67 @@ export default async function handler(req, res) {
     const page = queryParams["page"] ? parseInt(queryParams["page"]) : 0
     const limit = queryParams["limit"] ? parseInt(queryParams["limit"]) : 10
 
-    // const salespersonsTest = await db.collection("salespersons")
-    //                                 .aggregate([
-    //                                 {$lookup:
-    //                                   {
-    //                                     from: "transactions",
-    //                                     localField: "id",
-    //                                     foreignField: "salespersonId",
-    //                                     as: "transactions"
-    //                                   }
-    //                                 },
-    //                                 {$match: 
-    //                                   {town: "BUKIT PANJANG"}
-    //                                 },
-    //                                 // {$count: "total transactions"}
-    //                                 {$group: 
-    //                                     {
-    //                                         _id: "$salespersonId", 
-    //                                         count:{$sum:1}
-    //                                     }
-    //                                 }                 
-    //                               ])
-    //                               .limit(10)
-    //                               .toArray();
-    // res.status(200).send(salespersonsTest); 
+    if (queryParams["sortby"] == "sortTest"){
+      const salespersonsTest = await db.collection("salespersons")
+                                      .aggregate([
+                                      {$lookup:
+                                        {
+                                          from: "transactions",
+                                          localField: "id",
+                                          foreignField: "salespersonId",
+                                          // pipeline: [
+                                          //   {$count: "totalTransactions"},
+                                            // {$sort: {"transactions": 1}}
+                                            // {$sortByCount: {"transactions.totalTransactions": 1}}
+                                          // ],
+                                          as: "transactions"
+                                        }
+                                      },
+                                      {
+                                        $project: {
+                                          // id: 1,
+                                          // name: 1,
+                                          // registrationNum: 1,
+                                          // registrationStartDate: 1,
+                                          // registrationEndDate: 1,
+                                          // estateAgentName: 1,
+                                          // estateAgentLicenseNum: 1,
+                                          numOfTransactions: { $size: "$transactions" }
+                                        }
+                                      },
+                                      {
+                                        $sort: {numOfTransactions: -1}
+                                      }
+                                      // {$sort:
+                                      //   {
+                                      //     "transactions.totalTransactions": 1
+                                      //   }
+                                      // }
+                                      // {$unwind: "$transactions"},
+                                      // {$sortByCount: "$transactions"}
+                                      // {$group: 
+                                      //   {
+                                      //     _id: "$transactions.totalTransactions"
+                                      //   }
+                                      // },
+                                      // {$sort: {count: 1}}
+                                      // {$match: 
+                                      //   {town: "BUKIT PANJANG"}
+                                      // },
+                                      // {$count: "total transactions"}
+                                      // {$group: 
+                                      //     {
+                                      //         _id: "$salespersonId", 
+                                      //         count:{$sum:1}
+                                      //     }
+                                      // }                 
+                                    ])
+                                    // .sort({"numOfTransactions" : -1})
+                                    .limit(10)
+                                    .toArray();
+      res.status(200).send(salespersonsTest); 
+    }
+    
 
     // Get the filter key and value from the params
     // Only expecting one filter key. Doesn't seem to make sense to query more than one field.
