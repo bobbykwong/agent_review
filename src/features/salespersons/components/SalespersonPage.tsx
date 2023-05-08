@@ -6,9 +6,9 @@ import { format } from "@/utils/format";
 import { Spinner } from "@/components/spinner";
 import { Tabs } from "@/components/tabs";
 import { SalespersonTransactions } from "@/features/transactions";
+import { SalespersonReviews } from "@/features/reviews";
 
 import { useSalesperson, Salesperson } from "../api/getSalesperson";
-import { SalespersonReviews } from "./SalespersonReviews";
 
 interface SalespersonProps {
   id: Salesperson["id"];
