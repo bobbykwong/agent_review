@@ -41,44 +41,50 @@ export function Salespersons() {
     [pageNum, salespersonsQuery.data]
   );
 
-  if (!salespersonsQuery.data) return <Spinner />;
-
   return (
     <div>
-      <div className="flex gap-4 w-fit ml-auto">
+      <div className="mx-auto w-[350px]">
+        <FilterSalespersons filter={filter} addFilterItems={addFilterItems} />
+      </div>
+      <div className="w-fit ml-auto mt-8">
         <SortSalespersons
           sort={sort}
           addSortItem={addSortItem}
           removeSortItem={removeSortItem}
         />
-        {/* <FilterSalespersons addFilterItems={addFilterItems} /> */}
       </div>
-      <div className="py-4 w-fit ml-auto">
-        <p className="text-gray-600">{`${format.number(
-          salespersonsQuery.data.totalResults
-        )} results`}</p>
-      </div>
-      <CardGrid>
-        {salespersonsQuery.data.results.map((s) => (
-          <SalespersonCardLinkUI key={s.id} salesperson={s} />
-        ))}
-      </CardGrid>
-      <div className="mt-12 flex justify-center gap-4">
-        <Button
-          variant={canPrev ? "primary" : "inverse"}
-          disabled={!canPrev}
-          onClick={canPrev ? prevPage : undefined}
-        >
-          Prev
-        </Button>
-        <Button
-          variant={canNext ? "primary" : "inverse"}
-          disabled={!canNext}
-          onClick={canNext ? nextPage : undefined}
-        >
-          Next
-        </Button>
-      </div>
+      {!salespersonsQuery.data ? (
+        <Spinner />
+      ) : (
+        <>
+          <div className="py-4 w-fit ml-auto">
+            <p className="text-gray-600">{`${format.number(
+              salespersonsQuery.data.totalResults
+            )} results`}</p>
+          </div>
+          <CardGrid>
+            {salespersonsQuery.data.results.map((s) => (
+              <SalespersonCardLinkUI key={s.id} salesperson={s} />
+            ))}
+          </CardGrid>
+          <div className="mt-12 flex justify-center gap-4">
+            <Button
+              variant={canPrev ? "primary" : "inverse"}
+              disabled={!canPrev}
+              onClick={canPrev ? prevPage : undefined}
+            >
+              Prev
+            </Button>
+            <Button
+              variant={canNext ? "primary" : "inverse"}
+              disabled={!canNext}
+              onClick={canNext ? nextPage : undefined}
+            >
+              Next
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 }
