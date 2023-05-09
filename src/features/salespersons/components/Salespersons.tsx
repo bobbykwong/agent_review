@@ -1,15 +1,15 @@
 import { useEffect, useMemo } from "react";
+import Link from "next/link";
 
 import { useSort } from "@/hooks/useSort";
-import { format } from "@/utils/format";
-import { Spinner } from "@/components/spinner";
-import { CardGrid } from "@/components/layout";
 import { usePage } from "@/hooks/usePage";
 import { useFilter } from "@/hooks/useFilter";
+import { format } from "@/utils/format";
+import { Spinner } from "@/components/spinner";
 import { Button } from "@/components/button";
 
+import { SalespersonCardUI } from "./SalespersonCardUI";
 import { useSalespersons } from "../api/getSalespersons";
-import { SalespersonCardLinkUI } from "./SalespersonCardLinkUI";
 import { SortSalespersons } from "./SortSalespersons";
 import { FilterSalespersons } from "./FilterSalespersons";
 
@@ -60,11 +60,17 @@ export function Salespersons() {
               salespersonsQuery.data.totalResults
             )} results`}</p>
           </div>
-          <CardGrid>
+          <div className="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4 gap-4">
             {salespersonsQuery.data.results.map((s) => (
-              <SalespersonCardLinkUI key={s.id} salesperson={s} />
+              <Link
+                key={s.id}
+                href={`/salespersons/${s.id}`}
+                className="hover:ring ring-teal-400 ring-offset-1  rounded-lg duration-300"
+              >
+                <SalespersonCardUI salesperson={s} />
+              </Link>
             ))}
-          </CardGrid>
+          </div>
           <div className="mt-12 flex justify-center gap-4">
             <Button
               variant={canPrev ? "primary" : "inverse"}

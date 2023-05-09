@@ -20,7 +20,7 @@ export function Rating({ value, size, readOnly, onChange }: RatingProps) {
           fontSize="inherit"
           className={clsx("text-teal-400", {
             "!text-5xl": size === "lg",
-            "!text-xl": size === "sm",
+            "!text-2xl": size === "sm",
           })}
         />
       }
@@ -33,7 +33,7 @@ export function Rating({ value, size, readOnly, onChange }: RatingProps) {
           fontSize="inherit"
           className={clsx("text-gray-300", {
             "!text-5xl": size === "lg",
-            "!text-xl": size === "sm",
+            "!text-2xl": size === "sm",
           })}
         />
       }
