@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ReactElement } from "react";
 
 import { HorizontalLayout } from "@/components/layout";
-import { Star } from "@/components/star";
+import { Rating } from "@/components/rating";
 
 export default function Page() {
   return (
@@ -59,14 +59,12 @@ function Banner() {
           <h1 className="text-5xl font-semibold">
             Find the perfect real estate agent for you
           </h1>
-          <p className="mt-8 text-gray-300">
+          <p className="mt-8 text-gray-300 text-lg">
             Find agents based on their experience, transaction history, and
             reviews from other users.
           </p>
           <div className="py-8">
-            {_.range(5).map((i) => (
-              <Star key={i} colored size="lg" />
-            ))}
+            <Rating value={5} size="lg" readOnly />
           </div>
         </div>
       }
@@ -75,15 +73,9 @@ function Banner() {
           <div className="flex-1 flex flex-col tablet:flex-row items-center tablet:items-start justify-center gap-4 tablet:gap-8">
             <Link
               href="/salespersons"
-              className="block px-8 py-4 ring ring-teal-400 ring-inset text-white rounded-full font-semibold hover:bg-teal-400 duration-300"
+              className="block px-8 py-4 bg-teal-400 text-white rounded-full font-semibold hover:opacity-90 text-lg"
             >
-              View Profiles
-            </Link>
-            <Link
-              href="/"
-              className="block px-8 py-4 ring ring-teal-400 ring-inset text-white rounded-full font-semibold hover:bg-teal-400 duration-300"
-            >
-              Write Review
+              Find Agent
             </Link>
           </div>
         </div>
@@ -97,23 +89,13 @@ function Read() {
   return (
     <Container
       primaryComponent={
-        <div className="flex-1 flex justify-center">
-          <div>
-            <h2 className="text-3xl font-semibold">
-              Filter profiles by metrics that matter to you
-            </h2>
-            <p className="mt-2 text-gray-400 tracking-wide">
-              {`No more sifting through irrelevant ads or flashy photos. Choose agents based on skills and competencies that are essential for a successful partnership. `}
-            </p>
-            <div className="mt-4 flex justify-center laptop:justify-start">
-              <Link
-                href="/salespersons"
-                className="block px-8 py-4 bg-teal-400 text-white rounded-full font-semibold hover:opacity-80"
-              >
-                View Profiles
-              </Link>
-            </div>
-          </div>
+        <div className="flex flex-col justify-center h-full laptop:-translate-y-12">
+          <h2 className="text-3xl font-bold">
+            Filter profiles by metrics that matter to you
+          </h2>
+          <p className="mt-2 text-gray-500 tracking-wider text-lg">
+            {`No more sifting through irrelevant ads or flashy photos. Choose agents based on skills and competencies that are essential for a successful partnership. `}
+          </p>
         </div>
       }
       secondaryComponent={
@@ -139,21 +121,13 @@ function Write() {
     <Container
       className="bg-slate-50"
       primaryComponent={
-        <div>
-          <h2 className="text-3xl font-semibold">Share your experience</h2>
-          <p className="mt-2 text-gray-500 tracking-wide">
+        <div className="flex flex-col justify-center h-full">
+          <h2 className="text-3xl font-bold">Share your experience</h2>
+          <p className="mt-2 text-gray-500 tracking-wider text-lg">
             {`We believe that every user's experience is important and can help
                others make informed decisions. Leaving a review is quick and
                easy, and it makes a big difference to us and our community.`}{" "}
           </p>
-          <div className="mt-8 w-fit">
-            <Link
-              href="/"
-              className="block px-8 py-4 bg-teal-400 text-white rounded-full font-semibold hover:opacity-80"
-            >
-              Write Review
-            </Link>
-          </div>
         </div>
       }
       secondaryComponent={
@@ -173,11 +147,11 @@ function Commitment() {
   return (
     <Container
       primaryComponent={
-        <div>
-          <h2 className="text-3xl font-semibold">
+        <div className="flex flex-col justify-center h-full">
+          <h2 className="text-3xl font-bold">
             Commitment to remain fair and trustworthy
           </h2>
-          <p className="mt-2 text-gray-400 tracking-wide">
+          <p className="mt-2 text-gray-500 tracking-wider text-lg">
             {`We take our commitment to being fair and trustworthy very seriously. As an independent review platform, we have no affiliation with any property agencies, which means we can remain impartial and unbiased. Our review system is designed to show all reviews, whether positive or negative, and we're constantly working to improve it to combat fake reviews.`}
           </p>
         </div>
