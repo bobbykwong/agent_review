@@ -34,19 +34,6 @@ export default async function handler(req, res) {
     };
     res.status(200).json(jsonResponse);
 
-    // const reviews = await db.collection("reviews")
-    //                               .aggregate([
-    //                                 // {$match: {town: "BUKIT PANJANG"}},
-    //                                 // {$count: "total transactions"}
-    //                                 {$group:
-    //                                     {
-    //                                         _id: "$salespersonId",
-    //                                         count:{$sum:1}
-    //                                     }
-    //                                 }
-    //                               ])
-    //                               .toArray();
-    // res.status(200).send(reviews);
   } else if (req.method === "POST") {
     const cookie = req.headers.cookie;
     const accessToken = cookies.get(cookie, "access_token");
