@@ -13,7 +13,7 @@ import { SalespersonCardLinkUI } from "./SalespersonCardLinkUI";
 import { SortSalespersons } from "./SortSalespersons";
 import { FilterSalespersons } from "./FilterSalespersons";
 
-export const SALESPERSONS_PAGE_SIZE = 24;
+export const SALESPERSONS_PAGE_SIZE = 12;
 
 export function Salespersons() {
   const { pageNum, resetPageNum, prevPage, nextPage } = usePage();
