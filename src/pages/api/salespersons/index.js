@@ -53,6 +53,9 @@ export default async function handler(req, res) {
     const sortParamsArray = sortQueryParams.split("_");
     // if desc, value = -1, else value = 1
     sortParams[sortParamsArray[0]] = sortParamsArray[1] == "desc" ? -1 : 1;
+
+    // Adding id in sort for sort consistetncy
+    sortParams["_id"] = 1
   }
 
   // Query Mongo
@@ -71,12 +74,13 @@ export default async function handler(req, res) {
             },
             { $addFields: { numTransactions: { $size: "$transactions" } } },
             {
-              $sort: { numTransactions: -1 },
+              $sort: { numTransactions: -1 , _id: 1 },
             },
           ])
           .skip(skippedDocs)
           .limit(limit)
           .toArray()
+      
       : await db
           .collection("salespersons")
           .find(filterParams)
