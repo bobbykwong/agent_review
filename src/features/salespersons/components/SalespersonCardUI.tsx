@@ -2,7 +2,6 @@ import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
 
 import { Salesperson } from "../types";
 import { SalespersonRating } from "@/features/reviews";
-import Link from "next/link";
 import { differenceInMonths } from "date-fns";
 import { Rating } from "@/components/rating";
 
@@ -23,8 +22,8 @@ export function SalespersonCardUI({ salesperson }: SalespersonCardUIProps) {
               alt="salesperson"
             />
           ) : (
-            <div className="h-36 w-28 object-cover bg-slate-800 text-white rounded-xl flex items-center justify-center">
-              <AccountBoxRoundedIcon className="!text-5xl" />
+            <div className="h-full w-full bg-slate-800 flex items-center justify-center rounded-3xl">
+              <AccountBoxRoundedIcon className="!text-4xl text-white" />
             </div>
           )}
         </div>
