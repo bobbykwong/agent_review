@@ -5,6 +5,7 @@ export default async function handler(req, res) {
     const queryParams = req.query
     const page = queryParams["page"] ? parseInt(queryParams["page"]) : 0
     const limit = queryParams["limit"] ? parseInt(queryParams["limit"]) : 10
+    const skippedDocs = page * limit;
     const salespersonId = queryParams["salespersonId"]
     let transactions;
     
@@ -20,7 +21,7 @@ export default async function handler(req, res) {
     else{
         transactions = await db.collection("transactions")
                                       .find({"salespersonId": salespersonId})
-                                      .skip(page)
+                                      .skip(skippedDocs)
                                       .limit(limit)
                                       .toArray();
     }
