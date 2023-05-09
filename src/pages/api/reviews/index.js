@@ -24,10 +24,12 @@ export default async function handler(req, res) {
       .skip(skippedDocs)
       .limit(limit)
       .toArray();
+    
+    const totalResults = await db.collection("reviews").countDocuments(filterParams)
 
     const jsonResponse = {
       pageToken: page,
-      totalResults: 1000,
+      totalResults: totalResults,
       results: reviews,
     };
     res.status(200).json(jsonResponse);
