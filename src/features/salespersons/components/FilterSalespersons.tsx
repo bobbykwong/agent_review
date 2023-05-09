@@ -36,7 +36,7 @@ export function FilterSalespersons({
       autoFocus
       placeholder="Agent Name"
       sx={{ backgroundColor: "white" }}
-      value={name}
+      value={name || ""}
       onChange={(e) => setName(e.target.value)}
       InputProps={{
         startAdornment: (
