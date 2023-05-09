@@ -3,60 +3,14 @@ import "@/styles/globals.css";
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import { Poppins } from "next/font/google";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { SWRConfig, SWRConfiguration } from "swr";
 
+import { MUIThemeProvider } from "@/styles/mui";
 import { ProgressBar } from "@/components/progress-bar";
 import { Notification } from "@/components/notification";
 import { useNotificationStore } from "@/stores/useNotificationStore";
 import { Layout } from "@/components/layout";
 import { useAuthInit } from "@/features/authentication";
-
-const theme = createTheme({
-  typography: {
-    fontFamily: [
-      "Poppins",
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
-  },
-  components: {
-    MuiTextField: {
-      defaultProps: {
-        size: "small",
-        fullWidth: true,
-      },
-    },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: {
-          "&.Mui-focused": {
-            color: "var(--color-primary)",
-          },
-        },
-      },
-    },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: {
-          "&.Mui-focused": {
-            "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "var(--color-primary)",
-            },
-          },
-        },
-      },
-    },
-  },
-});
 
 const font = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700"],
@@ -89,7 +43,7 @@ export default function App({ Component, pageProps }: AppProps) {
         />
         <link rel="icon" href="/graphics/hut.svg" />
       </Head>
-      <ThemeProvider theme={theme}>
+      <MUIThemeProvider>
         <SWRConfig value={swrConfig}>
           <main className={clsx("flex flex-col", font.className)}>
             <ProgressBar />
@@ -99,7 +53,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </main>
         </SWRConfig>
         <Notification />
-      </ThemeProvider>
+      </MUIThemeProvider>
     </>
   );
 }

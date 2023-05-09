@@ -1,4 +1,5 @@
 import { Menu, MenuItem } from "@mui/material";
+import ArrowDownwardRoundedIcon from "@mui/icons-material/ArrowDownwardRounded";
 import { useState } from "react";
 
 import { APISort } from "@/api/types";
@@ -9,6 +10,11 @@ interface SortSalespersonsProps {
   addSortItem: (sortItem: string) => void;
   removeSortItem: () => void;
 }
+
+const sortLabels = {
+  numTransactions_desc: "Transactions",
+  registrationStartDate_asc: "Experience",
+};
 
 export function SortSalespersons({
   sort,
@@ -26,7 +32,11 @@ export function SortSalespersons({
 
   return (
     <div>
-      <Button onClick={handleClick}>Sort by</Button>
+      <Button onClick={handleClick}>
+        {/* @ts-ignore */}
+        <span>{sortLabels[sort]}</span>
+        <ArrowDownwardRoundedIcon />
+      </Button>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

@@ -1,4 +1,5 @@
 import { TextField } from "@mui/material";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { useEffect, useState } from "react";
 
 import { APIFilter } from "@/api/types";
@@ -16,8 +17,10 @@ export function FilterSalespersons({
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      if (!name) {
+      if (name === null) {
         return;
+      } else if (name === "") {
+        addFilterItems({ name: null });
       } else {
         addFilterItems({ name });
       }
@@ -29,15 +32,19 @@ export function FilterSalespersons({
   }, [name]);
 
   return (
-    <div className="w-full max-w-[400px]">
-      <TextField
-        autoFocus
-        label="Agent name"
-        placeholder="Search agent by name"
-        sx={{ backgroundColor: "white" }}
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-    </div>
+    <TextField
+      autoFocus
+      placeholder="Agent Name"
+      sx={{ backgroundColor: "white" }}
+      value={name}
+      onChange={(e) => setName(e.target.value)}
+      InputProps={{
+        startAdornment: (
+          <div className="pr-4 text-gray-600">
+            <SearchRoundedIcon />
+          </div>
+        ),
+      }}
+    />
   );
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
 import { differenceInMonths } from "date-fns";
 
 import { Salesperson } from "../api/getSalesperson";
@@ -15,14 +16,17 @@ export function SalespersonCardLinkUI({
       className="bg-white rounded-xl p-4 shadow hover:ring ring-teal-400 duration-300"
     >
       <div className="flex gap-4">
-        <img
-          src={
-            salesperson.photoURL ||
-            "https://images.unsplash.com/photo-1567111089028-9abb29aa1102?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80"
-          }
-          className="h-36 w-28 object-cover rounded-xl"
-          alt="salesperson"
-        />
+        {salesperson.photoURL ? (
+          <img
+            src={salesperson.photoURL}
+            className="h-36 w-28 object-cover rounded-xl"
+            alt="salesperson"
+          />
+        ) : (
+          <div className="h-36 w-28 object-cover bg-slate-800 text-white rounded-xl flex items-center justify-center">
+            <AccountBoxRoundedIcon className="!text-5xl" />
+          </div>
+        )}
         <div className="truncate">
           <p className="font-medium text-lg truncate">{salesperson.name}</p>
           <p className="text-gray-500">{salesperson.registrationNum}</p>
