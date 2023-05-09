@@ -2,8 +2,9 @@ import Link from "next/link";
 import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
 import { differenceInMonths } from "date-fns";
 
+import { SalespersonRating } from "@/features/reviews";
+
 import { Salesperson } from "../api/getSalesperson";
-import { Rating } from "@/components/rating";
 
 interface SalespersonCardLinkUIProps {
   salesperson: Salesperson;
@@ -16,11 +17,11 @@ export function SalespersonCardLinkUI({
       href={`/salespersons/${salesperson.id}`}
       className="bg-white rounded-xl p-4 shadow hover:ring ring-teal-400 duration-300"
     >
-      <div className="flex gap-4">
+      <div className="flex gap-4 h-full">
         {salesperson.photoURL ? (
           <img
             src={salesperson.photoURL}
-            className="h-36 w-28 object-cover rounded-xl"
+            className="h-full w-28 object-cover rounded-xl"
             alt="salesperson"
           />
         ) : (
@@ -39,11 +40,8 @@ export function SalespersonCardLinkUI({
                 new Date(salesperson.registrationStartDate)
               ) / 12
             )}Y`}</p>
-            {salesperson.rating === null ? (
-              <p>No reviews yet</p>
-            ) : (
-              <Rating value={salesperson.rating} size="sm" readOnly />
-            )}
+            <br />
+            <SalespersonRating id={salesperson.id} />
           </div>
         </div>
       </div>
