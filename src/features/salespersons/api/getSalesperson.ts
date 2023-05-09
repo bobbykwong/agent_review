@@ -5,13 +5,13 @@ import { get } from "@/utils/apiClient";
 export interface Salesperson {
   id: string;
   photoURL: string;
+  rating: number | null;
   name: string;
   registrationNum: string;
   registrationStartDate: string;
   registrationEndDate: string;
   estateAgentName: string;
   estateAgentLicenseNum: string;
-  // transactions: Transaction[];
 }
 
 function getSalesperson({ id }: { id: Salesperson["id"] }) {
