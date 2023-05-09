@@ -21,7 +21,7 @@ export function SalespersonRating({ id }: SalespersonRatingProps) {
   return (
     <div className="flex gap-4 items-center">
       <Rating value={salespersonQuery.data.rating || 0} size="sm" readOnly />
-      <p className="text-sm text-gray-400">
+      <p className="text-gray-400">
         {`${salespersonReviewsQuery.data.results.length} reviews`}
       </p>
     </div>

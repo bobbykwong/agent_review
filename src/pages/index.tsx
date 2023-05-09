@@ -1,12 +1,11 @@
 import _ from "lodash";
 import clsx from "clsx";
-import { differenceInMonths } from "date-fns";
 import Link from "next/link";
 import { ReactElement } from "react";
 
 import { HorizontalLayout } from "@/components/layout";
 import { Rating } from "@/components/rating";
-import { Salesperson } from "@/features/salespersons";
+import { Salesperson, SalespersonCardUI } from "@/features/salespersons";
 
 export default function Page() {
   return (
@@ -101,43 +100,13 @@ function Read() {
         </div>
       }
       secondaryComponent={
-        <div className="flex gap-4 flex-wrap">
+        <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
           {dummyProfiles.map((salesperson) => (
             <div
               key={salesperson.id}
-              className="flex-1 max-h-[250px] min-w-[350px] bg-gray-100 rounded-xl p-4 shadow"
+              className="ring ring-offset-2 ring-slate-800 rounded-lg"
             >
-              <div className="flex gap-6 h-full">
-                <img
-                  src={salesperson.photoURL}
-                  className="h-full w-2/5 object-cover rounded-xl"
-                  alt="salesperson"
-                />
-                <div className="truncate relative">
-                  <p className="font-medium text-lg truncate">
-                    {salesperson.name}
-                  </p>
-                  <p className="text-gray-500">{salesperson.registrationNum}</p>
-                  <div className="mt-4 text-gray-500 truncate">
-                    <p className="truncate">{salesperson.estateAgentName}</p>
-                    <p>{`Experience - ${Math.ceil(
-                      differenceInMonths(
-                        new Date(),
-                        new Date(salesperson.registrationStartDate)
-                      ) / 12
-                    )}Y`}</p>
-                    <br />
-                    <div className="absolute bottom-0">
-                      <Rating
-                        value={salesperson.rating || 0}
-                        size="sm"
-                        readOnly
-                      />
-                      <p>10 reviews</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <SalespersonCardUI salesperson={salesperson} />
             </div>
           ))}
         </div>
@@ -207,6 +176,8 @@ const dummyProfiles: Salesperson[] = [
     photoURL:
       "https://images.unsplash.com/photo-1629272039203-7d76fdaf1324?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80",
     rating: 5,
+    numReviews: 8,
+    numTransactions: 100,
     registrationNum: "R123456A",
     registrationStartDate: "2015-01-22T00:00:00.000Z",
     registrationEndDate: "2023-12-31T00:00:00.000Z",
@@ -219,6 +190,8 @@ const dummyProfiles: Salesperson[] = [
     photoURL:
       "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80",
     rating: 5,
+    numReviews: 24,
+    numTransactions: 40,
     registrationNum: "R654321B",
     registrationStartDate: "2018-01-22T00:00:00.000Z",
     registrationEndDate: "2023-12-31T00:00:00.000Z",

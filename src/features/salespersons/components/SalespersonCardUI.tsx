@@ -1,0 +1,71 @@
+import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
+
+import { Salesperson } from "../types";
+import { SalespersonRating } from "@/features/reviews";
+import Link from "next/link";
+import { differenceInMonths } from "date-fns";
+import { Rating } from "@/components/rating";
+
+interface SalespersonCardUIProps {
+  salesperson: Salesperson;
+}
+
+export function SalespersonCardUI({ salesperson }: SalespersonCardUIProps) {
+  return (
+    <div className="bg-white rounded-lg h-full shadow">
+      <div className="p-6 flex flex-col items-center">
+        {/* Image */}
+        <div className="w-24 h-24 rounded-3xl">
+          {salesperson.photoURL ? (
+            <img
+              src={salesperson.photoURL}
+              className="h-full w-full object-cover rounded-3xl object-top"
+              alt="salesperson"
+            />
+          ) : (
+            <div className="h-36 w-28 object-cover bg-slate-800 text-white rounded-xl flex items-center justify-center">
+              <AccountBoxRoundedIcon className="!text-5xl" />
+            </div>
+          )}
+        </div>
+        {/* Name and estate agent name */}
+        <div className="mt-4 flex flex-col items-center">
+          <p className="text-lg font-medium">{salesperson.name}</p>
+          <p className="text-gray-400">{salesperson.estateAgentName}</p>
+        </div>
+        {/* Reviews */}
+        <div className="mt-6">
+          {/* <SalespersonRating id={salesperson.id} /> */}
+          {/* Temp */}
+          <div className="flex gap-4 items-center">
+            <Rating value={salesperson.rating || 0} size="sm" readOnly />
+            <p className="text-gray-400">
+              {`${salesperson.numReviews || 0} reviews`}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Transactions and Experience */}
+      <div className="flex divide-x py-4">
+        <div className="px-6 flex-1 flex flex-col items-center justify-center">
+          <span className="text-2xl font-semibold">
+            {`${Math.ceil(
+              differenceInMonths(
+                new Date(),
+                new Date(salesperson.registrationStartDate)
+              ) / 12
+            )}Y`}
+          </span>
+          <span className="text-sm text-gray-400">Experience</span>
+        </div>
+        <div className="px-8 flex-1 flex flex-col items-center justify-center">
+          <span className="text-2xl font-semibold">
+            {salesperson.numTransactions}
+          </span>
+          <span className="text-sm text-gray-400">Transactions</span>
+        </div>
+      </div>
+    </div>
+  );
+}
