@@ -61,9 +61,55 @@ export default async function handler(req, res) {
   // Query Mongo
   const salespersons =
     queryParams["sortby"] === "numTransactions_desc"
-      ? await db
+      ? await db.collection("transactions")
+        .aggregate([
+          {$group: 
+            {
+              _id: "$salespersonId",
+              numTransactions: {$count: {}}
+            }
+          },
+          {$sort:
+            {numTransactions: -1}
+          },
+          {$lookup:
+            {
+              from: "salespersons",
+              localField: "_id",
+              foreignField: "id",
+              // add match filterparams here
+              as: "salespersons"
+            }
+          },
+          {$unwind:
+            {path: "$salespersons"}
+          },
+          {$project:
+            {
+              id: "$_id",
+              photoURL: "$salespersons.photoURL",
+              rating: "$salespersons.rating",
+              name: "$salespersons.name",
+              registrationNum: "$salespersons.registrationNum",
+              registrationStartDate: "$salespersons.registrationStartDate",
+              registrationEndDate: "$salespersons.registrationEndDate",
+              estateAgentName: "$salespersons.estateAgentName",
+              estateAgentLicenseNum: "$salespersons.estateAgentLicenseNum",
+              numTransactions: 1
+            }
+          }
+        ])
+        .skip(skippedDocs)
+        .limit(limit)
+        .toArray()
+      
+      : await db
           .collection("salespersons")
+          // .find(filterParams)
           .aggregate([
+            {
+              $match: filterParams
+            },
             {
               $lookup: {
                 from: "transactions",
@@ -73,45 +119,23 @@ export default async function handler(req, res) {
               },
             },
             {
-              $project:
-              {
-                id: 1,
-                photoURL: 1,
-                rating: 1,
-                name: 1,
-                registrationNum: 1,
-                registrationStartDate: 1,
-                registrationEndDate: 1,
-                estateAgentName: 1,
-                estateAgentLicenseNum: 1,
-                numTransactions: { $size: "$transactions" }
-              }
+              $addFields: {numTransactions: { $size: "$transactions" }}
             },
-            {
-              $sort: { numTransactions: -1 , _id: 1 },
-            },
+            // {
+            //   $sort: { numTransactions: -1 , _id: 1 },
+            // },
           ])
-          .skip(skippedDocs)
-          .limit(limit)
-          .toArray()
-      
-      : await db
-          .collection("salespersons")
-          .find(filterParams)
           // skip pagination may not be the best way as its performance decreases the further it skips. See range queries
           .sort(sortParams)
           .skip(skippedDocs)
           .limit(limit)
           .toArray();
-
-  const { totalResults } = await db
-    .collection("salespersons")
-    .aggregate([{ $match: filterParams }, { $count: "totalResults" }])
-    .next();
+  
+  let totalResults = await db.collection("salespersons").countDocuments(filterParams)
 
   const jsonResponse = {
     pageToken: page,
-    totalResults,
+    totalResults: totalResults,
     results: salespersons,
   };
 
