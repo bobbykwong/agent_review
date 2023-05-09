@@ -9,19 +9,42 @@ export default async function handler(req, res) {
 
   // Get the filter key and value from the params
   // Only expecting one filter key. Doesn't seem to make sense to query more than one field.
-  let filterKey = "";
+  let filterValue = "";
   const filterParams = {};
+  const setFilterParams = (key) => {
+    filterValue = queryParams[key];
+    filterParams[key] = filterValue;
+  }
 
-  Object.keys(queryParams).forEach((element) => {
-    if (element == "name") {
-      filterKey = element;
-      const filterValue = queryParams[filterKey];
-
-      // Regex operator searches value WHERE includes string.
-      //  Option 'i' for case insensitivity
-      filterParams["name"] = { $regex: filterValue, $options: "i" };
+  Object.keys(queryParams).forEach((element) => {    
+    switch (element) {
+      case "name":
+        filterValue = queryParams[element];
+        filterParams["name"] = { $regex: filterValue, $options: "i" };
+        break;
+      case "registrationNum":
+        setFilterParams(element)
+        break;
+      case "registrationStartDate":
+        setFilterParams(element)
+        break;
+      case "registrationEndDate":
+        setFilterParams(element)
+        break;
+      case "estateAgentName":
+        setFilterParams(element)
+        break;
+      case "estateAgentLicenseNum":
+        setFilterParams(element)
+        break;
+      case "ratings":
+        setFilterParams(element)
+        break;
+      default:
+        break;
     }
   });
+
 
   // sort
   const sortParams = {};
