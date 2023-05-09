@@ -9,6 +9,7 @@ export default async function handler(req, res) {
     const queryParams = req.query;
     const page = queryParams["page"] ? parseInt(queryParams["page"]) : 0;
     const limit = queryParams["limit"] ? parseInt(queryParams["limit"]) : 10;
+    const skippedDocs = page * limit;
 
     const salespersonId = queryParams["salespersonId"];
 
@@ -20,13 +21,15 @@ export default async function handler(req, res) {
     const reviews = await db
       .collection("reviews")
       .find(filterParams)
-      .skip(page)
+      .skip(skippedDocs)
       .limit(limit)
       .toArray();
+    
+    const totalResults = await db.collection("reviews").countDocuments(filterParams)
 
     const jsonResponse = {
       pageToken: page,
-      totalResults: 1000,
+      totalResults: totalResults,
       results: reviews,
     };
     res.status(200).json(jsonResponse);
@@ -68,10 +71,42 @@ export default async function handler(req, res) {
       msg,
       isVerified: false,
     });
+    
+    // Create id field with type "string"
     reviews.updateOne(
       { _id: result.insertedId },
       { $set: { id: result.insertedId.toString() } }
     );
-    return res.status(200).json(result.insertedId.toString());
+
+    /**
+     * Update Agent overall ratings//
+     */
+    const averageRatings = await reviews
+                            .aggregate([
+                                {
+                                    $match: 
+                                    {
+                                        "salespersonId" : salespersonId
+                                    }
+                                },
+                                {
+                                    $group: 
+                                    {
+                                        "_id": null,
+                                        "avgRating": {$avg: "$rating"}
+                                    }
+                                }
+                            ])
+                            .toArray()
+    // Calculate average ratings
+    // res.status(200).send(averageRatings)
+    // Update salesperson overall ratings
+    const salespersons = db.collection("salespersons");
+    const finalResponse = await salespersons.updateOne(
+        {id: salespersonId },
+        {$set: {rating: averageRatings[0]["avgRating"]}}
+    )
+    res.status(200).send(finalResponse)
+    // return res.status(200).json(result.insertedId.toString());
   }
 }
