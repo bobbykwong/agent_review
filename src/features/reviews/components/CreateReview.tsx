@@ -47,7 +47,10 @@ export function CreateReview({ salespersonId }: CreateReviewProps) {
         </div>
         <div>
           <Label>Rate your experience</Label>
-          <RatingField onSelect={(rating) => setRating(rating)} />
+          <RatingField
+            value={rating ? rating : 0}
+            onChange={(rating) => setRating(rating)}
+          />
         </div>
         <div>
           <Label>Tell us more about your experience</Label>

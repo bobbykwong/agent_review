@@ -2,9 +2,8 @@ import Link from "next/link";
 import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
 import { differenceInMonths } from "date-fns";
 
-import { Stars } from "@/components/star";
-
 import { Salesperson } from "../api/getSalesperson";
+import { Rating } from "@/components/rating";
 
 interface SalespersonCardLinkUIProps {
   salesperson: Salesperson;
@@ -43,7 +42,7 @@ export function SalespersonCardLinkUI({
             {salesperson.rating === null ? (
               <p>No reviews yet</p>
             ) : (
-              <Stars numStars={3} size="sm" />
+              <Rating value={salesperson.rating} size="sm" readOnly />
             )}
           </div>
         </div>

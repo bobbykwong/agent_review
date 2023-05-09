@@ -1,10 +1,10 @@
 import _ from "lodash";
 
-import { Stars } from "@/components/star";
 import { Spinner } from "@/components/spinner";
 import { format } from "@/utils/format";
 import { Salesperson } from "@/features/salespersons";
 import { Empty } from "@/components/empty";
+import { Rating } from "@/components/rating";
 
 import { useSalespersonReviews, Review } from "../api/getSalespersonReviews";
 
@@ -56,8 +56,8 @@ function Review({ review }: ReviewProps) {
               className="w-14 h-14 object-cover rounded-full"
             />
             <div>
-              <span className="font-semibold">Peter Chao</span>
-              <Stars numStars={rating} size="sm" />
+              <p className="font-semibold">Peter Chao</p>
+              <Rating value={rating} size="sm" readOnly />
             </div>
           </div>
           <span className="text-slate-400 text-sm">

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ReactElement } from "react";
 
 import { HorizontalLayout } from "@/components/layout";
-import { Star } from "@/components/star";
+import { Rating } from "@/components/rating";
 
 export default function Page() {
   return (
@@ -64,9 +64,7 @@ function Banner() {
             reviews from other users.
           </p>
           <div className="py-8">
-            {_.range(5).map((i) => (
-              <Star key={i} colored size="lg" />
-            ))}
+            <Rating value={5} size="lg" readOnly />
           </div>
         </div>
       }
