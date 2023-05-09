@@ -1,10 +1,12 @@
 import _ from "lodash";
 import clsx from "clsx";
+import { differenceInMonths } from "date-fns";
 import Link from "next/link";
 import { ReactElement } from "react";
 
 import { HorizontalLayout } from "@/components/layout";
 import { Rating } from "@/components/rating";
+import { Salesperson } from "@/features/salespersons";
 
 export default function Page() {
   return (
@@ -89,7 +91,7 @@ function Read() {
   return (
     <Container
       primaryComponent={
-        <div className="flex flex-col justify-center h-full laptop:-translate-y-12">
+        <div className="flex flex-col justify-center h-full">
           <h2 className="text-3xl font-bold">
             Filter profiles by metrics that matter to you
           </h2>
@@ -99,14 +101,43 @@ function Read() {
         </div>
       }
       secondaryComponent={
-        <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
-          {_.range(4).map((i) => (
+        <div className="flex gap-4 flex-wrap">
+          {dummyProfiles.map((salesperson) => (
             <div
-              key={i}
-              className="bg-gray-100 h-[240px] rounded-xl p-8 shadow"
+              key={salesperson.id}
+              className="flex-1 max-h-[250px] min-w-[350px] bg-gray-100 rounded-xl p-4 shadow"
             >
-              <p className="font-bold text-xl">Name</p>
-              <p className="">Estate Agent Name</p>
+              <div className="flex gap-6 h-full">
+                <img
+                  src={salesperson.photoURL}
+                  className="h-full w-2/5 object-cover rounded-xl"
+                  alt="salesperson"
+                />
+                <div className="truncate relative">
+                  <p className="font-medium text-lg truncate">
+                    {salesperson.name}
+                  </p>
+                  <p className="text-gray-500">{salesperson.registrationNum}</p>
+                  <div className="mt-4 text-gray-500 truncate">
+                    <p className="truncate">{salesperson.estateAgentName}</p>
+                    <p>{`Experience - ${Math.ceil(
+                      differenceInMonths(
+                        new Date(),
+                        new Date(salesperson.registrationStartDate)
+                      ) / 12
+                    )}Y`}</p>
+                    <br />
+                    <div className="absolute bottom-0">
+                      <Rating
+                        value={salesperson.rating || 0}
+                        size="sm"
+                        readOnly
+                      />
+                      <p>10 reviews</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -168,3 +199,30 @@ function Commitment() {
     />
   );
 }
+
+const dummyProfiles: Salesperson[] = [
+  {
+    id: "profile-1",
+    name: "Thomas Tan",
+    photoURL:
+      "https://images.unsplash.com/photo-1629272039203-7d76fdaf1324?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80",
+    rating: 5,
+    registrationNum: "R123456A",
+    registrationStartDate: "2015-01-22T00:00:00.000Z",
+    registrationEndDate: "2023-12-31T00:00:00.000Z",
+    estateAgentName: "SG Realtors",
+    estateAgentLicenseNum: "dummy",
+  },
+  {
+    id: "profile-2",
+    name: "Karen Koh",
+    photoURL:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80",
+    rating: 5,
+    registrationNum: "R654321B",
+    registrationStartDate: "2018-01-22T00:00:00.000Z",
+    registrationEndDate: "2023-12-31T00:00:00.000Z",
+    estateAgentName: "PropSG",
+    estateAgentLicenseNum: "dummy",
+  },
+];
