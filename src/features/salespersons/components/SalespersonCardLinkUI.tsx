@@ -24,7 +24,7 @@ export function SalespersonCardLinkUI({
           />
         ) : (
           <div className="h-36 w-28 object-cover bg-slate-800 text-white rounded-xl flex items-center justify-center">
-            <AccountBoxRoundedIcon className="text-6xl" />
+            <AccountBoxRoundedIcon className="!text-5xl" />
           </div>
         )}
         <div className="truncate">
