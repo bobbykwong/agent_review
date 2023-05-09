@@ -72,7 +72,21 @@ export default async function handler(req, res) {
                 as: "transactions",
               },
             },
-            { $addFields: { numTransactions: { $size: "$transactions" } } },
+            {
+              $project:
+              {
+                id: 1,
+                photoURL: 1,
+                rating: 1,
+                name: 1,
+                registrationNum: 1,
+                registrationStartDate: 1,
+                registrationEndDate: 1,
+                estateAgentName: 1,
+                estateAgentLicenseNum: 1,
+                numTransactions: { $size: "$transactions" }
+              }
+            },
             {
               $sort: { numTransactions: -1 , _id: 1 },
             },
