@@ -30,6 +30,7 @@ export default async function handler(
           estateAgentName: 1,
           estateAgentLicenseNum: 1,
           numTransactions: { $size: "$transactions" },
+          numReviews: 1,
         },
       },
     ]);

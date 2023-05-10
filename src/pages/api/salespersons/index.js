@@ -10,10 +10,10 @@ export default async function handler(req, res) {
   // Get the filter key and value from the params
   // Only expecting one filter key. Doesn't seem to make sense to query more than one field.
   let filterValue = "";
-  let filterKey
+  let filterKey;
   const filterParams = {};
   const setFilterParams = (key) => {
-    filterKey = key
+    filterKey = key;
     filterValue = queryParams[filterKey];
     filterParams[filterKey] = filterValue;
   };
@@ -62,33 +62,32 @@ export default async function handler(req, res) {
   }
 
   // Query Mongo
-  const salespersons = 
-    await db
-      .collection("salespersons")
-      .aggregate([
-        {
-          $match: filterParams,
+  const salespersons = await db
+    .collection("salespersons")
+    .aggregate([
+      {
+        $match: filterParams,
+      },
+      {
+        $project: {
+          id: 1,
+          name: 1,
+          photoURL: 1,
+          rating: 1,
+          registrationNum: 1,
+          registrationStartDate: 1,
+          registrationEndDate: 1,
+          estateAgentName: 1,
+          estateAgentLicenseNum: 1,
+          numTransactions: { $size: "$transactions" },
+          numTransactions: 1,
         },
-        {
-          $project:
-          {
-            id: 1,
-            name: 1,
-            photoURL: 1,
-            rating: 1,
-            registrationNum: 1,
-            registrationStartDate: 1,
-            registrationEndDate: 1,
-            estateAgentName: 1,
-            estateAgentLicenseNum: 1,
-            numTransactions: {$size: "$transactions"}
-          }
-        },
-        { $sort: sortParams },
-      ])
-      .skip(skippedDocs)
-      .limit(limit)
-      .toArray()
+      },
+      { $sort: sortParams },
+    ])
+    .skip(skippedDocs)
+    .limit(limit)
+    .toArray();
 
   let totalResults = await db
     .collection("salespersons")
