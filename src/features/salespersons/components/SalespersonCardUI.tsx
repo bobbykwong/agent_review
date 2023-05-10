@@ -39,7 +39,7 @@ export function SalespersonCardUI({ salesperson }: SalespersonCardUIProps) {
           <div className="flex gap-4 items-center">
             <Rating value={salesperson.rating || 0} size="sm" readOnly />
             <p className="text-gray-400">
-              {`${salesperson.numReviews || 0} reviews`}
+              {`${salesperson.numReviews} reviews`}
             </p>
           </div>
         </div>

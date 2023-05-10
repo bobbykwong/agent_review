@@ -36,7 +36,7 @@ export function SalespersonPage({ id }: SalespersonProps) {
   const profileItems = [
     {
       header: "Transanctions",
-      value: numTransactions || "NOT READY",
+      value: numTransactions,
     },
     {
       header: "Registration No.",
@@ -82,9 +82,7 @@ export function SalespersonPage({ id }: SalespersonProps) {
               <div className="mt-8">
                 <div className="flex gap-4 items-center">
                   <Rating value={rating || 0} size="sm" readOnly />
-                  <p className="text-gray-400">
-                    {`${numReviews || 0} reviews`}
-                  </p>
+                  <p className="text-gray-400">{`${numReviews} reviews`}</p>
                 </div>
               </div>
               <div className="mt-8 grid grid-cols-2 gap-y-4 gap-x-12">
