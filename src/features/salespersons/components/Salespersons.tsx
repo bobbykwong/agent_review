@@ -43,7 +43,7 @@ export function Salespersons() {
 
   return (
     <div>
-      <div className="w-[375px] ml-auto flex flex-col gap-4 items-end">
+      <div className="w-[320px] ml-auto flex flex-col gap-4 items-end">
         <FilterSalespersons filter={filter} addFilterItems={addFilterItems} />
         <SortSalespersons
           sort={sort}
