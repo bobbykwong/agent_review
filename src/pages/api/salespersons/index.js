@@ -80,7 +80,7 @@ export default async function handler(req, res) {
           estateAgentName: 1,
           estateAgentLicenseNum: 1,
           numTransactions: { $size: "$transactions" },
-          numTransactions: 1,
+          numReviews: 1,
         },
       },
       { $sort: sortParams },
