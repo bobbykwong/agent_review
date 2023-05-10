@@ -1,6 +1,7 @@
 import { mongo } from "@/utils/mongo";
 
 export default async function handler(req, res) {
+  mongo.init();
   const db = await mongo.connect();
   const queryParams = req.query;
   const page = queryParams["page"] ? parseInt(queryParams["page"]) : 0;
@@ -14,37 +15,36 @@ export default async function handler(req, res) {
   const setFilterParams = (key) => {
     filterValue = queryParams[key];
     filterParams[key] = filterValue;
-  }
+  };
 
-  Object.keys(queryParams).forEach((element) => {    
+  Object.keys(queryParams).forEach((element) => {
     switch (element) {
       case "name":
         filterValue = queryParams[element];
         filterParams["name"] = { $regex: filterValue, $options: "i" };
         break;
       case "registrationNum":
-        setFilterParams(element)
+        setFilterParams(element);
         break;
       case "registrationStartDate":
-        setFilterParams(element)
+        setFilterParams(element);
         break;
       case "registrationEndDate":
-        setFilterParams(element)
+        setFilterParams(element);
         break;
       case "estateAgentName":
-        setFilterParams(element)
+        setFilterParams(element);
         break;
       case "estateAgentLicenseNum":
-        setFilterParams(element)
+        setFilterParams(element);
         break;
       case "ratings":
-        setFilterParams(element)
+        setFilterParams(element);
         break;
       default:
         break;
     }
   });
-
 
   // sort
   const sortParams = {};
@@ -55,66 +55,67 @@ export default async function handler(req, res) {
     sortParams[sortParamsArray[0]] = sortParamsArray[1] == "desc" ? -1 : 1;
 
     // Adding id in sort for sort consistetncy
-    sortParams["_id"] = 1
-  }
-  else{
-    sortParams["_id"] = 1
+    sortParams["_id"] = 1;
+  } else {
+    sortParams["_id"] = 1;
   }
 
   // Query Mongo
   const salespersons =
     queryParams["sortby"] === "numTransactions_desc"
+<<<<<<< HEAD
       // for sort by transactions, efficiency increased when transactions are sorted first before joining with salespersons
       ? await db.collection("transactions")
         .aggregate([
           {$group: 
+=======
+      ? await db
+          .collection("transactions")
+          .aggregate([
+>>>>>>> wt
             {
-              _id: "$salespersonId",
-              numTransactions: {$count: {}}
-            }
-          },
-          {$sort:
-            {numTransactions: -1}
-          },
-          {$lookup:
+              $group: {
+                _id: "$salespersonId",
+                numTransactions: { $count: {} },
+              },
+            },
+            { $sort: { numTransactions: -1 } },
             {
-              from: "salespersons",
-              localField: "_id",
-              foreignField: "id",
-              // add match filterparams here
-              as: "salespersons"
-            }
-          },
-          {$unwind:
-            {path: "$salespersons"}
-          },
-          // {$addFields: {"numReviews": 5}},
-          {$project:
+              $lookup: {
+                from: "salespersons",
+                localField: "_id",
+                foreignField: "id",
+                // add match filterparams here
+                as: "salespersons",
+              },
+            },
+            { $unwind: { path: "$salespersons" } },
+            // {$addFields: {"numReviews": 5}},
             {
-              id: "$_id",
-              photoURL: "$salespersons.photoURL",
-              rating: "$salespersons.rating",
-              name: "$salespersons.name",
-              registrationNum: "$salespersons.registrationNum",
-              registrationStartDate: "$salespersons.registrationStartDate",
-              registrationEndDate: "$salespersons.registrationEndDate",
-              estateAgentName: "$salespersons.estateAgentName",
-              estateAgentLicenseNum: "$salespersons.estateAgentLicenseNum",
-              numTransactions: 1,
-              numReviews: {$literal: 5}
-            }
-          }
-        ])
-        .skip(skippedDocs)
-        .limit(limit)
-        .toArray()
-      
+              $project: {
+                id: "$_id",
+                photoURL: "$salespersons.photoURL",
+                rating: "$salespersons.rating",
+                name: "$salespersons.name",
+                registrationNum: "$salespersons.registrationNum",
+                registrationStartDate: "$salespersons.registrationStartDate",
+                registrationEndDate: "$salespersons.registrationEndDate",
+                estateAgentName: "$salespersons.estateAgentName",
+                estateAgentLicenseNum: "$salespersons.estateAgentLicenseNum",
+                numTransactions: 1,
+                numReviews: { $literal: 5 },
+              },
+            },
+          ])
+          .skip(skippedDocs)
+          .limit(limit)
+          .toArray()
       : await db
           .collection("salespersons")
           // .find(filterParams)
           .aggregate([
             {
-              $match: filterParams
+              $match: filterParams,
             },
             {$sort:
               sortParams
@@ -127,6 +128,7 @@ export default async function handler(req, res) {
                 as: "transactions",
               },
             },
+<<<<<<< HEAD
             {$project:
               {
                 id: 1,
@@ -142,13 +144,26 @@ export default async function handler(req, res) {
                 numReviews: {$literal: 5}
               }
             }
+=======
+            {
+              $addFields: { numTransactions: { $size: "$transactions" } },
+            },
+            {
+              $addFields: { numReviews: 4 },
+            },
+            // {
+            //   $sort: { numTransactions: -1 , _id: 1 },
+            // },
+>>>>>>> wt
           ])
           // skip pagination may not be the best way as its performance decreases the further it skips. See range queries
           .skip(skippedDocs)
           .limit(limit)
           .toArray();
-  
-  let totalResults = await db.collection("salespersons").countDocuments(filterParams)
+
+  let totalResults = await db
+    .collection("salespersons")
+    .countDocuments(filterParams);
 
   const jsonResponse = {
     pageToken: page,
@@ -156,5 +171,6 @@ export default async function handler(req, res) {
     results: salespersons,
   };
 
+  await mongo.close();
   res.status(200).json(jsonResponse);
 }
