@@ -10,10 +10,12 @@ export default async function handler(req, res) {
   // Get the filter key and value from the params
   // Only expecting one filter key. Doesn't seem to make sense to query more than one field.
   let filterValue = "";
+  let filterKey
   const filterParams = {};
   const setFilterParams = (key) => {
-    filterValue = queryParams[key];
-    filterParams[key] = filterValue;
+    filterKey = key
+    filterValue = queryParams[filterKey];
+    filterParams[filterKey] = filterValue;
   };
 
   Object.keys(queryParams).forEach((element) => {
@@ -76,15 +78,24 @@ export default async function handler(req, res) {
             {
               $lookup: {
                 from: "salespersons",
-                localField: "_id",
-                foreignField: "id",
-                // let: {salespersonID: "$_id"},
+                let: {salespersonId: "$_id"},
                 pipeline: [
+                  {
+                    "$match": 
+                    {
+                      "$expr":
+                      {
+                        "$and":
+                        [
+                          {"$eq": ["$id", "$$salespersonId"]},
+                          {"$eq": [`$${filterKey}`, `${filterValue}`]}
+                        ]
+                      }
+                    }
+                  },
                   {
                     $lookup: {
                       from: "reviews",
-                      // localField: "_id",
-                      // foreignField: "salespersonId",
                       let: {salespersonId: "$id"},
                       pipeline: [
                         { "$match": 
@@ -101,7 +112,6 @@ export default async function handler(req, res) {
               }
             },
             { $unwind: { path: "$salespersons" } },
-            // {$addFields: {"numReviews": 5}},
             {
               $project: {
                 id: "$_id",
@@ -123,7 +133,6 @@ export default async function handler(req, res) {
           .toArray()
       : await db
           .collection("salespersons")
-          // .find(filterParams)
           .aggregate([
             {
               $match: filterParams,
