@@ -1,7 +1,7 @@
 import { mongo } from "@/utils/mongo";
 
 export default async function handler(req, res) {
-  mongo.init();
+  // mongo.init();
   const db = await mongo.connect();
   const queryParams = req.query;
   const page = queryParams["page"] ? parseInt(queryParams["page"]) : 0;
@@ -152,6 +152,6 @@ export default async function handler(req, res) {
     results: salespersons,
   };
 
-  await mongo.close();
+  // await mongo.close();
   res.status(200).json(jsonResponse);
 }
