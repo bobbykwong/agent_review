@@ -90,8 +90,6 @@ export default async function handler(req, res) {
       .limit(limit)
       .toArray()
 
-  res.status(200).send(salespersons)
-
   let totalResults = await db
     .collection("salespersons")
     .countDocuments(filterParams);
