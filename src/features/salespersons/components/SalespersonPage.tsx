@@ -1,6 +1,7 @@
 import _ from "lodash";
 import Head from "next/head";
 import Link from "next/link";
+import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
 
 import { format } from "@/utils/format";
 import { Spinner } from "@/components/spinner";
@@ -72,10 +73,16 @@ export function SalespersonPage({ id }: SalespersonProps) {
         <div className="rounded-xl shadow bg-white">
           <div className="h-32 bg-teal-400 rounded-t-xl" />
           <div className="relative">
-            <img
-              src={photoURL}
-              className="w-32 h-32 rounded-full object-cover object-top shadow ring ring-white absolute -top-16 left-8"
-            />
+            {photoURL ? (
+              <img
+                src={photoURL}
+                className="w-32 h-32 rounded-full object-cover object-top shadow ring ring-white absolute -top-16 left-8"
+              />
+            ) : (
+              <div className="w-32 h-32 rounded-full bg-white ring ring-slate-800 absolute -top-16 left-8 flex items-center justify-center">
+                <AccountBoxRoundedIcon className="!text-5xl " />
+              </div>
+            )}
             <div className="pt-24 pb-8 px-8">
               <p className="text-xl font-medium">{name}</p>
               <p className="text-gray-400">{estateAgentName}</p>
