@@ -12,8 +12,10 @@ export default function Page() {
   const id = query.id as Salesperson["id"];
 
   return (
-    <PageLayout>
-      <SalespersonPage id={id} />
-    </PageLayout>
+    <div className="bg-gray-100">
+      <PageLayout>
+        <SalespersonPage id={id} />
+      </PageLayout>
+    </div>
   );
 }

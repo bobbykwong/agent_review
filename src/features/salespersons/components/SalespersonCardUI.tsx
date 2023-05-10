@@ -1,9 +1,9 @@
+import { differenceInMonths } from "date-fns";
 import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
 
-import { Salesperson } from "../types";
-import { SalespersonRating } from "@/features/reviews";
-import { differenceInMonths } from "date-fns";
 import { Rating } from "@/components/rating";
+
+import { Salesperson } from "../types";
 
 interface SalespersonCardUIProps {
   salesperson: Salesperson;
@@ -34,12 +34,14 @@ export function SalespersonCardUI({ salesperson }: SalespersonCardUIProps) {
         </div>
         {/* Reviews */}
         <div className="mt-6">
-          {/* <SalespersonRating id={salesperson.id} /> */}
-          {/* Temp */}
           <div className="flex gap-4 items-center">
-            <Rating value={salesperson.rating || 0} size="sm" readOnly />
+            <Rating value={salesperson.rating} size="sm" readOnly />
             <p className="text-gray-400">
-              {`${salesperson.numReviews || 0} reviews`}
+              {salesperson.numReviews === 0
+                ? "0 reviews"
+                : salesperson.numReviews === 1
+                ? "1 review"
+                : `${salesperson.numReviews} reviews`}
             </p>
           </div>
         </div>
