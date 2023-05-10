@@ -2,8 +2,10 @@ import clsx from "clsx";
 import { Rating as MUIRating } from "@mui/material";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 
+import { Salesperson } from "@/features/salespersons";
+
 interface RatingProps {
-  value: number;
+  value: Salesperson["rating"];
   size: "lg" | "sm";
   readOnly: boolean;
   onChange?: (newValue: number) => void;

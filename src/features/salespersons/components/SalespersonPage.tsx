@@ -36,7 +36,7 @@ export function SalespersonPage({ id }: SalespersonProps) {
   const profileItems = [
     {
       header: "Transanctions",
-      value: numTransactions || "NOT READY",
+      value: numTransactions,
     },
     {
       header: "Registration No.",
@@ -81,16 +81,14 @@ export function SalespersonPage({ id }: SalespersonProps) {
               <p className="text-gray-400">{estateAgentName}</p>
               <div className="mt-8">
                 <div className="flex gap-4 items-center">
-                  <Rating value={rating || 0} size="sm" readOnly />
-                  <p className="text-gray-400">
-                    {`${numReviews || 0} reviews`}
-                  </p>
+                  <Rating value={rating} size="sm" readOnly />
+                  <p className="text-gray-400">{`${numReviews} reviews`}</p>
                 </div>
               </div>
               <div className="mt-8 grid grid-cols-2 gap-y-4 gap-x-12">
                 {profileItems.map(({ header, value }, i) => (
                   <div key={i}>
-                    <p>{value}</p>
+                    <p className="font-medium">{value}</p>
                     <p className="text-sm text-gray-400">{header}</p>
                   </div>
                 ))}

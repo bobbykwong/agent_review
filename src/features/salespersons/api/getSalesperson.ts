@@ -6,8 +6,8 @@ export interface Salesperson {
   id: string;
   photoURL: string;
   rating: number | null;
-  numTransactions?: number; // (temp)
-  numReviews?: number; // (temp)
+  numTransactions: number;
+  numReviews: number;
   name: string;
   registrationNum: string;
   registrationStartDate: string;
