@@ -37,7 +37,7 @@ export default async function handler(req, res) {
       case "estateAgentLicenseNum":
         setFilterParams(element);
         break;
-      case "ratings":
+      case "rating":
         setFilterParams(element);
         break;
       default:
@@ -78,9 +78,27 @@ export default async function handler(req, res) {
                 from: "salespersons",
                 localField: "_id",
                 foreignField: "id",
-                // add match filterparams here
+                // let: {salespersonID: "$_id"},
+                pipeline: [
+                  {
+                    $lookup: {
+                      from: "reviews",
+                      // localField: "_id",
+                      // foreignField: "salespersonId",
+                      let: {salespersonId: "$id"},
+                      pipeline: [
+                        { "$match": 
+                          { "$expr":
+                            {"$eq": ["$salespersonId", "$$salespersonId"]}
+                          }
+                        }
+                      ],
+                      as: "reviews"
+                    }
+                  },
+                ],
                 as: "salespersons",
-              },
+              }
             },
             { $unwind: { path: "$salespersons" } },
             // {$addFields: {"numReviews": 5}},
@@ -96,7 +114,7 @@ export default async function handler(req, res) {
                 estateAgentName: "$salespersons.estateAgentName",
                 estateAgentLicenseNum: "$salespersons.estateAgentLicenseNum",
                 numTransactions: 1,
-                numReviews: { $literal: 5 },
+                numReviews: { $size: "$salespersons.reviews" },
               },
             },
           ])
@@ -120,6 +138,14 @@ export default async function handler(req, res) {
               },
             },
             {
+              $lookup: {
+                from: "reviews",
+                localField: "id",
+                foreignField: "salespersonId",
+                as: "reviews"
+              }
+            },  
+            {
               $project: {
                 id: 1,
                 photoURL: 1,
@@ -131,7 +157,7 @@ export default async function handler(req, res) {
                 estateAgentName: 1,
                 estateAgentLicenseNum: 1,
                 numTransactions: { $size: "$transactions" },
-                numReviews: { $literal: 5 },
+                numReviews: { $size: "$reviews" },
               },
             },
           ])
