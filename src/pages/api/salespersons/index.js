@@ -63,16 +63,9 @@ export default async function handler(req, res) {
   // Query Mongo
   const salespersons =
     queryParams["sortby"] === "numTransactions_desc"
-<<<<<<< HEAD
       // for sort by transactions, efficiency increased when transactions are sorted first before joining with salespersons
       ? await db.collection("transactions")
         .aggregate([
-          {$group: 
-=======
-      ? await db
-          .collection("transactions")
-          .aggregate([
->>>>>>> wt
             {
               $group: {
                 _id: "$salespersonId",
