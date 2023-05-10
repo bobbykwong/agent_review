@@ -82,7 +82,13 @@ export function SalespersonPage({ id }: SalespersonProps) {
               <div className="mt-8">
                 <div className="flex gap-4 items-center">
                   <Rating value={rating} size="sm" readOnly />
-                  <p className="text-gray-400">{`${numReviews} reviews`}</p>
+                  <p className="text-gray-400">
+                    {numReviews === 0
+                      ? "0 reviews"
+                      : numReviews === 1
+                      ? "1 review"
+                      : `${numReviews} reviews`}
+                  </p>
                 </div>
               </div>
               <div className="mt-8 grid grid-cols-2 gap-y-4 gap-x-12">
