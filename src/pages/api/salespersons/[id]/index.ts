@@ -11,35 +11,12 @@ export default async function handler(
 
   try {
     const db = await mongo.connect();
+
     const salespersons = db.collection("salespersons");
 
     const results = salespersons.aggregate([
-      { $match: { id } },
       {
-        $lookup: {
-          from: "transactions",
-          localField: "id",
-          foreignField: "salespersonId",
-          as: "transactions",
-        },
-      },
-      {
-        $addFields: {
-          numTransactions: { $size: "$transactions" },
-        },
-      },
-      {
-        $lookup: {
-          from: "reviews",
-          localField: "id",
-          foreignField: "salespersonId",
-          as: "reviews",
-        },
-      },
-      {
-        $addFields: {
-          numReviews: { $size: "$reviews" },
-        },
+        $match: { id },
       },
       {
         $project: {
@@ -47,13 +24,13 @@ export default async function handler(
           name: 1,
           photoURL: 1,
           rating: 1,
-          numTransactions: 1,
-          numReviews: 1,
           registrationNum: 1,
           registrationStartDate: 1,
           registrationEndDate: 1,
           estateAgentName: 1,
           estateAgentLicenseNum: 1,
+          numTransactions: { $size: "$transactions" },
+          numReviews: 1,
         },
       },
     ]);
