@@ -1,7 +1,6 @@
 import { mongo } from "@/utils/mongo";
 
 export default async function handler(req, res) {
-  // mongo.init();
   const db = await mongo.connect();
   const queryParams = req.query;
   const page = queryParams["page"] ? parseInt(queryParams["page"]) : 0;
@@ -63,9 +62,10 @@ export default async function handler(req, res) {
   // Query Mongo
   const salespersons =
     queryParams["sortby"] === "numTransactions_desc"
-      // for sort by transactions, efficiency increased when transactions are sorted first before joining with salespersons
-      ? await db.collection("transactions")
-        .aggregate([
+      ? // for sort by transactions, efficiency increased when transactions are sorted first before joining with salespersons
+        await db
+          .collection("transactions")
+          .aggregate([
             {
               $group: {
                 _id: "$salespersonId",
@@ -110,9 +110,7 @@ export default async function handler(req, res) {
             {
               $match: filterParams,
             },
-            {$sort:
-              sortParams
-            },
+            { $sort: sortParams },
             {
               $lookup: {
                 from: "transactions",
@@ -121,8 +119,8 @@ export default async function handler(req, res) {
                 as: "transactions",
               },
             },
-            {$project:
-              {
+            {
+              $project: {
                 id: 1,
                 photoURL: 1,
                 rating: 1,
@@ -133,9 +131,9 @@ export default async function handler(req, res) {
                 estateAgentName: 1,
                 estateAgentLicenseNum: 1,
                 numTransactions: { $size: "$transactions" },
-                numReviews: {$literal: 5}
-              }
-            }
+                numReviews: { $literal: 5 },
+              },
+            },
           ])
           // skip pagination may not be the best way as its performance decreases the further it skips. See range queries
           .skip(skippedDocs)
@@ -152,6 +150,5 @@ export default async function handler(req, res) {
     results: salespersons,
   };
 
-  // await mongo.close();
   res.status(200).json(jsonResponse);
 }
