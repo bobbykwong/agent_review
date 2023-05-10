@@ -64,6 +64,7 @@ export default async function handler(req, res) {
   // Query Mongo
   const salespersons =
     queryParams["sortby"] === "numTransactions_desc"
+      // for sort by transactions, efficiency increased when transactions are sorted first before joining with salespersons
       ? await db.collection("transactions")
         .aggregate([
           {$group: 
@@ -115,6 +116,9 @@ export default async function handler(req, res) {
             {
               $match: filterParams
             },
+            {$sort:
+              sortParams
+            },
             {
               $lookup: {
                 from: "transactions",
@@ -123,20 +127,23 @@ export default async function handler(req, res) {
                 as: "transactions",
               },
             },
-            {
-              $addFields:
-                {numTransactions: { $size: "$transactions" }},
-            },
-            {
-              $addFields:
-                {numReviews: 4},
-            },
-            // {
-            //   $sort: { numTransactions: -1 , _id: 1 },
-            // },
+            {$project:
+              {
+                id: "$id",
+                photoURL: "photoURL",
+                rating: "rating",
+                name: "name",
+                registrationNum: "registrationNum",
+                registrationStartDate: "registrationStartDate",
+                registrationEndDate: "registrationEndDate",
+                estateAgentName: "estateAgentName",
+                estateAgentLicenseNum: "estateAgentLicenseNum",
+                numTransactions: { $size: "$transactions" },
+                numReviews: {$literal: 5}
+              }
+            }
           ])
           // skip pagination may not be the best way as its performance decreases the further it skips. See range queries
-          .sort(sortParams)
           .skip(skippedDocs)
           .limit(limit)
           .toArray();
