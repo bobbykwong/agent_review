@@ -129,15 +129,15 @@ export default async function handler(req, res) {
             },
             {$project:
               {
-                id: "$id",
-                photoURL: "photoURL",
-                rating: "rating",
-                name: "name",
-                registrationNum: "registrationNum",
-                registrationStartDate: "registrationStartDate",
-                registrationEndDate: "registrationEndDate",
-                estateAgentName: "estateAgentName",
-                estateAgentLicenseNum: "estateAgentLicenseNum",
+                id: 1,
+                photoURL: 1,
+                rating: 1,
+                name: 1,
+                registrationNum: 1,
+                registrationStartDate: 1,
+                registrationEndDate: 1,
+                estateAgentName: 1,
+                estateAgentLicenseNum: 1,
                 numTransactions: { $size: "$transactions" },
                 numReviews: {$literal: 5}
               }
