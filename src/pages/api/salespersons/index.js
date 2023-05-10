@@ -57,6 +57,9 @@ export default async function handler(req, res) {
     // Adding id in sort for sort consistetncy
     sortParams["_id"] = 1
   }
+  else{
+    sortParams["_id"] = 1
+  }
 
   // Query Mongo
   const salespersons =
@@ -84,6 +87,7 @@ export default async function handler(req, res) {
           {$unwind:
             {path: "$salespersons"}
           },
+          // {$addFields: {"numReviews": 5}},
           {$project:
             {
               id: "$_id",
@@ -95,7 +99,8 @@ export default async function handler(req, res) {
               registrationEndDate: "$salespersons.registrationEndDate",
               estateAgentName: "$salespersons.estateAgentName",
               estateAgentLicenseNum: "$salespersons.estateAgentLicenseNum",
-              numTransactions: 1
+              numTransactions: 1,
+              numReviews: {$literal: 5}
             }
           }
         ])
@@ -119,7 +124,12 @@ export default async function handler(req, res) {
               },
             },
             {
-              $addFields: {numTransactions: { $size: "$transactions" }}
+              $addFields:
+                {numTransactions: { $size: "$transactions" }},
+            },
+            {
+              $addFields:
+                {numReviews: 4},
             },
             // {
             //   $sort: { numTransactions: -1 , _id: 1 },
