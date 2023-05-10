@@ -128,7 +128,6 @@ export default async function handler(req, res) {
                 as: "transactions",
               },
             },
-<<<<<<< HEAD
             {$project:
               {
                 id: 1,
@@ -144,17 +143,6 @@ export default async function handler(req, res) {
                 numReviews: {$literal: 5}
               }
             }
-=======
-            {
-              $addFields: { numTransactions: { $size: "$transactions" } },
-            },
-            {
-              $addFields: { numReviews: 4 },
-            },
-            // {
-            //   $sort: { numTransactions: -1 , _id: 1 },
-            // },
->>>>>>> wt
           ])
           // skip pagination may not be the best way as its performance decreases the further it skips. See range queries
           .skip(skippedDocs)
