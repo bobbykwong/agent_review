@@ -60,8 +60,6 @@
 - GET /salespersons/:id/transactions
 
 #### Fields
-
-- `id`
 - `salespersonId`
 - `transactionType`
 - `transactedAt`
