@@ -1,51 +1,30 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { mongo } from "@/utils/mongo";
+import { Salesperson } from "@/features/salespersons";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  return res.status(200).json("ok");
-  // const db = await mongo.connect();
-  // const queryParams = req.query;
-  // const page = queryParams["page"] ? parseInt(queryParams["page"]) : 0;
-  // const limit = queryParams["limit"] ? parseInt(queryParams["limit"]) : 10;
-  // const skippedDocs = page * limit;
-  // const salespersonId = queryParams["salespersonId"];
-  // let transactions;
-  // let totalResults;
+  const id = req.query.id as Salesperson["id"];
 
-  // // Give all transactions
-  // if (!salespersonId) {
-  //   transactions = await db
-  //     .collection("transactions")
-  //     .find({})
-  //     .skip(skippedDocs)
-  //     .limit(limit)
-  //     .toArray();
+  try {
+    const db = await mongo.connect();
+    const salespersons = db.collection("salespersons");
+    const salesperson = await salespersons.findOne({ id });
 
-  //   // Using estimatedDocumentCount not as accurate as countDocuments but much fast and should be sufficient for simply getting all docs in collection
-  //   totalResults = await db
-  //     .collection("transactions")
-  //     .estimatedDocumentCount({});
-  // } else {
-  //   transactions = await db
-  //     .collection("transactions")
-  //     .find({ salespersonId: salespersonId })
-  //     .skip(skippedDocs)
-  //     .limit(limit)
-  //     .toArray();
+    if (!salesperson) {
+      return res.status(404).json("Salesperson not found");
+    }
 
-  //   totalResults = await db
-  //     .collection("transactions")
-  //     .countDocuments({ salespersonId: salespersonId });
-  // }
-
-  // const jsonResponse = {
-  //   pageToken: page,
-  //   totalResults: totalResults,
-  //   results: transactions,
-  // };
-  // res.status(200).json(jsonResponse);
+    return res.status(200).json({
+      pageToken: 0,
+      totalResults: 500,
+      results: salesperson["transactions"],
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Internal server error");
+  }
 }

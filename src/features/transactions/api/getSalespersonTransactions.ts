@@ -26,12 +26,7 @@ export interface Transaction {
 }
 
 function getSalespersonTransactions({ id }: { id: Salesperson["id"] }) {
-  return get<APIList<Transaction>>("/transactions", {
-    params: {
-      salespersonId: id,
-      limit: 10000000,
-    },
-  });
+  return get<APIList<Transaction>>(`/salespersons/${id}/transactions`);
 }
 
 export function useSalespersonTransactions({ id }: { id: Salesperson["id"] }) {
