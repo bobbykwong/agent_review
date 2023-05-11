@@ -14,6 +14,7 @@ interface SortSalespersonsProps {
 const sortLabels = {
   numTransactions_desc: "Transactions",
   registrationStartDate_asc: "Experience",
+  rating_desc: "Rating",
 };
 
 export function SortSalespersons({
