@@ -20,9 +20,7 @@ export function Salespersons() {
   useEffect(() => window.scrollTo(0, 0), [pageNum]);
 
   const { filter, addFilterItems, removeFilterItems } = useFilter({});
-  const { sort, addSortItem, removeSortItem } = useSort(
-    "registrationStartDate_asc"
-  );
+  const { sort, addSortItem, removeSortItem } = useSort("rating_desc");
 
   useEffect(resetPageNum, [filter, sort]);
 

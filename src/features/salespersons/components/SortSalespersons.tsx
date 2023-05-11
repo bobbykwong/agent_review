@@ -70,7 +70,14 @@ export function SortSalespersons({
         >
           Experience
         </MenuItem>
-        <MenuItem onClick={handleClose}>Rating</MenuItem>
+        <MenuItem
+          onClick={() => {
+            addSortItem("rating_desc");
+            handleClose();
+          }}
+        >
+          Rating
+        </MenuItem>
       </Menu>
     </div>
   );
