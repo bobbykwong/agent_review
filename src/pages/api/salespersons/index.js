@@ -61,43 +61,48 @@ export default async function handler(req, res) {
     sortParams["_id"] = 1;
   }
 
-  // Query Mongo
-  const salespersons = await db
-    .collection("salespersons")
-    .aggregate([
-      {
-        $match: filterParams,
-      },
-      {
-        $project: {
-          id: 1,
-          name: 1,
-          photoURL: 1,
-          rating: 1,
-          registrationNum: 1,
-          registrationStartDate: 1,
-          registrationEndDate: 1,
-          estateAgentName: 1,
-          estateAgentLicenseNum: 1,
-          numTransactions: { $size: "$transactions" },
-          numReviews: 1,
+  try {
+    // Query Mongo
+    const salespersons = await db
+      .collection("salespersons")
+      .aggregate([
+        {
+          $match: filterParams,
         },
-      },
-      { $sort: sortParams },
-    ])
-    .skip(skippedDocs)
-    .limit(limit)
-    .toArray();
+        {
+          $project: {
+            id: 1,
+            name: 1,
+            photoURL: 1,
+            rating: 1,
+            registrationNum: 1,
+            registrationStartDate: 1,
+            registrationEndDate: 1,
+            estateAgentName: 1,
+            estateAgentLicenseNum: 1,
+            numTransactions: { $size: "$transactions" },
+            numReviews: 1,
+          },
+        },
+        { $sort: sortParams },
+      ])
+      .skip(skippedDocs)
+      .limit(limit)
+      .toArray();
 
-  let totalResults = await db
-    .collection("salespersons")
-    .countDocuments(filterParams);
+    let totalResults = await db
+      .collection("salespersons")
+      .countDocuments(filterParams);
 
-  const jsonResponse = {
-    pageToken: page,
-    totalResults: totalResults,
-    results: salespersons,
-  };
+    const jsonResponse = {
+      pageToken: page,
+      totalResults: totalResults,
+      results: salespersons,
+    };
 
-  res.status(200).json(jsonResponse);
+    res.status(200).json(jsonResponse);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Internal server error");
+  }
 }
