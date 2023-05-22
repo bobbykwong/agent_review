@@ -15,7 +15,7 @@ export function NavBar() {
         <HorizontalLayout>
           <div className="flex items-center justify-between h-full">
             <Link href="/" className="text-teal-400 text-xl font-bold">
-              Realway
+              Better Agents
             </Link>
             {initialised ? (
               <AuthStatus />
