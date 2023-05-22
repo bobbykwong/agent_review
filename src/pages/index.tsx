@@ -122,12 +122,22 @@ function Write() {
       className="bg-slate-50"
       primaryComponent={
         <div className="flex flex-col justify-center h-full">
-          <h2 className="text-3xl font-bold">Share your experience</h2>
-          <p className="mt-2 text-gray-500 tracking-wider text-lg">
-            {`We believe that every user's experience is important and can help
-               others make informed decisions. Leaving a review is quick and
-               easy, and it makes a big difference to us and our community.`}{" "}
-          </p>
+          <div className="py-4">
+            <h2 className="text-3xl font-bold">Share your experience</h2>
+            <p className="mt-2 text-gray-500 tracking-wider text-lg">
+              {`We believe that every user's experience is important and can help
+                others make informed decisions. Leaving a review is quick and
+                easy, and it makes a big difference to us and our community.`}{" "}
+            </p>
+          </div>
+          <div className="flex tablet:flex-row items-center tablet:items-start justify-self-start tablet:gap-8 py-4">
+            <Link
+              href="/reviews-policy"
+              className="block px-8 py-4 bg-white text-black rounded-full border-black border-2 font-medium hover:opacity-90 text-lg"
+            >
+              See our Reviews Policy
+            </Link>
+          </div>
         </div>
       }
       secondaryComponent={

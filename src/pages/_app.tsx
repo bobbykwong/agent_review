@@ -35,11 +35,11 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Realway</title>
+        <title>Better Agents</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta
           name="description"
-          content="Find the perfect property agent in Singapore with our app. Use real transaction data and agent expertise to make an informed decision. Say goodbye to biased advertising and hello to reliable recommendations."
+          content="Find the perfect property agent in Singapore. Use real transaction data and agent reviews to make an informed decision. Say goodbye to biased advertising and hello to reliable recommendations."
         />
         <link rel="icon" href="/graphics/hut.svg" />
       </Head>
