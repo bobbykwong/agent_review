@@ -23,6 +23,35 @@ interface ContainerProps {
   secondaryComponent: ReactElement;
   primaryComponentDir: "left" | "right";
   className?: string;
+  bottomComponent?: ReactElement;
+}
+
+function TopBannerContainer({
+  primaryComponent,
+  secondaryComponent,
+  primaryComponentDir,
+  className,
+  bottomComponent,
+}: ContainerProps) {
+  return (
+    <div className={clsx("py-12 tablet:py-24", className)}>
+      <HorizontalLayout>
+        <div
+          className={clsx(
+            "flex flex-col gap-12",
+            {
+              "laptop:flex-row": primaryComponentDir === "left",
+            },
+            { "laptop:flex-row-reverse": primaryComponentDir === "right" }
+          )}
+        >
+          <div className="flex-1">{primaryComponent}</div>
+          <div className="flex-1">{secondaryComponent}</div>
+        </div>
+      </HorizontalLayout>
+      <div className="flex-1">{bottomComponent}</div>
+    </div>
+  );
 }
 
 function Container({
@@ -53,36 +82,39 @@ function Container({
 
 function Banner() {
   return (
-    <Container
-      className="bg-slate-800 text-white"
-      primaryComponent={
-        <div className="flex-1 max-w-[700px]">
-          <h1 className="text-5xl font-semibold">
-            Find the perfect real estate agent for you
-          </h1>
-          <p className="mt-8 text-gray-300 text-lg">
-            Find agents based on their experience, transaction history, and
-            reviews from other users.
-          </p>
-          <div className="py-8">
-            <Rating value={5} size="lg" readOnly />
+      <TopBannerContainer
+        className="bg-slate-800 text-white"
+        primaryComponent={
+          <div className="flex-1 max-w-[700px]">
+            <h1 className="text-5xl font-semibold">
+              Find the perfect real estate agent for you
+            </h1>
+            <p className="mt-8 text-gray-300 text-lg">
+              Find agents based on their experience, transaction history, and
+              reviews from other users.
+            </p>
+            <div className="py-8">
+              <Rating value={5} size="lg" readOnly />
+            </div>
           </div>
-        </div>
-      }
-      secondaryComponent={
-        <div>
-          <div className="flex-1 flex flex-col tablet:flex-row items-center tablet:items-start justify-center gap-4 tablet:gap-8">
-            <Link
-              href="/salespersons"
-              className="block px-8 py-4 bg-teal-400 text-white rounded-full font-semibold hover:opacity-90 text-lg"
-            >
-              Find Agent
-            </Link>
+        }
+        secondaryComponent={
+          <div></div>
+        }
+        primaryComponentDir="left"
+        bottomComponent={
+          <div>
+            <div className="flex-1 flex flex-col tablet:flex-row items-center tablet:items-start justify-center gap-4 tablet:gap-8">
+              <Link
+                href="/salespersons"
+                className="block px-8 py-4 md:w-1/3 shrink bg-teal-400 text-white rounded-full font-semibold hover:opacity-90 text-lg text-center"
+              >
+                Find Agent
+              </Link>
+            </div>
           </div>
-        </div>
-      }
-      primaryComponentDir="left"
-    />
+        }
+      />
   );
 }
 
@@ -125,17 +157,15 @@ function Write() {
           <div className="py-4">
             <h2 className="text-3xl font-bold">Share your experience</h2>
             <p className="mt-2 text-gray-500 tracking-wider text-lg">
-              {`We believe that every user's experience is important and can help
-                others make informed decisions. Leaving a review is quick and
-                easy, and it makes a big difference to us and our community.`}{" "}
+              {`We believe that every user's experience with an agent is important and can help others make informed decisions. Leaving a review is quick and easy, and it makes a big difference to us and our community.`}{" "}
             </p>
           </div>
           <div className="flex tablet:flex-row items-center tablet:items-start justify-self-start tablet:gap-8 py-4">
             <Link
-              href="/reviews-policy"
+              href="/salespersons"
               className="block px-8 py-4 bg-white text-black rounded-full border-black border-2 font-medium hover:opacity-90 text-lg"
             >
-              See our Reviews Policy
+              Leave a Review
             </Link>
           </div>
         </div>
@@ -162,8 +192,16 @@ function Commitment() {
             Commitment to remain fair and trustworthy
           </h2>
           <p className="mt-2 text-gray-500 tracking-wider text-lg">
-            {`We take our commitment to being fair and trustworthy very seriously. As an independent review platform, we have no affiliation with any property agencies, which means we can remain impartial and unbiased. Our review system is designed to show all reviews, whether positive or negative, and we're constantly working to improve it to combat fake reviews.`}
+            {`As an independent review platform, we have no affiliation with any property agency. Our review system is designed to show all reviews, whether positive or negative.`}
           </p>
+          <div className="flex tablet:flex-row items-center tablet:items-start justify-self-start tablet:gap-8 py-8">
+            <Link
+              href="/reviews-policy"
+              className="block px-8 py-4 bg-white text-black rounded-full border-black border-2 font-medium hover:opacity-90 text-lg"
+            >
+              See our Reviews Policy
+            </Link>
+          </div>
         </div>
       }
       secondaryComponent={
