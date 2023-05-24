@@ -23,6 +23,35 @@ interface ContainerProps {
   secondaryComponent: ReactElement;
   primaryComponentDir: "left" | "right";
   className?: string;
+  bottomComponent?: ReactElement;
+}
+
+function TopBannerContainer({
+  primaryComponent,
+  secondaryComponent,
+  primaryComponentDir,
+  className,
+  bottomComponent,
+}: ContainerProps) {
+  return (
+    <div className={clsx("py-12 tablet:py-24", className)}>
+      <HorizontalLayout>
+        <div
+          className={clsx(
+            "flex flex-col gap-12",
+            {
+              "laptop:flex-row": primaryComponentDir === "left",
+            },
+            { "laptop:flex-row-reverse": primaryComponentDir === "right" }
+          )}
+        >
+          <div className="flex-1">{primaryComponent}</div>
+          <div className="flex-1">{secondaryComponent}</div>
+        </div>
+      </HorizontalLayout>
+      <div className="flex-1">{bottomComponent}</div>
+    </div>
+  );
 }
 
 function Container({
@@ -53,36 +82,39 @@ function Container({
 
 function Banner() {
   return (
-    <Container
-      className="bg-slate-800 text-white"
-      primaryComponent={
-        <div className="flex-1 max-w-[700px]">
-          <h1 className="text-5xl font-semibold">
-            Find the perfect real estate agent for you
-          </h1>
-          <p className="mt-8 text-gray-300 text-lg">
-            Find agents based on their experience, transaction history, and
-            reviews from other users.
-          </p>
-          <div className="py-8">
-            <Rating value={5} size="lg" readOnly />
+      <TopBannerContainer
+        className="bg-slate-800 text-white"
+        primaryComponent={
+          <div className="flex-1 max-w-[700px]">
+            <h1 className="text-5xl font-semibold">
+              Find the perfect real estate agent for you
+            </h1>
+            <p className="mt-8 text-gray-300 text-lg">
+              Find agents based on their experience, transaction history, and
+              reviews from other users.
+            </p>
+            <div className="py-8">
+              <Rating value={5} size="lg" readOnly />
+            </div>
           </div>
-        </div>
-      }
-      secondaryComponent={
-        <div>
-          <div className="flex-1 flex flex-col tablet:flex-row items-center tablet:items-start justify-center gap-4 tablet:gap-8">
-            <Link
-              href="/salespersons"
-              className="block px-8 py-4 bg-teal-400 text-white rounded-full font-semibold hover:opacity-90 text-lg"
-            >
-              Find Agent
-            </Link>
+        }
+        secondaryComponent={
+          <div></div>
+        }
+        primaryComponentDir="left"
+        bottomComponent={
+          <div>
+            <div className="flex-1 flex flex-col tablet:flex-row items-center tablet:items-start justify-center gap-4 tablet:gap-8">
+              <Link
+                href="/salespersons"
+                className="block px-8 py-4 md:w-1/3 shrink bg-teal-400 text-white rounded-full font-semibold hover:opacity-90 text-lg text-center"
+              >
+                Find Agent
+              </Link>
+            </div>
           </div>
-        </div>
-      }
-      primaryComponentDir="left"
-    />
+        }
+      />
   );
 }
 
