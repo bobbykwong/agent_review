@@ -50,7 +50,7 @@ export function GoogleLoginOrSignupForm({ onSuccess }: UserSignupFormProps) {
         </h2>
         <div id="signInDiv" />
         <p className="text-gray-500 text-sm mt-4">
-          By continuing, you agree to Realway&apos;{" "}
+          By continuing, you agree to Better Agents&apos;{" "}
           <span className="underline">Terms of Use</span>.
         </p>
       </div>

@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Realway</title>
+        <title>Better Agents</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta
           name="description"

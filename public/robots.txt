@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://www.realway.app
+Host: https://www.betteragents.sg
 
 # Sitemaps
-Sitemap: https://www.realway.app/sitemap.xml
+Sitemap: https://www.betteragents.sg/sitemap.xml
