@@ -157,17 +157,15 @@ function Write() {
           <div className="py-4">
             <h2 className="text-3xl font-bold">Share your experience</h2>
             <p className="mt-2 text-gray-500 tracking-wider text-lg">
-              {`We believe that every user's experience is important and can help
-                others make informed decisions. Leaving a review is quick and
-                easy, and it makes a big difference to us and our community.`}{" "}
+              {`We believe that every user's experience with an agent is important and can help others make informed decisions. Leaving a review is quick and easy, and it makes a big difference to us and our community.`}{" "}
             </p>
           </div>
           <div className="flex tablet:flex-row items-center tablet:items-start justify-self-start tablet:gap-8 py-4">
             <Link
-              href="/reviews-policy"
+              href="/salespersons"
               className="block px-8 py-4 bg-white text-black rounded-full border-black border-2 font-medium hover:opacity-90 text-lg"
             >
-              See our Reviews Policy
+              Leave a Review
             </Link>
           </div>
         </div>
@@ -194,8 +192,16 @@ function Commitment() {
             Commitment to remain fair and trustworthy
           </h2>
           <p className="mt-2 text-gray-500 tracking-wider text-lg">
-            {`We take our commitment to being fair and trustworthy very seriously. As an independent review platform, we have no affiliation with any property agencies, which means we can remain impartial and unbiased. Our review system is designed to show all reviews, whether positive or negative, and we're constantly working to improve it to combat fake reviews.`}
+            {`As an independent review platform, we have no affiliation with any property agency. Our review system is designed to show all reviews, whether positive or negative.`}
           </p>
+          <div className="flex tablet:flex-row items-center tablet:items-start justify-self-start tablet:gap-8 py-8">
+            <Link
+              href="/reviews-policy"
+              className="block px-8 py-4 bg-white text-black rounded-full border-black border-2 font-medium hover:opacity-90 text-lg"
+            >
+              See our Reviews Policy
+            </Link>
+          </div>
         </div>
       }
       secondaryComponent={
