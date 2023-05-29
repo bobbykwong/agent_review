@@ -87,11 +87,10 @@ function Banner() {
         primaryComponent={
           <div className="flex-1 max-w-[700px]">
             <h1 className="text-5xl font-semibold">
-              Find the perfect real estate agent for you
+              Review your Property Agent
             </h1>
             <p className="mt-8 text-gray-300 text-lg">
-              Find agents based on their experience, transaction history, and
-              reviews from other users.
+              Share your experience with a property agent and help others find the best agents in Singapore
             </p>
             <div className="py-8">
               <Rating value={5} size="lg" readOnly />
@@ -127,7 +126,7 @@ function Read() {
             Filter profiles by metrics that matter to you
           </h2>
           <p className="mt-2 text-gray-500 tracking-wider text-lg">
-            {`No more sifting through irrelevant ads or flashy photos. Choose agents based on skills and competencies that are essential for a successful partnership. `}
+            {`Discover the best agents by reading reviews from previous client experience. Sort profiles using ratings and transaction data.`}
           </p>
         </div>
       }
@@ -157,7 +156,7 @@ function Write() {
           <div className="py-4">
             <h2 className="text-3xl font-bold">Share your experience</h2>
             <p className="mt-2 text-gray-500 tracking-wider text-lg">
-              {`We believe that every user's experience with an agent is important and can help others make informed decisions. Leaving a review is quick and easy, and it makes a big difference to us and our community.`}{" "}
+              {`Leaving a review is quick and easy. Every experience with a property agent is important to us and can helps others make better informed decisions.`}{" "}
             </p>
           </div>
           <div className="flex tablet:flex-row items-center tablet:items-start justify-self-start tablet:gap-8 py-4">
@@ -165,7 +164,7 @@ function Write() {
               href="/salespersons"
               className="block px-8 py-4 bg-white text-black rounded-full border-black border-2 font-medium hover:opacity-90 text-lg"
             >
-              Leave a Review
+              Write a review
             </Link>
           </div>
         </div>
