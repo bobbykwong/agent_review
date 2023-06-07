@@ -9,9 +9,7 @@ export function Footer() {
           <Link href="/legal" className="underline underline-offset-4">
             Legal
           </Link>
-          <Link href="/" className="underline underline-offset-4">
-            Contact us
-          </Link>
+          betteragentssg@gmail.com
         </div>
       </HorizontalLayout>
     </div>
