@@ -11,6 +11,7 @@ import { Notification } from "@/components/notification";
 import { useNotificationStore } from "@/stores/useNotificationStore";
 import { Layout } from "@/components/layout";
 import { useAuthInit } from "@/features/authentication";
+import { Analytics } from '@vercel/analytics/react';
 
 const font = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700"],
@@ -54,6 +55,7 @@ export default function App({ Component, pageProps }: AppProps) {
         </SWRConfig>
         <Notification />
       </MUIThemeProvider>
+      <Analytics />
     </>
   );
 }
