@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta
           name="description"
-          content="Find the perfect property agent in Singapore. Use real transaction data and agent reviews to make an informed decision. Say goodbye to biased advertising and hello to reliable recommendations."
+          content="Find out more about your property agent. See reviews from past clients or write a review to help future clients."
         />
         <link rel="icon" href="/graphics/hut.svg" />
       </Head>
