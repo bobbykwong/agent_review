@@ -71,7 +71,7 @@ export function CreateReview({ salespersonId }: CreateReviewProps) {
           <TextField
             value={msg || ""}
             onChange={(e) => setMsg(e.target.value)}
-            placeholder="We value your opinion! Share your thoughts about this agent's services."
+            placeholder="Do give honest, detailed and constructive feedback about your experience with the property Agent. Remember to be friendly and courteous when doing so!"
             multiline
             rows={10}
           />
