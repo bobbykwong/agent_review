@@ -5,8 +5,6 @@ import MenuItem from '@mui/material/MenuItem';
 import HomeIcon from '@mui/icons-material/Home';
 import { useState } from "react";
 
-import { format } from "@/utils/format";
-
 interface PropertyTypeProps {
   propertyType: string | null;
   setPropertyType: (value: string | null) => void

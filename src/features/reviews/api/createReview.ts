@@ -10,7 +10,12 @@ import { Review } from "./getSalespersonReviews";
 export interface CreateReviewParams {
   data: Pick<
     Review,
-    "salespersonId" | "experiencedAt" | "msg" | "rating" | "propertyType"
+    | "salespersonId"
+    | "experiencedAt"
+    | "msg"
+    | "rating"
+    | "propertyType"
+    | "transactionType"
   >;
 }
 

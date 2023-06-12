@@ -51,8 +51,14 @@ export default async function handler(
         return res.status(401).json("Login required");
       }
 
-      const { salespersonId, experiencedAt, rating, msg, propertyType } =
-        req.body;
+      const {
+        salespersonId,
+        experiencedAt,
+        rating,
+        msg,
+        propertyType,
+        transactionType,
+      } = req.body;
 
       const reviews = db.collection("reviews");
       const result = await reviews.insertOne({
@@ -63,6 +69,7 @@ export default async function handler(
         rating,
         msg,
         propertyType,
+        transactionType,
         isVerified: false,
       });
 

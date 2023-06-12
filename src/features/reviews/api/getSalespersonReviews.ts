@@ -14,6 +14,7 @@ export interface Review {
   msg: string;
   rating: number;
   propertyType: string;
+  transactionType: string;
   isVerified: boolean;
 }
 

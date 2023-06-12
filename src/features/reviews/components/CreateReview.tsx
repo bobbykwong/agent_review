@@ -3,7 +3,7 @@ import { TextField } from "@mui/material";
 import { useState } from "react";
 
 import { Button } from "@/components/button";
-import { MonthYearField, RatingField, PropertyTypeField } from "@/components/form";
+import { MonthYearField, RatingField, PropertyTypeField, TransactionTypeField } from "@/components/form";
 import { Salesperson } from "@/features/salespersons";
 
 import { useCreateReview } from "../api/createReview";
@@ -16,6 +16,7 @@ export function CreateReview({ salespersonId }: CreateReviewProps) {
   const [experiencedAt, setExperiencedAt] = useState<Date | null>(null);
   const [rating, setRating] = useState<number | null>(null);
   const [propertyType, setPropertyType] = useState<string | null>(null);
+  const [transactionType, setTransactionType] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
 
   const [errMsg, setErrMsg] = useState<string | null>(null);
@@ -23,7 +24,7 @@ export function CreateReview({ salespersonId }: CreateReviewProps) {
   const createReviewMutation = useCreateReview({ salespersonId });
 
   function handleSubmit() {
-    if (!experiencedAt || !rating || !msg ||!propertyType) {
+    if (!experiencedAt || !rating || !msg ||!propertyType ||!transactionType) {
       setErrMsg("All fields required");
       return;
     }
@@ -38,6 +39,7 @@ export function CreateReview({ salespersonId }: CreateReviewProps) {
       experiencedAt: experiencedAt.toISOString(),
       rating,
       propertyType,
+      transactionType,
       msg,
     });
   }
@@ -57,6 +59,13 @@ export function CreateReview({ salespersonId }: CreateReviewProps) {
           <PropertyTypeField
             propertyType = {propertyType}
             setPropertyType = {setPropertyType}
+          />
+        </div>
+        <div>
+          <Label>Transaction Type</Label>
+          <TransactionTypeField 
+            transactionType = {transactionType}
+            setTransactionType = {setTransactionType}
           />
         </div>
         <div>
