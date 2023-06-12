@@ -13,6 +13,7 @@ export interface Review {
   experiencedAt: string;
   msg: string;
   rating: number;
+  propertyType: string;
   isVerified: boolean;
 }
 

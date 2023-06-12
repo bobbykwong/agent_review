@@ -51,7 +51,9 @@ export default async function handler(
         return res.status(401).json("Login required");
       }
 
-      const { salespersonId, experiencedAt, rating, msg } = req.body;
+      const { salespersonId, experiencedAt, rating, msg, propertyType } =
+        req.body;
+
       const reviews = db.collection("reviews");
       const result = await reviews.insertOne({
         createdAt: new Date().toISOString(),
@@ -60,6 +62,7 @@ export default async function handler(
         experiencedAt,
         rating,
         msg,
+        propertyType,
         isVerified: false,
       });
 
