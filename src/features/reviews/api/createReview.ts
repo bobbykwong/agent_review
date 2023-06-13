@@ -8,7 +8,16 @@ import { Salesperson } from "@/features/salespersons";
 import { Review } from "./getSalespersonReviews";
 
 export interface CreateReviewParams {
-  data: Pick<Review, "salespersonId" | "experiencedAt" | "msg" | "rating">;
+  data: Pick<
+    Review,
+    | "salespersonId"
+    | "experiencedAt"
+    | "msg"
+    | "rating"
+    | "propertyType"
+    | "transactionType"
+    | "transactionCompleted"
+  >;
 }
 
 function createReview(params: CreateReviewParams) {

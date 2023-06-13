@@ -54,7 +54,7 @@ export default function Home() {
                 Agents are not allowed to delete reviews, they are only allowed to flag a review if there is doubt on whether the reviewer had an actual interaction with the agent. An agent cannot flag a review simply because a review is negative or unfavourable to them. 
                 <br></br>
                 <br></br>
-                When a review has been flagged, we will investigate the review. If it is found to be a fake review or flout the guidelines for reviews, the review will be taken down.          
+                When a review has been flagged, we will investigate the review. If it is found to have flout the guidelines for reviews, the review will be taken down.          
               </p>  
           </div>
           <div className="py-12">

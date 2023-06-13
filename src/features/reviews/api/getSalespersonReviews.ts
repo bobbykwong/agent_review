@@ -13,6 +13,9 @@ export interface Review {
   experiencedAt: string;
   msg: string;
   rating: number;
+  propertyType: string;
+  transactionType: string;
+  transactionCompleted: boolean;
   isVerified: boolean;
 }
 
