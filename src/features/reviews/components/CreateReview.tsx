@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { TextField } from "@mui/material";
 import { useState } from "react";
+import Link from "next/link";
 
 import { Button } from "@/components/button";
 import { MonthYearField, RatingField, PropertyTypeField, TransactionTypeField, TransactionCompletedField } from "@/components/form";
@@ -97,6 +98,14 @@ export function CreateReview({ salespersonId }: CreateReviewProps) {
             multiline
             rows={10}
           />
+        </div>
+        <div>
+          <Link
+            href="/reviews-policy"
+            className="text-blue-400 underline underline-offset-2" 
+          >
+            See our Review Policy
+          </Link>
         </div>
         <div className="h-8">
           {errMsg && <p className="text-red-500">{errMsg}</p>}
