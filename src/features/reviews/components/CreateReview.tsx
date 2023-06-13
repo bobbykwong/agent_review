@@ -3,7 +3,7 @@ import { TextField } from "@mui/material";
 import { useState } from "react";
 
 import { Button } from "@/components/button";
-import { MonthYearField, RatingField, PropertyTypeField, TransactionTypeField } from "@/components/form";
+import { MonthYearField, RatingField, PropertyTypeField, TransactionTypeField, TransactionCompletedField } from "@/components/form";
 import { Salesperson } from "@/features/salespersons";
 
 import { useCreateReview } from "../api/createReview";
@@ -17,8 +17,8 @@ export function CreateReview({ salespersonId }: CreateReviewProps) {
   const [rating, setRating] = useState<number | null>(null);
   const [propertyType, setPropertyType] = useState<string | null>(null);
   const [transactionType, setTransactionType] = useState<string | null>(null);
+  const [transactionCompleted, setTransactionCompleted] = useState<boolean | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
-
   const [errMsg, setErrMsg] = useState<string | null>(null);
 
   const createReviewMutation = useCreateReview({ salespersonId });
@@ -34,12 +34,18 @@ export function CreateReview({ salespersonId }: CreateReviewProps) {
       return;
     }
 
+    if(typeof(transactionCompleted) != "boolean"){
+      setErrMsg("All fields required");
+      return;
+    }
+
     createReviewMutation.trigger({
       salespersonId,
       experiencedAt: experiencedAt.toISOString(),
       rating,
       propertyType,
       transactionType,
+      transactionCompleted,
       msg,
     });
   }
@@ -66,6 +72,13 @@ export function CreateReview({ salespersonId }: CreateReviewProps) {
           <TransactionTypeField 
             transactionType = {transactionType}
             setTransactionType = {setTransactionType}
+          />
+        </div>
+        <div>
+          <Label>Was the transaction completed with the agent?</Label>
+          <TransactionCompletedField
+            transactionCompleted = {transactionCompleted}
+            setTransactionCompleted = {setTransactionCompleted}
           />
         </div>
         <div>

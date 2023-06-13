@@ -16,6 +16,7 @@ export interface CreateReviewParams {
     | "rating"
     | "propertyType"
     | "transactionType"
+    | "transactionCompleted"
   >;
 }
 

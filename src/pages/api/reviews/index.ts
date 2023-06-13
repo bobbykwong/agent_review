@@ -58,6 +58,7 @@ export default async function handler(
         msg,
         propertyType,
         transactionType,
+        transactionCompleted,
       } = req.body;
 
       const reviews = db.collection("reviews");
@@ -70,6 +71,7 @@ export default async function handler(
         msg,
         propertyType,
         transactionType,
+        transactionCompleted,
         isVerified: false,
       });
 

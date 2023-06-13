@@ -1,9 +1,11 @@
 import { Rating } from "@/components/rating";
 import { Spinner } from "@/components/spinner";
+import { ReviewChip } from "@/components/reviewChip";
 import { format } from "@/utils/format";
 
 import { Review } from "../api/getSalespersonReviews";
 import { useUser } from "@/features/users/api/getUser";
+import { property } from "lodash";
 
 interface ReviewProps {
   review: Review;
@@ -18,6 +20,9 @@ export function Review({ review }: ReviewProps) {
     experiencedAt,
     msg,
     rating,
+    propertyType,
+    transactionType,
+    transactionCompleted,
     isVerified,
   } = review;
 
@@ -36,6 +41,9 @@ export function Review({ review }: ReviewProps) {
           <p className="font-semibold">{authorQuery.data.name}</p>
           <Rating value={rating} size="sm" readOnly />
         </div>
+      </div>
+      <div>
+        <ReviewChip transactionType={transactionType} propertyType={propertyType} transactionCompleted={transactionCompleted} />
       </div>
       <div id="content" className="text-gray-600 leading-8">
         {msg}

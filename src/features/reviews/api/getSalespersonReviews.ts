@@ -15,6 +15,7 @@ export interface Review {
   rating: number;
   propertyType: string;
   transactionType: string;
+  transactionCompleted: boolean;
   isVerified: boolean;
 }
 
