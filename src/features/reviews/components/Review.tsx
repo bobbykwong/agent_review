@@ -45,7 +45,7 @@ export function Review({ review }: ReviewProps) {
       <div>
         <ReviewChip transactionType={transactionType} propertyType={propertyType} transactionCompleted={transactionCompleted} />
       </div>
-      <div id="content" className="text-gray-600 leading-8">
+      <div id="content" className="mt-4 text-gray-600 leading-8">
         {msg}
       </div>
       <div className="mt-4">
