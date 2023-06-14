@@ -102,6 +102,7 @@ export function CreateReview({ salespersonId }: CreateReviewProps) {
         <div>
           <Link
             href="/reviews-policy"
+            target="_blank" 
             className="text-blue-400 underline underline-offset-2" 
           >
             See our Review Policy
