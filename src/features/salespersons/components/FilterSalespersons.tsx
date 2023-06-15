@@ -15,21 +15,27 @@ export function FilterSalespersons({
 }: FilterSalespersonsProps) {
   const [name, setName] = useState(filter.name);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (name === null) {
-        return;
-      } else if (name === "") {
-        addFilterItems({ name: null });
-      } else {
-        addFilterItems({ name });
-      }
-    }, 500);
+  // useEffect(() => {
+  //   const timeoutId = setTimeout(() => {
+  //     if (name === null) {
+  //       return;
+  //     } else if (name === "") {
+  //       addFilterItems({ name: null });
+  //     } else {
+  //       addFilterItems({ name });
+  //     }
+  //   }, 500);
 
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [name]);
+  //   return () => {
+  //     clearTimeout(timeoutId);
+  //   };
+  // }, [name]);
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      addFilterItems({ name });
+    }
+  };
 
   return (
     <TextField
@@ -44,6 +50,7 @@ export function FilterSalespersons({
             <SearchRoundedIcon />
           </div>
         ),
+        onKeyDown: handleKeyPress
       }}
     />
   );
