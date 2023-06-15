@@ -1,9 +1,11 @@
 import { TextField } from "@mui/material";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import IconButton from '@mui/material/IconButton';
-import { useEffect, useState } from "react";
+import { useEffect, useState,  } from "react";
+import { useRouter } from 'next/router'
 
 import { APIFilter } from "@/api/types";
+import Link from "next/link";
 
 interface FilterSalespersonsProps {
   filter: APIFilter;
@@ -16,9 +18,16 @@ export function FilterSalespersons({
 }: FilterSalespersonsProps) {
   const [name, setName] = useState(filter.name);
 
+  const router = useRouter();
+
+  const handleSearch = () => {
+    addFilterItems({ name });
+    router.push(`?name=${name}`)
+  }
+
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      addFilterItems({ name });
+      handleSearch()
     }
   };
 
@@ -33,7 +42,9 @@ export function FilterSalespersons({
         startAdornment: (
           <div className="pr-4 text-gray-600">
             <IconButton
-              onClick={() => {addFilterItems({ name })}}
+              onClick={() => {
+                handleSearch()
+              }}
             >
               <SearchRoundedIcon />
             </IconButton>
