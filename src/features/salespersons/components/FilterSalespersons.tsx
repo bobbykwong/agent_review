@@ -1,5 +1,6 @@
 import { TextField } from "@mui/material";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import IconButton from '@mui/material/IconButton';
 import { useEffect, useState } from "react";
 
 import { APIFilter } from "@/api/types";
@@ -14,22 +15,6 @@ export function FilterSalespersons({
   addFilterItems,
 }: FilterSalespersonsProps) {
   const [name, setName] = useState(filter.name);
-
-  // useEffect(() => {
-  //   const timeoutId = setTimeout(() => {
-  //     if (name === null) {
-  //       return;
-  //     } else if (name === "") {
-  //       addFilterItems({ name: null });
-  //     } else {
-  //       addFilterItems({ name });
-  //     }
-  //   }, 500);
-
-  //   return () => {
-  //     clearTimeout(timeoutId);
-  //   };
-  // }, [name]);
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -47,7 +32,11 @@ export function FilterSalespersons({
       InputProps={{
         startAdornment: (
           <div className="pr-4 text-gray-600">
-            <SearchRoundedIcon />
+            <IconButton
+              onClick={() => {addFilterItems({ name })}}
+            >
+              <SearchRoundedIcon />
+            </IconButton>
           </div>
         ),
         onKeyDown: handleKeyPress
