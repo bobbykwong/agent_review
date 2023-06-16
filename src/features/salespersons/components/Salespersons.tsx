@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from "react";
+import { useRouter } from 'next/router'
 import Link from "next/link";
 
 import { useSort } from "@/hooks/useSort";
@@ -16,6 +17,8 @@ import { FilterSalespersons } from "./FilterSalespersons";
 export const SALESPERSONS_PAGE_SIZE = 12;
 
 export function Salespersons() {
+  const {query} = useRouter();
+  
   const { pageNum, resetPageNum, prevPage, nextPage } = usePage();
   useEffect(() => window.scrollTo(0, 0), [pageNum]);
 

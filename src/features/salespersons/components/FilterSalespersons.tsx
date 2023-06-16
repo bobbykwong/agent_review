@@ -21,8 +21,23 @@ export function FilterSalespersons({
   const router = useRouter();
 
   const handleSearch = () => {
-    addFilterItems({ name });
-    router.push(`?name=${name}`)
+    if(name === undefined) {
+      router.push(`/salespersons`)
+    }
+    else {
+      // Remove front and end white spaces on search
+      const cleanName = name.trim()
+
+      if(cleanName === ""){
+        addFilterItems({ cleanName });
+        router.push(`/salespersons`)
+      }
+      else{
+        // Reflect query params on url
+        addFilterItems({ cleanName });
+        router.push(`?name=${cleanName}`)
+      }
+    }
   }
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
