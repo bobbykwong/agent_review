@@ -13,20 +13,24 @@ import { SalespersonCardUI } from "./SalespersonCardUI";
 import { useSalespersons } from "../api/getSalespersons";
 import { SortSalespersons } from "./SortSalespersons";
 import { FilterSalespersons } from "./FilterSalespersons";
+import { APIFilter } from "@/api/types";
 
 export const SALESPERSONS_PAGE_SIZE = 12;
 
 export function Salespersons() {
-  const {query} = useRouter();
-  
   const { pageNum, resetPageNum, prevPage, nextPage } = usePage();
   useEffect(() => window.scrollTo(0, 0), [pageNum]);
+  
+  const {query} = useRouter()
 
-  const { filter, addFilterItems, removeFilterItems } = useFilter({});
+  const queryName = query["name"] !== undefined ? query["name"] : ""
+
+  const { filter, addFilterItems, removeFilterItems } = useFilter({name: queryName});
   const { sort, addSortItem, removeSortItem } = useSort("rating_desc");
+  console.log(`filter name is: ${JSON.stringify(filter)}`)
 
   useEffect(resetPageNum, [filter, sort]);
-
+  
   const salespersonsQuery = useSalespersons({
     filter,
     sort,

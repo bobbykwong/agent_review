@@ -17,7 +17,6 @@ export function FilterSalespersons({
   addFilterItems,
 }: FilterSalespersonsProps) {
   const [name, setName] = useState(filter.name);
-
   const router = useRouter();
 
   const handleSearch = () => {
@@ -29,12 +28,12 @@ export function FilterSalespersons({
       const cleanName = name.trim()
 
       if(cleanName === ""){
-        addFilterItems({ cleanName });
+        addFilterItems({ name: cleanName });
         router.push(`/salespersons`)
       }
       else{
         // Reflect query params on url
-        addFilterItems({ cleanName });
+        addFilterItems({ name: cleanName });
         router.push(`?name=${cleanName}`)
       }
     }
