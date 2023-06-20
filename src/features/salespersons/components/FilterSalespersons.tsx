@@ -32,7 +32,7 @@ export function FilterSalespersons({
       }
       else{
         // Reflect query params on url
-        router.push(`?name=${cleanName}`)
+        router.push({query: {"name": cleanName}})
       }
     }
   }

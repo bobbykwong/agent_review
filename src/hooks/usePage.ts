@@ -11,13 +11,17 @@ export function usePage() {
   }
 
   function prevPage() {
-    setPageNum(pageNum - 1);
-    router.query.page = pageNum.toString();
+    const newPageNum = pageNum - 1;
+    setPageNum(newPageNum);
+    router.query.page = newPageNum.toString();
+    router.push(router);
   }
 
   function nextPage() {
-    setPageNum(pageNum + 1);
-    router.query.page = pageNum.toString();
+    const newPageNum = pageNum + 1;
+    setPageNum(newPageNum);
+    router.query.page = newPageNum.toString();
+    router.push(router);
   }
 
   return {
