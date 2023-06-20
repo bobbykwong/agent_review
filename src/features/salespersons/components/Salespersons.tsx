@@ -21,13 +21,20 @@ export function Salespersons() {
   const { pageNum, resetPageNum, prevPage, nextPage } = usePage();
   useEffect(() => window.scrollTo(0, 0), [pageNum]);
   
-  const {query} = useRouter()
-
+  // Get name from url params
+  const {query} = useRouter();
   const queryName = query["name"] !== undefined ? query["name"] : ""
 
   const { filter, addFilterItems, removeFilterItems } = useFilter({name: queryName});
   const { sort, addSortItem, removeSortItem } = useSort("rating_desc");
   console.log(`filter name is: ${JSON.stringify(filter)}`)
+
+  // Ensure that filter name is always aligned with url param name
+  useEffect(() => {
+    if (queryName !== filter.name) {
+      addFilterItems({ name: queryName });
+    }
+  }, [queryName, filter.name, addFilterItems]);
 
   useEffect(resetPageNum, [filter, sort]);
   

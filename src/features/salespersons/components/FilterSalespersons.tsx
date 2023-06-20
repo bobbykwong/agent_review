@@ -28,12 +28,10 @@ export function FilterSalespersons({
       const cleanName = name.trim()
 
       if(cleanName === ""){
-        addFilterItems({ name: cleanName });
         router.push(`/salespersons`)
       }
       else{
         // Reflect query params on url
-        addFilterItems({ name: cleanName });
         router.push(`?name=${cleanName}`)
       }
     }
