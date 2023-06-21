@@ -1,8 +1,11 @@
 import { TextField } from "@mui/material";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import { useEffect, useState } from "react";
+import IconButton from '@mui/material/IconButton';
+import { useEffect, useState,  } from "react";
+import { useRouter } from 'next/router'
 
 import { APIFilter } from "@/api/types";
+import Link from "next/link";
 
 interface FilterSalespersonsProps {
   filter: APIFilter;
@@ -14,22 +17,31 @@ export function FilterSalespersons({
   addFilterItems,
 }: FilterSalespersonsProps) {
   const [name, setName] = useState(filter.name);
+  const router = useRouter();
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (name === null) {
-        return;
-      } else if (name === "") {
-        addFilterItems({ name: null });
-      } else {
-        addFilterItems({ name });
+  const handleSearch = () => {
+    if(name === undefined) {
+      router.push(`/salespersons`)
+    }
+    else {
+      // Remove front and end white spaces on search
+      const cleanName = name.trim()
+
+      if(cleanName === ""){
+        router.push(`/salespersons`)
       }
-    }, 500);
+      else{
+        // Reflect query params on url
+        router.push({query: {"name": cleanName}})
+      }
+    }
+  }
 
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [name]);
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearch()
+    }
+  };
 
   return (
     <TextField
@@ -41,9 +53,16 @@ export function FilterSalespersons({
       InputProps={{
         startAdornment: (
           <div className="pr-4 text-gray-600">
-            <SearchRoundedIcon />
+            <IconButton
+              onClick={() => {
+                handleSearch()
+              }}
+            >
+              <SearchRoundedIcon />
+            </IconButton>
           </div>
         ),
+        onKeyDown: handleKeyPress
       }}
     />
   );
