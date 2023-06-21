@@ -1,6 +1,7 @@
 import { Menu, MenuItem } from "@mui/material";
 import ArrowDownwardRoundedIcon from "@mui/icons-material/ArrowDownwardRounded";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 import { APISort } from "@/api/types";
 import { Button } from "@/components/button";
@@ -22,6 +23,7 @@ export function SortSalespersons({
   addSortItem,
   removeSortItem,
 }: SortSalespersonsProps) {
+  const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -59,6 +61,7 @@ export function SortSalespersons({
           onClick={() => {
             addSortItem("numTransactions_desc");
             handleClose();
+            router.push({query: {"sort": "numTransactions_desc"}})
           }}
         >
           Number of transactions
@@ -67,6 +70,7 @@ export function SortSalespersons({
           onClick={() => {
             addSortItem("registrationStartDate_asc");
             handleClose();
+            router.push({query: {"sort": "registrationStartDate_asc"}})
           }}
         >
           Experience
@@ -75,6 +79,7 @@ export function SortSalespersons({
           onClick={() => {
             addSortItem("rating_desc");
             handleClose();
+            router.push({query: {"sort": "rating_desc"}})
           }}
         >
           Rating

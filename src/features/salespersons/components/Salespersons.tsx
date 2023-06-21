@@ -22,7 +22,7 @@ export function Salespersons() {
   const {query} = useRouter();
   const queryName = query["name"] !== undefined ? query["name"] : ""
   const queryPageNum = query["page"] !== undefined ? parseInt(query["page"] as string)-1 : 0
-  console.log(queryPageNum)
+  
   const { filter, addFilterItems, removeFilterItems } = useFilter({name: queryName});
   const { pageNum, setPageNum, resetPageNum, prevPage, nextPage } = usePage(queryPageNum);
   useEffect(() => window.scrollTo(0, 0), [pageNum]);
@@ -42,7 +42,11 @@ export function Salespersons() {
     }
   }, [queryPageNum, pageNum]);
 
-  useEffect(resetPageNum, [filter, sort]);
+  // see notion task "Salespersons page reflects url params"
+  // useEffect(resetPageNum, [filter, sort]);
+  useEffect(() => {
+    addSortItem("rating_desc")
+  }, [filter])
   
   const salespersonsQuery = useSalespersons({
     filter,
