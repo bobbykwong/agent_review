@@ -18,16 +18,15 @@ import { APIFilter } from "@/api/types";
 export const SALESPERSONS_PAGE_SIZE = 12;
 
 export function Salespersons() {
-  const { pageNum, resetPageNum, prevPage, nextPage } = usePage();
-  useEffect(() => window.scrollTo(0, 0), [pageNum]);
-  
   // Get name from url params
   const {query} = useRouter();
   const queryName = query["name"] !== undefined ? query["name"] : ""
-
+  const queryPageNum = query["page"] !== undefined ? parseInt(query["page"] as string)-1 : 0
+  console.log(queryPageNum)
   const { filter, addFilterItems, removeFilterItems } = useFilter({name: queryName});
+  const { pageNum, setPageNum, resetPageNum, prevPage, nextPage } = usePage(queryPageNum);
+  useEffect(() => window.scrollTo(0, 0), [pageNum]);
   const { sort, addSortItem, removeSortItem } = useSort("rating_desc");
-  console.log(`filter name is: ${JSON.stringify(filter)}`)
 
   // Ensure that filter name is always aligned with url param name
   useEffect(() => {
@@ -35,6 +34,13 @@ export function Salespersons() {
       addFilterItems({ name: queryName });
     }
   }, [queryName, filter.name, addFilterItems]);
+
+  // Ensure that pageNum is always aligned with url page number
+  useEffect(() => {
+    if (queryPageNum !== pageNum) {
+      setPageNum(queryPageNum);
+    }
+  }, [queryPageNum, pageNum]);
 
   useEffect(resetPageNum, [filter, sort]);
   
