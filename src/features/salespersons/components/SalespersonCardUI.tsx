@@ -36,13 +36,6 @@ export function SalespersonCardUI({ salesperson }: SalespersonCardUIProps) {
         <div className="mt-6">
           <div className="flex gap-4 items-center">
             <Rating value={salesperson.rating} size="sm" readOnly />
-            <p className="text-gray-400">
-              {salesperson.numReviews === 0
-                ? "0 reviews"
-                : salesperson.numReviews === 1
-                ? "1 review"
-                : `${salesperson.numReviews} reviews`}
-            </p>
           </div>
         </div>
       </div>
@@ -50,18 +43,15 @@ export function SalespersonCardUI({ salesperson }: SalespersonCardUIProps) {
       {/* Transactions and Experience */}
       <div className="flex divide-x py-4">
         <div className="px-6 flex-1 flex flex-col items-center justify-center">
-          <span className="text-2xl font-semibold">
-            {`${Math.ceil(
-              differenceInMonths(
-                new Date(),
-                new Date(salesperson.registrationStartDate)
-              ) / 12
-            )}Y`}
+          <span className="md:text-3xl text-2xl font-semibold">
+            {salesperson.numReviews}
           </span>
-          <span className="text-sm text-gray-400">Experience</span>
+          <span className="text-sm text-gray-400">
+            {salesperson.numReviews === 1 ? "Review" : "Reviews"} 
+          </span>
         </div>
         <div className="px-8 flex-1 flex flex-col items-center justify-center">
-          <span className="text-2xl font-semibold">
+          <span className="md:text-3xl text-2xl font-semibold">
             {salesperson.numTransactions}
           </span>
           <span className="text-sm text-gray-400">Transactions</span>
