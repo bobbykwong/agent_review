@@ -165,7 +165,7 @@ const responsiveCarousel = {
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3
+    items: 4
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
@@ -187,7 +187,7 @@ function LatestReviews() {
 
   return (
     <div className="my-8">
-      <Carousel responsive={responsiveCarousel}>
+      <Carousel responsive={responsiveCarousel} >
         {/* Add your carousel slides here */}
         {latestReviewsQuery.data.results.map((review) => (
           <ReviewCard review={review} />

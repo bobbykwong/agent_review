@@ -37,7 +37,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
   const salespersonResult = salesperson[0]
 
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg px-5 pt-5 bg-slate-50">
+    <div className="max-w-sm rounded overflow-hidden shadow-lg px-5 pt-5 ml-5  bg-slate-50">
       <div className="flex">
         <img
             src={salespersonResult.photoURL}
