@@ -5,12 +5,22 @@ import { ReactElement } from "react";
 
 import { HorizontalLayout } from "@/components/layout";
 import { Rating } from "@/components/rating";
+import { Spinner } from "@/components/spinner";
+import { Empty } from "@/components/empty";
+
 import { Salesperson, SalespersonCardUI } from "@/features/salespersons";
+import { useLatestReviews } from "@/features/reviews/api/getLatestReviews";
+
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { ReviewCard } from "@/features/reviews/components/ReviewCard";
+
 
 export default function Page() {
   return (
     <div>
       <Banner />
+      <LatestReviews />
       <Read />
       <Write />
       <Commitment />
@@ -145,6 +155,46 @@ function Read() {
       primaryComponentDir="right"
     />
   );
+}
+
+const responsiveCarousel = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1
+  }
+};
+
+function LatestReviews() {
+  const latestReviewsQuery = useLatestReviews()
+  if (!latestReviewsQuery.data) return <Spinner />;
+  if (latestReviewsQuery.data.results.length === 0) return <Empty />;
+  if (latestReviewsQuery.data.results.length > 0) {
+    console.log(latestReviewsQuery)
+  }
+
+  return (
+    <div className="my-8">
+      <Carousel responsive={responsiveCarousel}>
+        {/* Add your carousel slides here */}
+        {latestReviewsQuery.data.results.map((review) => (
+          <ReviewCard review={review} />
+        ))}
+      </Carousel>
+    </div>
+  )
 }
 
 function Write() {
