@@ -192,8 +192,8 @@ function LatestReviews() {
       </h2>
       <Carousel responsive={responsiveCarousel} >
         {/* Add your carousel slides here */}
-        {latestReviewsQuery.data.results.map((review) => (
-          <ReviewCard review={review} />
+        {latestReviewsQuery.data.results.map((review, i) => (
+          <ReviewCard review={review} key={i} />
         ))}
       </Carousel>
     </div>
