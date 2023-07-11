@@ -56,7 +56,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
                 />
               {/* precision to 1 decimal place */}
               
-              <p className="font-semibold align-text-bottom">{Math.round(salespersonResult.rating * 10) / 10} <span className="text-sm font-normal text-gray-500 align-text-bottom">({salespersonResult.numReviews} Reviews) </span></p>
+              <p className="font-semibold align-text-bottom">{Math.round(salespersonResult.rating * 10) / 10} <span className="text-sm font-normal text-gray-500 align-text-bottom">({salespersonResult.numReviews}   {salespersonResult.numReviews === 1 ? "Review" : "Reviews"}) </span></p>
               {/* <p className="text-sm text-gray-500 align-text-bottom">({salespersonResult.numReviews} Reviews)</p> */}
               
             </div>
