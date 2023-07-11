@@ -20,9 +20,9 @@ export default function Page() {
   return (
     <div>
       <Banner />
-      <LatestReviews />
-      <Read />
       <Write />
+      <LatestReviews />
+      {/* <Read /> */}
       <Commitment />
     </div>
   );
@@ -187,6 +187,9 @@ function LatestReviews() {
 
   return (
     <div className="my-8">
+      <h2 className="text-3xl font-bold text-center py-10">
+        See our latest reviews
+      </h2>
       <Carousel responsive={responsiveCarousel} >
         {/* Add your carousel slides here */}
         {latestReviewsQuery.data.results.map((review) => (
