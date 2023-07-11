@@ -10,7 +10,7 @@ interface ReviewChipProps {
 
 export function ReviewChip({transactionType, propertyType, transactionCompleted}: ReviewChipProps) {
 
-  const chips = [transactionType, propertyType, transactionCompleted].map((e) => {
+  const chips = [transactionType, propertyType, transactionCompleted].map((e, index) => {
     switch (e){
         case transactionType:
             if(typeof(transactionType) !== "undefined"){
@@ -19,6 +19,7 @@ export function ReviewChip({transactionType, propertyType, transactionCompleted}
                         label={transactionType}
                         color="primary"
                         size="small"
+                        key={index}
                     />
                 )
             }
@@ -30,6 +31,7 @@ export function ReviewChip({transactionType, propertyType, transactionCompleted}
                         label={propertyType}
                         color="success"
                         size="small"
+                        key={index}
                     />
                 )
             }
@@ -42,6 +44,7 @@ export function ReviewChip({transactionType, propertyType, transactionCompleted}
                             label="Transacted"
                             color="warning"
                             size="small"
+                            key={index}
                         />
                     )
                 }
@@ -51,6 +54,7 @@ export function ReviewChip({transactionType, propertyType, transactionCompleted}
                             label="Not transacted"
                             color="warning"
                             size="small"
+                            key={index}
                         />
                     )
                 }
