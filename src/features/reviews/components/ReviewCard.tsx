@@ -38,7 +38,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
   const salespersonResult = salesperson[0]
 
   return (
-    <div className="max-w-xs h-96 rounded overflow-hidden shadow-lg px-5 pt-5 ml-5 border-2 bg-slate-50">
+    <div className="max-w-xs h-96 rounded overflow-hidden shadow-lg px-5 pt-5 ml-10 border-2 bg-slate-50">
       <Link
         href={`/salespersons/${salespersonId}`}
       >

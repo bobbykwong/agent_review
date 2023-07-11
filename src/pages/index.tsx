@@ -223,7 +223,7 @@ function Write() {
         </div>
       }
       secondaryComponent={
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center hidden lg:block">
           <img
             className="h-[300px] tablet:h-[400px] object-cover rounded"
             src="https://images.unsplash.com/photo-1475483768296-6163e08872a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80"
