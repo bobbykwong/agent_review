@@ -5,14 +5,24 @@ import { ReactElement } from "react";
 
 import { HorizontalLayout } from "@/components/layout";
 import { Rating } from "@/components/rating";
+import { Spinner } from "@/components/spinner";
+import { Empty } from "@/components/empty";
+
 import { Salesperson, SalespersonCardUI } from "@/features/salespersons";
+import { useLatestReviews } from "@/features/reviews/api/getLatestReviews";
+
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { ReviewCard } from "@/features/reviews/components/ReviewCard";
+
 
 export default function Page() {
   return (
     <div>
       <Banner />
-      <Read />
       <Write />
+      <LatestReviews />
+      {/* <Read /> */}
       <Commitment />
     </div>
   );
@@ -147,6 +157,49 @@ function Read() {
   );
 }
 
+const responsiveCarousel = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 4
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1
+  }
+};
+
+function LatestReviews() {
+  const latestReviewsQuery = useLatestReviews()
+  if (!latestReviewsQuery.data) return <Spinner />;
+  if (latestReviewsQuery.data.results.length === 0) return <Empty />;
+  if (latestReviewsQuery.data.results.length > 0) {
+    console.log(latestReviewsQuery)
+  }
+
+  return (
+    <div className="my-8">
+      <h2 className="text-3xl font-bold text-center py-10">
+        See our latest reviews
+      </h2>
+      <Carousel responsive={responsiveCarousel} >
+        {/* Add your carousel slides here */}
+        {latestReviewsQuery.data.results.map((review) => (
+          <ReviewCard review={review} />
+        ))}
+      </Carousel>
+    </div>
+  )
+}
+
 function Write() {
   return (
     <Container
@@ -170,7 +223,7 @@ function Write() {
         </div>
       }
       secondaryComponent={
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center hidden lg:block">
           <img
             className="h-[300px] tablet:h-[400px] object-cover rounded"
             src="https://images.unsplash.com/photo-1475483768296-6163e08872a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80"
