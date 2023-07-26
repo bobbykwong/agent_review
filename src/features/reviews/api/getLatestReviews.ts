@@ -35,7 +35,7 @@ export interface Review {
 function getLatestReviews() {
   return get<APIList<Review>>("/reviews/latest", {
     params: {
-      limit: 5,
+      limit: 8,
     },
   });
 }

@@ -178,12 +178,9 @@ const responsiveCarousel = {
 };
 
 function LatestReviews() {
-  const latestReviewsQuery = useLatestReviews()
+  const latestReviewsQuery = useLatestReviews();
   if (!latestReviewsQuery.data) return <Spinner />;
   if (latestReviewsQuery.data.results.length === 0) return <Empty />;
-  if (latestReviewsQuery.data.results.length > 0) {
-    console.log(latestReviewsQuery)
-  }
 
   return (
     <div className="my-8">

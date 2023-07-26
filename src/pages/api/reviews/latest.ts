@@ -11,7 +11,7 @@ export default async function handler(
 
     const queryParams = req.query;
     const limitParam = queryParams["limit"];
-    const limit = limitParam ? parseInt(limitParam as string) : 5;
+    const limit = limitParam ? parseInt(limitParam as string) : 8;
 
     const reviews = await db
       .collection("reviews")
