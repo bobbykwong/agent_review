@@ -63,7 +63,7 @@ export function SalespersonPage({ id }: SalespersonProps) {
         <title>{name}</title>
         <meta
           name="description"
-          content={`${name} is a real estate salesperson currently working with ${estateAgentName}.`}
+          content={`${name} is a property agent currently working with ${estateAgentName}. Read reviews from past clients.`}
         >
           {name}
         </meta>
