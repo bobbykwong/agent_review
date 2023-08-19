@@ -93,13 +93,13 @@ function Container({
 function Banner() {
   return (
       <TopBannerContainer
-        className="bg-slate-800 text-white"
+        className="text-black"
         primaryComponent={
-          <div className="flex-1 max-w-[700px]">
-            <h1 className="text-5xl font-semibold">
+          <div className="flex flex-col max-w-[700px]">
+            <h1 className="text-5xl font-semibold max-w-xl">
               Review your Property Agent
             </h1>
-            <p className="mt-8 text-gray-300 text-lg">
+            <p className="mt-8 text-black text-lg max-w-xl">
               Share your experience with a property agent and help others find the best agents in Singapore
             </p>
             <div className="py-8">
@@ -108,12 +108,17 @@ function Banner() {
           </div>
         }
         secondaryComponent={
-          <div></div>
+          <div className="flex justify-end items-center ">
+            <img
+              className="h-80 object-cover rounded"
+              src="https://img.freepik.com/free-vector/realtor-concept-illustration_114360-3090.jpg?w=740&t=st=1692343508~exp=1692344108~hmac=36bff7243420eb6eec69b62f1c5ec6cb25badf702e7fddc6e7f2d70790394752"
+            />
+          </div>
         }
         primaryComponentDir="left"
         bottomComponent={
           <div>
-            <div className="flex-1 flex flex-col tablet:flex-row items-center tablet:items-start justify-center gap-4 tablet:gap-8">
+            <div className="flex-1 flex flex-col tablet:flex-row items-center tablet:items-start justify-center gap-4 tablet:gap-8 pt-20">
               <Link
                 href="/salespersons"
                 className="block px-8 py-4 md:w-1/3 shrink bg-teal-400 text-white rounded-full font-semibold hover:opacity-90 text-lg text-center"
@@ -200,7 +205,7 @@ function LatestReviews() {
 function Write() {
   return (
     <Container
-      className="bg-slate-50"
+      className=""
       primaryComponent={
         <div className="flex flex-col justify-center h-full">
           <div className="py-4">
@@ -220,10 +225,10 @@ function Write() {
         </div>
       }
       secondaryComponent={
-        <div className="flex justify-center items-center hidden lg:block">
+        <div className="flex justify-end items-center">
           <img
             className="h-[300px] tablet:h-[400px] object-cover rounded"
-            src="https://images.unsplash.com/photo-1475483768296-6163e08872a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80"
+            src="https://img.freepik.com/free-vector/emotional-feedback-concept-illustration_114360-17635.jpg?w=740&t=st=1692434542~exp=1692435142~hmac=b2bbd05fef3e3b2721e99afa6b1ab69e45b887a6b9b759a05a08d2222904659c"
           />
         </div>
       }
@@ -238,10 +243,10 @@ function Commitment() {
       primaryComponent={
         <div className="flex flex-col justify-center h-full">
           <h2 className="text-3xl font-bold">
-            Commitment to remain fair and trustworthy
+            Dos and Don’ts for review
           </h2>
           <p className="mt-2 text-gray-500 tracking-wider text-lg">
-            {`As an independent review platform, we have no affiliation with any property agency. Our review system is designed to show all reviews, whether positive or negative.`}
+            {`All experiences should be shared in an honest and constructive manner. Read our review guidelines before sharing your property agent experience.`}
           </p>
           <div className="flex tablet:flex-row items-center tablet:items-start justify-self-start tablet:gap-8 py-8">
             <Link
@@ -254,14 +259,21 @@ function Commitment() {
         </div>
       }
       secondaryComponent={
-        <div className="flex justify-center items-center">
-          <img
-            className="h-[300px] tablet:h-[400px] object-cover rounded"
-            src="https://images.unsplash.com/photo-1523586797235-580376c5d862?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1037&q=80"
-          />
+        <div className="flex justify-center">
+          <div className="bg-teal-400 w-2/3 rounded-lg py-12 px-8">
+            <h2 className="text-3xl font-bold">
+              What we stand for
+            </h2>
+            <p className="mt-2 text-gray-800 tracking-wider text-lg">
+              As an independent review platform, we have no affiliation with any property agency.
+              <br></br>
+              <br></br>
+              We try to show all reviews, whether positive or negative, and we're constantly working to combat fake reviews.
+            </p>
+          </div>
         </div>
       }
-      primaryComponentDir="right"
+      primaryComponentDir="left"
     />
   );
 }
