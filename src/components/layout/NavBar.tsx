@@ -10,12 +10,12 @@ export function NavBar() {
   const initialised = useAuthStore((s) => s.initialised);
 
   return (
-    <div className="bg-slate-800 h-16 sticky top-0 z-10">
+    <div className="border-4 border-teal-400 h-16 sticky top-0 z-10">
       <div className="flex items-center h-full">
         <HorizontalLayout>
           <div className="flex items-center justify-between h-full">
             <Link href="/" className="text-teal-400 text-xl font-bold">
-              Better Agents
+              <img src="/graphics/logo_ver_1.jpg" className="h-14"/>
             </Link>
             {initialised ? (
               <AuthStatus />
