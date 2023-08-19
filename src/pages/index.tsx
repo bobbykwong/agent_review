@@ -110,7 +110,7 @@ function Banner() {
         secondaryComponent={
           <div className="flex justify-end items-center ">
             <img
-              className="h-80 object-cover rounded"
+              className="hidden lg:block h-80 object-cover rounded"
               src="https://img.freepik.com/free-vector/realtor-concept-illustration_114360-3090.jpg?w=740&t=st=1692343508~exp=1692344108~hmac=36bff7243420eb6eec69b62f1c5ec6cb25badf702e7fddc6e7f2d70790394752"
             />
           </div>
@@ -118,7 +118,7 @@ function Banner() {
         primaryComponentDir="left"
         bottomComponent={
           <div>
-            <div className="flex-1 flex flex-col tablet:flex-row items-center tablet:items-start justify-center gap-4 tablet:gap-8 pt-20">
+            <div className="flex-1 flex flex-col tablet:flex-row items-center tablet:items-start justify-center gap-4 tablet:gap-8 lg:pt-20">
               <Link
                 href="/salespersons"
                 className="block px-8 py-4 md:w-1/3 shrink bg-teal-400 text-white rounded-full font-semibold hover:opacity-90 text-lg text-center"
@@ -207,14 +207,14 @@ function Write() {
     <Container
       className=""
       primaryComponent={
-        <div className="flex flex-col justify-center h-full">
-          <div className="py-4">
+        <div className="flex flex-col justify-center items-center lg:items-start h-full">
+          {/* <div className="py-4"> */}
             <h2 className="text-3xl font-bold">Share your experience</h2>
             <p className="mt-2 text-gray-500 tracking-wider text-lg">
               {`Leaving a review is quick and easy. Every experience with a property agent is important to us and can helps others make better informed decisions.`}{" "}
             </p>
-          </div>
-          <div className="flex tablet:flex-row items-center tablet:items-start justify-self-start tablet:gap-8 py-4">
+          {/* </div> */}
+          <div className="flex tablet:flex-row items-center tablet:items-start justify-self-start tablet:gap-8 py-8">
             <Link
               href="/salespersons"
               className="block px-8 py-4 bg-white text-black rounded-full border-black border-2 font-medium hover:opacity-90 text-lg"
@@ -225,7 +225,7 @@ function Write() {
         </div>
       }
       secondaryComponent={
-        <div className="flex justify-end items-center">
+        <div className="flex justify-center lg:justify-end items-center">
           <img
             className="h-[300px] tablet:h-[400px] object-cover rounded"
             src="https://img.freepik.com/free-vector/emotional-feedback-concept-illustration_114360-17635.jpg?w=740&t=st=1692434542~exp=1692435142~hmac=b2bbd05fef3e3b2721e99afa6b1ab69e45b887a6b9b759a05a08d2222904659c"
@@ -241,7 +241,7 @@ function Commitment() {
   return (
     <Container
       primaryComponent={
-        <div className="flex flex-col justify-center h-full">
+        <div className="flex flex-col justify-center items-center lg:items-start h-full">
           <h2 className="text-3xl font-bold">
             Dos and Don’ts for review
           </h2>
@@ -260,7 +260,7 @@ function Commitment() {
       }
       secondaryComponent={
         <div className="flex justify-center">
-          <div className="bg-teal-400 w-2/3 rounded-lg py-12 px-8">
+          <div className="bg-teal-400 lg:w-2/3 rounded-lg py-12 px-8">
             <h2 className="text-3xl font-bold">
               What we stand for
             </h2>
