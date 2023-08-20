@@ -10,7 +10,7 @@ export function NavBar() {
   const initialised = useAuthStore((s) => s.initialised);
 
   return (
-    <div className="border-4 border-teal-400 h-16 sticky top-0 z-10">
+    <div className="bg-white border-2 border-black h-16 sticky top-0 z-10">
       <div className="flex items-center h-full">
         <HorizontalLayout>
           <div className="flex items-center justify-between h-full">
