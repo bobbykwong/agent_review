@@ -64,8 +64,8 @@ export function Salespersons() {
   );
 
   return (
-    <div>
-      <div className="w-[320px] ml-auto flex flex-col gap-4 items-end">
+    <div className="flex flex-col justify-center items-center">
+      <div className="w-[320px] lg:w-1/2 flex flex-col lg:flex-row gap-4 items-end">
         <FilterSalespersons filter={filter} addFilterItems={addFilterItems} />
         <SortSalespersons
           sort={sort}
