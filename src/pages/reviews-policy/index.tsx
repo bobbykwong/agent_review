@@ -12,7 +12,7 @@ export default function Home() {
           name="description"
           content="Find the perfect property agent in Singapore with our app. Use real transaction data and agent expertise to make an informed decision. Say goodbye to biased advertising and hello to reliable recommendations."
         />
-        <link rel="icon" href="/graphics/hut.svg" />
+        <link rel="icon" href="/graphics/favicon_ver_1.png" />
       </Head>
       <div className="bg-gray-100">
         <PageLayout>
