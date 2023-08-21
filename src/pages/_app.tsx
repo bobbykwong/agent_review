@@ -42,7 +42,7 @@ export default function App({ Component, pageProps }: AppProps) {
           name="description"
           content="Find out more about your property agent. See reviews from past clients or write a review to help future clients."
         />
-        <link rel="icon" href="/graphics/hut.svg" />
+        <link rel="icon" href="/graphics/favicon_ver_1.png" />
       </Head>
       <MUIThemeProvider>
         <SWRConfig value={swrConfig}>

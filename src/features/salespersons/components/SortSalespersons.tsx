@@ -38,7 +38,7 @@ export function SortSalespersons({
       <Button onClick={handleClick}>
         {/* @ts-ignore */}
         <span>{sortLabels[sort]}</span>
-        <ArrowDownwardRoundedIcon />
+        {/* <ArrowDownwardRoundedIcon /> */}
       </Button>
       <Menu
         id="basic-menu"
