@@ -268,7 +268,7 @@ function Commitment() {
               As an independent review platform, we have no affiliation with any property agency.
               <br></br>
               <br></br>
-              We try to show all reviews, whether positive or negative, and we're constantly working to combat fake reviews.
+              We try to show all reviews, whether positive or negative, and we&apos;re constantly working to combat fake reviews.
             </p>
           </div>
         </div>
