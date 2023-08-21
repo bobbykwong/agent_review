@@ -93,13 +93,13 @@ function Container({
 function Banner() {
   return (
       <TopBannerContainer
-        className="text-black"
+        className="bg-slate-800 text-white"
         primaryComponent={
           <div className="flex flex-col max-w-[700px]">
             <h1 className="text-5xl font-semibold max-w-xl">
               Review your Property Agent
             </h1>
-            <p className="mt-8 text-black text-lg max-w-xl">
+            <p className="mt-8 text-white text-lg max-w-xl">
               Share your experience with a property agent and help others find the best agents in Singapore
             </p>
             <div className="py-8">
@@ -111,7 +111,7 @@ function Banner() {
           <div className="flex justify-end items-center ">
             <img
               className="hidden lg:block h-80 object-cover rounded"
-              src="https://img.freepik.com/free-vector/realtor-concept-illustration_114360-3090.jpg?w=740&t=st=1692343508~exp=1692344108~hmac=36bff7243420eb6eec69b62f1c5ec6cb25badf702e7fddc6e7f2d70790394752"
+              src="/graphics/banner_picture.jpg"
             />
           </div>
         }
