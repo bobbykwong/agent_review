@@ -1,7 +1,7 @@
 import _ from "lodash";
 import clsx from "clsx";
 import Link from "next/link";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 
 import { HorizontalLayout } from "@/components/layout";
 import { Rating } from "@/components/rating";
@@ -184,18 +184,23 @@ const responsiveCarousel = {
 
 function LatestReviews() {
   const latestReviewsQuery = useLatestReviews();
+  const [isMoving, setIsMoving] = useState<boolean>(false)
   if (!latestReviewsQuery.data) return <Spinner />;
   if (latestReviewsQuery.data.results.length === 0) return <Empty />;
+
 
   return (
     <div className="my-8">
       <h2 className="text-3xl font-bold text-center py-10">
         See our latest reviews
       </h2>
-      <Carousel responsive={responsiveCarousel} >
+      <Carousel responsive={responsiveCarousel} 
+        beforeChange={() => setIsMoving(true)} //Prevent user from clicking into profile when scrolling carousel
+        afterChange={() => setIsMoving(false)}  
+      >
         {/* Add your carousel slides here */}
         {latestReviewsQuery.data.results.map((review, i) => (
-          <ReviewCard review={review} key={i} />
+          <ReviewCard review={review} isMoving={isMoving} key={i} />
         ))}
       </Carousel>
     </div>

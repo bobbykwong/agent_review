@@ -13,9 +13,10 @@ import Link from "next/link";
 
 interface ReviewCardProps {
   review: Review;
+  isMoving: boolean
 }
 
-export function ReviewCard({ review }: ReviewCardProps) {
+export function ReviewCard({ review, isMoving }: ReviewCardProps) {
   const {
     id,
     authorId,
@@ -28,20 +29,27 @@ export function ReviewCard({ review }: ReviewCardProps) {
     propertyType,
     transactionType,
     transactionCompleted,
-    isVerified,
+    isVerified
   } = review;
+
 
   const authorQuery = useUser({ id: authorId });
 
   if (!authorQuery.data) return <Spinner />;
 
   const salespersonResult = salesperson[0]
-
+  
   return (
-    <div className="max-w-xs h-96 rounded overflow-hidden shadow-lg px-5 pt-5 ml-10 border-2 bg-slate-50">
-      <Link
-        href={`/salespersons/${salespersonId}`}
-      >
+    <a
+      // Ensure that user does not click into profile when scrolling carousel
+      onClick={e => {
+        if (isMoving) {
+          e.preventDefault();
+        }
+      }}
+      href={`/salespersons/${salespersonId}`}
+    >
+      <div className="max-w-xs h-96 rounded overflow-hidden shadow-lg px-5 pt-5 ml-10 border-2 bg-slate-50">
         <div className="flex">
           <img
               src={salespersonResult.photoURL}
@@ -55,23 +63,22 @@ export function ReviewCard({ review }: ReviewCardProps) {
                   className="text-teal-400"
                 />
               {/* precision to 1 decimal place */}
-              
               <p className="font-semibold align-text-bottom">{Math.round(salespersonResult.rating * 10) / 10} <span className="text-sm font-normal text-gray-500 align-text-bottom">({salespersonResult.numReviews}   {salespersonResult.numReviews === 1 ? "Review" : "Reviews"}) </span></p>
               {/* <p className="text-sm text-gray-500 align-text-bottom">({salespersonResult.numReviews} Reviews)</p> */}
               
             </div>
           </div>
         </div>
-      </Link>
-      <div className="pt-2">
-        <ReviewChip transactionType={transactionType} propertyType={propertyType} transactionCompleted={transactionCompleted} />
+        <div className="pt-2">
+          <ReviewChip transactionType={transactionType} propertyType={propertyType} transactionCompleted={transactionCompleted} />
+        </div>
+        <div className="py-4">
+          <p className="text-gray-500 text-m overflow-hidden h-15">
+            {msg}
+          </p>
+        </div>
       </div>
-      <div className="py-4">
-        <p className="text-gray-500 text-m overflow-hidden h-15">
-          {msg}
-        </p>
-      </div>
-    </div>
+    </a>
   )
 }
 
