@@ -40,7 +40,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta
           name="description"
-          content="Find out more about your property agent. See reviews from past clients or write a review to help future clients."
+          content="BetterAgents is a property agent review website in Singapore"
         />
         <link rel="icon" href="/graphics/favicon_ver_1.png" />
       </Head>
