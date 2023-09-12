@@ -38,6 +38,11 @@ export function ReviewCard({ review, isMoving }: ReviewCardProps) {
   if (!authorQuery.data) return <Spinner />;
 
   const salespersonResult = salesperson[0]
+
+  const anError = {
+    number: 2,
+    name: "hello"
+  }
   
   return (
     <a
@@ -81,4 +86,3 @@ export function ReviewCard({ review, isMoving }: ReviewCardProps) {
     </a>
   )
 }
-
