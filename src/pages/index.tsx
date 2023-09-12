@@ -7,6 +7,7 @@ import { HorizontalLayout } from "@/components/layout";
 import { Rating } from "@/components/rating";
 import { Spinner } from "@/components/spinner";
 import { Empty } from "@/components/empty";
+import { ErrorBoundary } from "@/components/error";
 
 import { Salesperson, SalespersonCardUI } from "@/features/salespersons";
 import { useLatestReviews } from "@/features/reviews/api/getLatestReviews";
@@ -194,15 +195,17 @@ function LatestReviews() {
       <h2 className="text-3xl font-bold text-center py-10">
         See our latest reviews
       </h2>
-      <Carousel responsive={responsiveCarousel} 
-        beforeChange={() => setIsMoving(true)} //Prevent user from clicking into profile when scrolling carousel
-        afterChange={() => setIsMoving(false)}  
-      >
-        {/* Add your carousel slides here */}
-        {latestReviewsQuery.data.results.map((review, i) => (
-          <ReviewCard review={review} isMoving={isMoving} key={i} />
-        ))}
-      </Carousel>
+      <ErrorBoundary>
+        <Carousel responsive={responsiveCarousel} 
+          beforeChange={() => setIsMoving(true)} //Prevent user from clicking into profile when scrolling carousel
+          afterChange={() => setIsMoving(false)}  
+        >
+          {/* Add your carousel slides here */}
+          {latestReviewsQuery.data.results.map((review, i) => (
+            <ReviewCard review={review} isMoving={isMoving} key={i} />
+          ))}
+        </Carousel>
+      </ErrorBoundary>
     </div>
   )
 }
