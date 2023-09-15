@@ -17,6 +17,7 @@ export default async function handler(
       .collection("reviews")
       .aggregate([
         { $sort: { _id: -1 } },
+        { $match: { test: { $exists: false } } },
         { $limit: limit },
         {
           $lookup: {
