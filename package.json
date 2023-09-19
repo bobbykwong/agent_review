@@ -27,6 +27,7 @@
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
     "google-auth-library": "^8.8.0",
+    "gray-matter": "^4.0.3",
     "jsonwebtoken": "^9.0.0",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
