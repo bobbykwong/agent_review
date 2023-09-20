@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Link from "next/link";
 
 import { Salespersons } from "@/features/salespersons";
 import { HorizontalLayout, PageLayout } from "@/components/layout";
