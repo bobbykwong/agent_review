@@ -48,22 +48,6 @@ export async function getStaticProps() {
     };
 }
 
-// export async function getStaticProps() {
-//     const allPostsData = getSortedPostsData();
-//     const slug = params.slug;
-//     const markdownWithMetadata = fs.readFileSync(`posts/${slug}.md`, 'utf-8');
-//     const { data, content } = matter(markdownWithMetadata);
-  
-//     return {
-//       props: {
-//         post: {
-//           data,
-//           content,
-//         },
-//       },
-//     };
-// }
-
 export default function Page({allPostsData}: PageProps) {
   const router = useRouter();
   
@@ -75,11 +59,9 @@ export default function Page({allPostsData}: PageProps) {
   return (
     <div className="bg-gray-100">
       <PageLayout>
-        {/* <button onClick={handleBackClick}>Back</button> */}
-        <p>Post: {router.query.slug}</p>
-        {allPostsData.map((postData: PostData) => (
-            <Blog blogData={postData} />
-        ))}
+        {allPostsData.map(( postData ) => 
+            postData.id === router.query.slug ? <Blog blogData={postData}/> : null         
+        )}
       </PageLayout>
     </div>
   );
