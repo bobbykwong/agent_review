@@ -4,6 +4,7 @@ import matter from "gray-matter";
 import ReactMarkdown from 'react-markdown';
 
 import { Spinner } from "@/components/spinner";
+import { Blog } from "@/components/blog";
 import { PageLayout } from "@/components/layout";
 import { getSortedPostsData } from '@/utils/posts';
 import { id } from "date-fns/locale";
@@ -76,8 +77,8 @@ export default function Page({allPostsData}: PageProps) {
       <PageLayout>
         {/* <button onClick={handleBackClick}>Back</button> */}
         <p>Post: {router.query.slug}</p>
-        {allPostsData.map(({ id, date, title, content }: PostData) => (
-            <ReactMarkdown>{content}</ReactMarkdown>
+        {allPostsData.map((postData: PostData) => (
+            <Blog blogData={postData} />
         ))}
       </PageLayout>
     </div>
