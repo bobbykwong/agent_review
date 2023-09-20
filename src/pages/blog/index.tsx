@@ -2,12 +2,16 @@ import Head from "next/head";
 
 import { Salespersons } from "@/features/salespersons";
 import { HorizontalLayout, PageLayout } from "@/components/layout";
-import { getSortedPostsData } from '../../utils/posts';
+import { getSortedPostsData } from '@/utils/posts';
 
-interface allPostsData {
+interface PostData {
     id: string
     date: string
     title: string
+}
+
+interface HomeProps{
+    allPostsData: PostData[];
 }
 
 export async function getStaticProps() {
@@ -19,7 +23,8 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home({ allPostsData } ) {
+
+export default function Home({ allPostsData }: HomeProps ) {
   return (
     <>
       <Head>
@@ -36,7 +41,7 @@ export default function Home({ allPostsData } ) {
             <section>
                 <h2>Blog</h2>
                 <ul>
-                {allPostsData.map(({ id, date, title }: allPostsData) => (
+                {allPostsData.map(({ id, date, title }: PostData) => (
                     <li key={id}>
                     {title}
                     <br />
