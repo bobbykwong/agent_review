@@ -7,11 +7,11 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Better Agents</title>
+        <title>Real Estate Salespersons listing page</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta
           name="description"
-          content="Find the perfect property agent in Singapore with our app. Use real transaction data and agent expertise to make an informed decision. Say goodbye to biased advertising and hello to reliable recommendations."
+          content="Find over 34,000 CEA registered property agents on our salespersons listing page."
         />
         <link rel="icon" href="/favicon_ver_1.png" />
       </Head>
