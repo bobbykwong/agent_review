@@ -46,6 +46,11 @@ export function Blog({ blogData }: BlogProps) {
                   {children}
                 </a>
               ), // Style for links
+              img: ({src, children}) => (
+                <img src={src} className="mb-10">
+                  {children}
+                </img>
+              )
             }}
           >
             {content}

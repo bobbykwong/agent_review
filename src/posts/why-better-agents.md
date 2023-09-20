@@ -4,6 +4,8 @@ description: "Why does Singapore need a property agent review site. How Better A
 date: "2023-09-20"
 ---
 
+![Agent hands over house keys](/blogImages/photo_2023-09-20_23-11-23.jpg)
+
 It’s 2023, the property market is showing signs of recovery from the challenges posed by the Covid-19 pandemic. Property agents are now thriving more than ever before, and an increasing number of aspiring agents are eagerly taking the RES (Real Estate Salesperson) Exam, seeking their opportunity in the lucrative real estate industry.
 
 With a total of 34,427 CEA licensed agents (as of September 16, 2023), it can be quite a daunting task for individuals to find the right agent when buying, selling, or leasing their homes.
