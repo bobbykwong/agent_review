@@ -56,7 +56,7 @@ export default function Page({allPostsData}: PageProps) {
     <div className="bg-gray-100">
       <PageLayout>
         {allPostsData.map(( postData ) => 
-            postData.id === router.query.slug ? <Blog blogData={postData}/> : null         
+            postData.id === router.query.slug ? <Blog key={postData.id} blogData={postData}/> : null         
         )}
       </PageLayout>
     </div>
