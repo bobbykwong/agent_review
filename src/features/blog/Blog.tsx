@@ -29,12 +29,16 @@ export function Blog({ blogData }: BlogProps) {
         <link rel="icon" href="/favicon_ver_1.png" />
       </Head>
       <div className="max-w-screen-md mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-4">{title}</h1>
+        <h1 className="text-4xl font-bold mb-4">{title}</h1>
         <p className="text-gray-400 text-sm mb-2">{date}</p>
         
         <div className="prose my-8">
           {/* Use the "prose" class for consistent typography and spacing */}
-          <ReactMarkdown>{content}</ReactMarkdown>
+          <ReactMarkdown
+            className="text-lg"
+          >
+            {content}
+          </ReactMarkdown>
         </div>
         <div className="mt-4">
           <Link 
