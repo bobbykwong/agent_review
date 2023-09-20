@@ -1,16 +1,12 @@
 import { useRouter } from "next/router";
-import fs from "fs"
-import matter from "gray-matter";
-import ReactMarkdown from 'react-markdown';
 
-import { Spinner } from "@/components/spinner";
-import { Blog } from "@/components/blog";
+import { Blog } from "@/features/blog";
 import { PageLayout } from "@/components/layout";
 import { getSortedPostsData } from '@/utils/posts';
-import { id } from "date-fns/locale";
 
 interface PostData {
     id: string
+    description: string
     date: string
     title: string
     content: string

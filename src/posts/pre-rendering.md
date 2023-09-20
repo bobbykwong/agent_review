@@ -1,5 +1,6 @@
 ---
 title: "Two Forms of Pre-rendering"
+description: "Wassup everybody"
 date: "2020-01-01"
 ---
 

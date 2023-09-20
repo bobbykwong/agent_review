@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 
 import { Salespersons } from "@/features/salespersons";
 import { HorizontalLayout, PageLayout } from "@/components/layout";
@@ -6,6 +7,7 @@ import { getSortedPostsData } from '@/utils/posts';
 
 interface PostData {
     id: string
+    description: string
     date: string
     title: string
 }
@@ -37,21 +39,19 @@ export default function Home({ allPostsData }: HomeProps ) {
         <link rel="icon" href="/favicon_ver_1.png" />
       </Head>
       <div className="bg-gray-100">
-        <PageLayout>
-            <section>
-                <h2>Blog</h2>
-                <ul>
-                {allPostsData.map(({ id, date, title }: PostData) => (
-                    <li key={id}>
-                    {title}
-                    <br />
-                    {id}
-                    <br />
-                    {date}
-                    </li>
+        <PageLayout>          
+            <h1 className="text-4xl font-bold mb-4">Blog</h1>
+            <div className="grid grid-cols-1 gap-6">
+                {allPostsData.map(({ id, description, date, title }: PostData) => (
+                    <div key={id} className="bg-white rounded-lg shadow-md p-4">
+                        <a href={`/blog/${id}`}>
+                            <h3 className="text-xl font-semibold mb-2 hover:text-teal-400">{title}</h3>
+                        </a>
+                        <p>{description}</p>
+                        <p className="text-gray-600">{date}</p>
+                    </div>
                 ))}
-                </ul>
-            </section>
+            </div>
         </PageLayout>
       </div>
     </>
