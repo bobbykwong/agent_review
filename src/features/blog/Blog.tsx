@@ -36,6 +36,17 @@ export function Blog({ blogData }: BlogProps) {
           {/* Use the "prose" class for consistent typography and spacing */}
           <ReactMarkdown
             className="text-lg"
+            components={{
+              // Define custom components for styling
+              p: ({ children }) => <p className="mb-4">{children}</p>, // Adds spacing between paragraphs
+              h2: ({ children }) => <h2 className="text-2xl font-bold mb-3 mt-10">{children}</h2>, // Style for h2
+              h3: ({ children }) => <h3 className="text-xl font-bold mb-2">{children}</h3>, // Style for h3
+              a: ({ href, children }) => (
+                <a href={href} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
+                  {children}
+                </a>
+              ), // Style for links
+            }}
           >
             {content}
           </ReactMarkdown>
