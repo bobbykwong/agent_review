@@ -1,6 +1,6 @@
 ---
 title: "Why Better Agents - A Property Agent Review site"
-description: "Why does Singapore need a property agent review site. How Better Agents was formed."
+description: "Why Singapore needs a property agent review site. How Better Agents was formed."
 date: "2023-09-20"
 ---
 
