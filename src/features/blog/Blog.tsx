@@ -1,5 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
+import Script from 'next/script'
+
 import ReactMarkdown from 'react-markdown';
 
 interface PostData {
@@ -20,6 +22,18 @@ export function Blog({ blogData }: BlogProps) {
   return (
     <>
       <Head>
+        {/* Google tag (gtag.js) */}
+        <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}></Script>
+        <Script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+          `
+          }
+        </Script>
         <title>{title}</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta

@@ -1,6 +1,7 @@
 import _ from "lodash";
 import Head from "next/head";
 import Link from "next/link";
+import Script from 'next/script'
 import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
 
 import { format } from "@/utils/format";
@@ -60,6 +61,18 @@ export function SalespersonPage({ id }: SalespersonProps) {
   return (
     <>
       <Head>
+        {/* Google tag (gtag.js) */}
+        <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}></Script>
+        <Script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+          `
+          }
+        </Script>
         <title>{name}</title>
         <meta
           name="description"
