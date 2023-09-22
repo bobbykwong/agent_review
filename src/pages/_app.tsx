@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import { Poppins } from "next/font/google";
+import Script from 'next/script'
 import { SWRConfig, SWRConfiguration } from "swr";
 
 import { MUIThemeProvider } from "@/styles/mui";
@@ -44,6 +45,18 @@ export default function App({ Component, pageProps }: AppProps) {
         />
         <link rel="icon" href="/graphics/favicon_ver_1.png" />
       </Head>
+      {/* Google tag (gtag.js) */}
+      <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}></Script>
+      <Script id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+        `
+        }
+      </Script>
       <MUIThemeProvider>
         <SWRConfig value={swrConfig}>
           <main className={clsx("flex flex-col", font.className)}>
