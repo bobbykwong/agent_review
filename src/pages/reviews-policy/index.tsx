@@ -7,18 +7,6 @@ export default function Home() {
   return (
     <>
       <Head>
-        {/* Google tag (gtag.js) */}
-        <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}></Script>
-        <Script>
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
-          `
-          }
-        </Script>
         <title>Better Agents</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta
@@ -27,6 +15,18 @@ export default function Home() {
         />
         <link rel="icon" href="/graphics/favicon_ver_1.png" />
       </Head>
+      {/* Google tag (gtag.js) */}
+      <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}></Script>
+      <Script id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+        `
+        }
+      </Script>
       <div className="bg-gray-100">
         <PageLayout>
           <div className="py-12">

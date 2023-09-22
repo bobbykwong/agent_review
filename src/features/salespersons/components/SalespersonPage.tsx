@@ -61,18 +61,6 @@ export function SalespersonPage({ id }: SalespersonProps) {
   return (
     <>
       <Head>
-        {/* Google tag (gtag.js) */}
-        <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}></Script>
-        <Script>
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
-          `
-          }
-        </Script>
         <title>{name}</title>
         <meta
           name="description"
@@ -81,6 +69,18 @@ export function SalespersonPage({ id }: SalespersonProps) {
           {name}
         </meta>
       </Head>
+      {/* Google tag (gtag.js) */}
+      <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}></Script>
+      <Script id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+        `
+        }
+      </Script>
       <div className="max-w-screen-tablet mx-auto">
         {/* Profile */}
         <div className="rounded-xl shadow bg-white">
