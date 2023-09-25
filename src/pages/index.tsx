@@ -219,7 +219,7 @@ function Write() {
           {/* <div className="py-4"> */}
             <h2 className="text-3xl font-bold">Share your experience</h2>
             <p className="mt-2 text-gray-500 tracking-wider text-lg">
-              {`Leaving a review is quick and easy. Every experience with a property agent is important to us and can helps others make better informed decisions.`}{" "}
+              {`Leaving a review is quick and easy. Every experience with a property agent is important to us and helps others make informed decisions.`}{" "}
             </p>
           {/* </div> */}
           <div className="flex tablet:flex-row items-center tablet:items-start justify-self-start tablet:gap-8 py-8">
