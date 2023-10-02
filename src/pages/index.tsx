@@ -24,7 +24,8 @@ export default function Page() {
       <Write />
       <LatestReviews />
       {/* <Read /> */}
-      <Commitment />
+      <FAQ />
+      {/* <Commitment /> */}
     </div>
   );
 }
@@ -242,6 +243,68 @@ function Write() {
       }
       primaryComponentDir="left"
     />
+  );
+}
+
+function FAQ() {
+  const [isOpen, setIsOpen] = useState<boolean[]>([false, false]); // Add more `false` values for additional FAQ items
+
+  const toggleAnswer = (index: number) => {
+    const newIsOpen = [...isOpen];
+    newIsOpen[index] = !newIsOpen[index];
+    setIsOpen(newIsOpen);
+  };
+
+  // Define your FAQ items here
+  const faqItems = [
+    {
+      question: <p>Why Better Agents?</p>,
+      answer: <p>With numerous property agents in Singapore, our mission is to provide people with more information to help them choose the right agent to engage with.</p>,
+    },
+    {
+      question: <p> Who can write a review?</p>,
+      answer: <p>Anyone who has had an experience with an agent can leave a review.</p>,
+    },
+    {
+      question: <p>How do we prevent fake reviews</p>,
+      answer: <p>We continually work to ensure the authenticity of all reviews. If we suspect a review is fake, we will temporarily remove it and verify it with the reviewer. If sufficient evidence cannot be provided, the review will be permanently removed.</p>,
+    },
+    {
+      question: <p>Are you affiliated with any agent or agency?</p>,
+      answer: <p>We are the only property agent review site that is unaffiliated with agents or agencies. Additionally, we are the only review site that includes all CEA-registered agents.</p>,
+    },
+    {
+      question: <p>As an agent, why should I get my clients to write reviews?</p>,
+      answer: <p>Clients often struggle to choose an agent because many agents showcase only 5-star reviews on their social media. Clients are aware that these testimonials are cherry-picked, which diminishes their credibility.<br></br><br></br>
+
+      On Better Agents, reviews carry more weight due to the unbiased collection process. Therefore, we encourage agents to direct their clients to leave reviews on Better Agents to distinguish themselves from their peers.</p>,
+    },
+    // Add more FAQ items as needed
+  ];
+  
+  return (
+    <div className="max-w-2xl mx-auto py-12 tablet:py-24">
+      <h2 className="text-3xl font-semibold mb-8 text-center">Frequently Asked Questions</h2>
+
+      {/* FAQ Items */}
+      {faqItems.map((item, index) => (
+        <div className="faq-item mb-4" key={index}>
+          <div className="bg-white rounded-lg shadow-md">
+            <div
+              className="faq-question p-4 cursor-pointer border-b border-gray-300 md:border-0 md:hover:border-b-2 transition duration-300 font-bold"
+              onClick={() => toggleAnswer(index)}
+            >
+              {item.question}
+            </div>
+            {isOpen[index] && (
+              <div className="faq-answer p-4" id={`answer${index}`}>
+                {item.answer}
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
 
