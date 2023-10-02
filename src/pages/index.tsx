@@ -266,7 +266,7 @@ function FAQ() {
       answer: <p>Anyone who has had an experience with an agent can leave a review.</p>,
     },
     {
-      question: <p>How do we prevent fake reviews</p>,
+      question: <p>How do we prevent fake reviews?</p>,
       answer: <p>We continually work to ensure the authenticity of all reviews. If we suspect a review is fake, we will temporarily remove it and verify it with the reviewer. If sufficient evidence cannot be provided, the review will be permanently removed.</p>,
     },
     {
